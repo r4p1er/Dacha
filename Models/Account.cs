@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Dacha.Models
@@ -12,6 +13,10 @@ namespace Dacha.Models
         [Required]
         public string Login { get; set; }
         [Required]
+        [JsonIgnore]
         public string Password { get; set; }
+
+        public int ProfileId { get; set; }
+        public Profile Profile { get; set; }
     }
 }

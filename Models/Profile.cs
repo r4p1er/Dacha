@@ -16,5 +16,8 @@ namespace Dacha.Models
         [Required]
         public string LastName { get; set; }
         public int Place { get; set; }
+
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
     }
 }
