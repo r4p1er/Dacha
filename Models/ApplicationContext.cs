@@ -10,6 +10,7 @@ namespace Dacha.Models
     {
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
     }
 }
