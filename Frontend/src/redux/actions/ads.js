@@ -1,6 +1,4 @@
-import { 
-  ADS_SUCCESS
- } from "../constants/ActionTypes";
+import { ADS_SUCCESS } from "./actionTypes";
 
 
 
@@ -10,8 +8,6 @@ export function advertsFetchDataSuccess(adverts){
       adverts
   }
 }
-
-
 
 export function advertsFetchData(url) {
   return(dispatch) => {

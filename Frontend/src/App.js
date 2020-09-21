@@ -74,7 +74,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
-
 import LoginForm from "./components/Login/index";
 import Home from "./components/index";
 

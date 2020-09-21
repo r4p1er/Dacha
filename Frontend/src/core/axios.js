@@ -1,9 +1,10 @@
   
 import axios from "axios";
 
-axios.defaults.baseURL = window.location.origin;
-axios.defaults.headers.common["token"] = window.localStorage.token;
-
-window.axios = axios;
-
-export default axios;
+export default function setAuthorizationToken(token){
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+        delete axios.defaults.headers.common['Authorization'];
+    }
+}
