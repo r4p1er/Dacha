@@ -1,0 +1,11 @@
+html,
+body,
+#root {
+    overscroll-behavior: none;
+    height: 100%;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
