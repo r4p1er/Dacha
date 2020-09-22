@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import logo from "../logo_dark.png";
+import logo from "../../../additions/logo_dark.png";
 
 export default function Header() {
   const [showExit, setshowExit] = useState(false);

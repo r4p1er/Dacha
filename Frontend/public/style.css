@@ -3,6 +3,8 @@ body,
 #root {
     overscroll-behavior: none;
     height: 100%;
+    box-sizing: border-box;
+    margin: 0;
 }
 
 #root {

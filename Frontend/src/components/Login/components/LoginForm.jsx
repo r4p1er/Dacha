@@ -3,7 +3,7 @@ import { Form, Button} from "react-bootstrap";
 import logo from "../../../additions/logo_dark.png";
 import style from "../loginPage.module.css";
 
-export const LoginForm = () => {
+const LoginForm = () => {
   return (
     <wrapper className={style.wrapper}>
       <Form className={style.form}>
@@ -31,3 +31,5 @@ export const LoginForm = () => {
     </wrapper>
   );
 };
+
+export default LoginForm;

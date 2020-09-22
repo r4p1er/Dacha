@@ -1,4 +1,4 @@
-import { axios } from "../../core/index";
+import axios from "axios";
 
 export default {
   signIn: postData => axios.post("http://localhost:5000/api/token", postData),

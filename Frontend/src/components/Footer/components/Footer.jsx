@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Nav, NavItem } from "react-bootstrap";
-import logo from "../logo_light.png";
+import logo from "../../../additions/logo_light.png";
 
 const Styles = styled.div`
   a,
@@ -25,7 +25,7 @@ const Styles = styled.div`
   }
 `;
 
-export function PageFooter() {
+export default function PageFooter() {
   return (
     <Styles
       className="wrapper"
