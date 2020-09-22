@@ -4,6 +4,6 @@ import Footer from "./Footer/index";
 import Adverts from "./Adverts/index";
 import Documents from "./Documents/index";
 import Vote from "./Vote/index";
-import Login from "./Login/components/LoginForm";
+import Login from "./Login/LoginForm";
 
 export {Header, Home, Footer, Adverts, Documents, Vote, Login};
