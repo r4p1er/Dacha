@@ -8,7 +8,7 @@
 ## Accounts
 | API                         | Description              | Request body  | Response body            |
 |:---------------------------:|:------------------------:|:-------------:|:------------------------:|
-| `GET /api/accounts`         | Get all account items    |  None         | Array of accounts items  |
+| `GET /api/accounts`         | Get all account items    |  None         | Array of account items   |
 | `GET /api/accounts/{id}`    | Get an item by ID        |  None         | Account item             |
 | `POST /api/accounts`        | Add a new item           |  Account item | Account item             |
 | `PUT /api/accounts/{id}`    | Update an existing item  |  Account item | None                     |
@@ -17,11 +17,17 @@
 ## Profiles
 | API                         | Description              | Request body  | Response body            |
 |:---------------------------:|:------------------------:|:-------------:|:------------------------:|
-| `GET /api/profiles`         | Get all profile items    |  None         | Array of profiles items  |
+| `GET /api/profiles`         | Get all profile items    |  None         | Array of profile items   |
 | `GET /api/profiles/{id}`    | Get an item by ID        |  None         | Profile item             |
 | `POST /api/profiles`        | Add a new item           |  Profile item | Profile item             |
 | `PUT /api/profiles/{id}`    | Update an existing item  |  Profile item | None                     |
 | `DELETE /api/profiles/{id}` | Delete an item           |  None         | None                     |
+
+## Roles
+| API                         | Description              | Request body  | Response body            |
+|:---------------------------:|:------------------------:|:-------------:|:------------------------:|
+| `GET /api/roles`            | Get all role items       |  None         | Array of role items      |
+| `GET /api/roles/{id}`       | Get an item by ID        |  None         | Role item                |
 
 ## Adverts
 | API                        | Description              | Request body  | Response body         |
