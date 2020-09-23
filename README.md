@@ -3,7 +3,7 @@
 ## Token
 | API                        | Description              | Request body                    | Response body         |
 |:--------------------------:|:------------------------:|:-------------------------------:|:---------------------:|
-| `POST /api/token`          | Get a token for auth     |  Username and password of user  | Token                 |
+| `POST /api/token`          | Get a token for auth     |  Login and password of user     | Token                 |
 
 ## Accounts
 | API                         | Description              | Request body  | Response body            |
