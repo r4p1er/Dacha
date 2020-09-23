@@ -5,7 +5,7 @@
 |:--------------------------:|:------------------------:|:-------------------------------:|:---------------------:|
 | `POST /api/token`          | Get a token for auth     |  Login and password of user     | Token                 |
 
-## Accounts
+## Accounts (implemented)
 | API                         | Description              | Request body  | Response body            |
 |:---------------------------:|:------------------------:|:-------------:|:------------------------:|
 | `GET /api/accounts`         | Get all account items    |  None         | Array of account items   |
