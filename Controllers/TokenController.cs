@@ -46,7 +46,7 @@ namespace Dacha.Controllers
                 access_token = encodedJwt,
                 username = identity.Name,
                 account_id = identity.FindFirst(ClaimTypes.NameIdentifier).Value,
-                expires = now.ToString("G")
+                expires = now.AddDays(30).ToString("G")
             };
             return new JsonResult(response);
         }
