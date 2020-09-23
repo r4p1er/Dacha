@@ -2,22 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Dacha.Models
 {
-    public class Account
+    public class AccountPost
     {
-        public int Id { get; set; }
         [Required]
         public string Login { get; set; }
         [Required]
-        [JsonIgnore]
         public string Password { get; set; }
-
         public int ProfileId { get; set; }
-        [JsonIgnore]
-        public Profile Profile { get; set; }
     }
 }
