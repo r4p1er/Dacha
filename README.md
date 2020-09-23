@@ -1,6 +1,6 @@
 # API
 
-## Token
+## Token (implemented)
 | API                        | Description              | Request body                    | Response body         |
 |:--------------------------:|:------------------------:|:-------------------------------:|:---------------------:|
 | `POST /api/token`          | Get a token for auth     |  Login and password of user     | Token                 |
@@ -14,7 +14,7 @@
 | `PUT /api/accounts/{id}`    | Update an existing item  |  Account item | None                     |
 | `DELETE /api/accounts/{id}` | Delete an item           |  None         | None                     |
 
-## Profiles
+## Profiles (implemented)
 | API                         | Description              | Request body  | Response body            |
 |:---------------------------:|:------------------------:|:-------------:|:------------------------:|
 | `GET /api/profiles`         | Get all profile items    |  None         | Array of profile items   |
@@ -23,7 +23,7 @@
 | `PUT /api/profiles/{id}`    | Update an existing item  |  Profile item | None                     |
 | `DELETE /api/profiles/{id}` | Delete an item           |  None         | None                     |
 
-## Roles
+## Roles (implemented)
 | API                         | Description              | Request body  | Response body            |
 |:---------------------------:|:------------------------:|:-------------:|:------------------------:|
 | `GET /api/roles`            | Get all role items       |  None         | Array of role items      |
@@ -46,3 +46,14 @@
 | `POST /api/news`           | Add a new item           |  News item    | News item             |
 | `PUT /api/news/{id}`       | Update an existing item  |  News item    | None                  |
 | `DELETE /api/news/{id}`    | Delete an item           |  None         | None                  |
+
+# Startup
+
+### 1. Install EF Core if you don't have
+`dotnet tool install --global dotnet-ef`
+
+### 2. Update database
+`dotnet ef database update`
+
+### 3. Run the server
+`dotnet run`
