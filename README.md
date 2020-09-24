@@ -29,7 +29,7 @@
 | `GET /api/roles`            | Get all role items       |  None         | Array of role items      |
 | `GET /api/roles/{id}`       | Get an item by ID        |  None         | Role item                |
 
-## Adverts
+## Adverts (implemented)
 | API                        | Description              | Request body  | Response body         |
 |:--------------------------:|:------------------------:|:-------------:|:---------------------:|
 | `GET /api/adverts`         | Get all advert items     |  None         | Array of advert items |
@@ -38,7 +38,7 @@
 | `PUT /api/adverts/{id}`    | Update an existing item  |  Advert item  | None                  |
 | `DELETE /api/adverts/{id}` | Delete an item           |  None         | None                  |
 
-## News
+## News (implemented)
 | API                        | Description              | Request body  | Response body         |
 |:--------------------------:|:------------------------:|:-------------:|:---------------------:|
 | `GET /api/news`            | Get all news items       |  None         | Array of news items   |
