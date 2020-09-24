@@ -10,21 +10,10 @@ import {
   Vote,
   Footer,
 } from "./components/index";
-import { advertsFetchData } from "./redux/actions/ads";
-import { newsFetchData } from "./redux/actions/news";
-// import { docsFetchData } from "./redux/actions/documents";
 
 class App extends Component {
-  componentDidMount() {
-    this.props.adsfetchData("http://localhost:5000/api/adverts");
-    this.props.newsfetchData("http://localhost:5000/api/news");
-    // this.props.docsfetchData("http://localhost:5000/api/docs");
-  }
   render() {
     const { isAuthenticated } = this.props.auth;
-    const adverts = this.props.adverts;
-    const news = this.props.news;
-    const docs = this.props.docs;
     return (
       <>
         {isAuthenticated ? <Header /> : <div></div>}
@@ -67,19 +56,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    adverts: state.adverts,
-    news: state.news,
-    docs: state.docs,
     auth: state.auth,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    adsfetchData: (url) => dispatch(advertsFetchData(url)),
-    newsfetchData: (url) => dispatch(newsFetchData(url)),
-    docsfetchData: (url) => dispatch(docsFetchData(url)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

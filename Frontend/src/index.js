@@ -8,7 +8,6 @@ import jwt from "jsonwebtoken";
 import { setCurrentUser } from "./redux/actions/authActions";
 import setAuthorizationToken from "./utils/axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./styles/index.scss";
 
 if (localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);
