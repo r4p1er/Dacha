@@ -49,6 +49,7 @@ namespace Dacha
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +61,8 @@ namespace Dacha
             }
 
             app.UseRouting();
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             app.UseAuthentication();
             app.UseAuthorization();
