@@ -100,13 +100,20 @@ namespace Dacha.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var profile = await db.Profiles.FirstOrDefaultAsync(x => x.Id == id);
+            var profile = await db.Profiles.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
             if(profile == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+
+            if(User.IsInRole("moder") && profile.Role.Name != "user")
+            {
+                return Forbid();
+            }
+
             db.Profiles.Remove(profile);
             await db.SaveChangesAsync();
+
             return Ok();
         }
     }
