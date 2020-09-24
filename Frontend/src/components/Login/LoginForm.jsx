@@ -12,16 +12,16 @@ class LoginForm extends Component {
       login: '',
       password: ''
     };
-
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
-
+  
 
   onSubmit(e) {
     e.preventDefault();
+    const {history} = this.props;
       this.props.login(this.state).then(
-        (res) => this.context.router.push('/')
+        (res) => history.push('/')
       );
     }
 
@@ -30,7 +30,7 @@ class LoginForm extends Component {
   }
   render(){
     const { login, password} = this.state;
-
+    
     return (
       <Container fluid className={style.wrapper}>
         <Form className={style.form} onSubmit={this.onSubmit}>

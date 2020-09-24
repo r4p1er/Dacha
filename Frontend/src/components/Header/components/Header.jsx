@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { connect } from 'react-redux';
+import { logout } from '../../../redux/actions/authActions';
 import {
   Navbar,
   Nav,
@@ -13,16 +15,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import logo from "../../../additions/logo_dark.png";
 
-export default function Header() {
-  const [showExit, setshowExit] = useState(false);
-  const [showAdsCreate, setshowAdsCreate] = useState(false);
-
-  const handleCloseExit = () => setshowExit(false);
-  const handleShowExit = () => setshowExit(true);
-
-  const handleCloseAdsCreate = () => setshowAdsCreate(false);
-  const handleShowAdsCreate = () => setshowAdsCreate(true);
-
+function Header(props) {
   const HeaderStyle = styled.div`
     .navbar {
       background-color: #ededee;
@@ -45,6 +38,21 @@ export default function Header() {
       background-color: #fff;
     }
   `;
+
+
+  const [showExit, setshowExit] = useState(false);
+  const [showAdsCreate, setshowAdsCreate] = useState(false);
+
+  const handleCloseExit = () => setshowExit(false);
+  const handleShowExit = () => setshowExit(true);
+
+  const handleCloseAdsCreate = () => setshowAdsCreate(false);
+  const handleShowAdsCreate = () => setshowAdsCreate(true);
+
+  function logout(e) {
+    e.preventDefault();
+    props.logout();
+  }
 
   return (
     <>
@@ -133,10 +141,18 @@ export default function Header() {
             <Form.Label className="text-muted mr-3">
               Вы собираетесь выйти?
             </Form.Label>
-            <Button variant="outline-danger">Да</Button>
+            <Button onClick={logout} variant="outline-danger">Да</Button>
           </Form>
         </Modal.Body>
       </Modal>
     </>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
+
+export default connect(mapStateToProps, { logout })(Header);

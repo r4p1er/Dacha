@@ -23,7 +23,7 @@ export function login(data) {
     return userApi
       .signIn(data)
       .then(res => {
-        const token = res.data.token;
+        const token = res.data.access_token;
         localStorage.setItem('jwtToken', token);
         setAuthorizationToken(token);
         dispatch(setCurrentUser(jwt.decode(token)));
