@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { login } from '../../redux/actions/authActions';
-import { Form, Button, Alert} from "react-bootstrap";
+import { Form, Button, Alert, Container} from "react-bootstrap";
 import logo from "./../../additions/logo_dark.png";
 import style from "./loginPage.module.css";
 
@@ -32,7 +32,7 @@ class LoginForm extends Component {
     const { login, password} = this.state;
 
     return (
-      <wrapper className={style.wrapper}>
+      <Container fluid className={style.wrapper}>
         <Form className={style.form} onSubmit={this.onSubmit}>
 
     {/* { errors.form && <Alert variant={"danger"}>{errors.form}</Alert> } */}
@@ -41,10 +41,10 @@ class LoginForm extends Component {
           <h3 className="mb-3 font-weight-normal">Вход</h3>
           <Form.Control
             className={style.formControl}
-            type="email"
             placeholder="Введите номер участка"
             field="login"
             value={login}
+            name="login"
             // error={errors.login}
             onChange={this.onChange}
           />
@@ -53,6 +53,7 @@ class LoginForm extends Component {
             type="password"
             placeholder="Введите пароль"
             field="password"
+            name="password"
             value={password}
             // error={errors.password}
             onChange={this.onChange}
@@ -66,7 +67,7 @@ class LoginForm extends Component {
             Войти
           </Button>
         </Form>
-      </wrapper>
+      </Container>
     );
   }
 }

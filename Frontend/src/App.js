@@ -15,11 +15,11 @@ import { newsFetchData } from "./redux/actions/news";
 import { docsFetchData } from "./redux/actions/documents";
 
 class App extends Component {
-  componentDidMount() {
-    this.props.adsfetchData("http://localhost:3003/adverts");
-    this.props.newsfetchData("http://localhost:3003/news");
-    this.props.docsfetchData("http://localhost:3003/docs");
-  }
+  // componentDidMount() {
+  //   this.props.adsfetchData("http://localhost:3003/adverts");
+  //   this.props.newsfetchData("http://localhost:3003/news");
+  //   this.props.docsfetchData("http://localhost:3003/docs");
+  // }
   render() {
     const { isAuthenticated } = this.props.auth;
     const adverts = this.props.adverts;
