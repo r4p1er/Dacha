@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Dacha.Models
 {
-    public class News
+    public class Advert
     {
         public int Id { get; set; }
         [Required]
@@ -16,6 +17,13 @@ namespace Dacha.Models
         [MaxLength(1500)]
         public string Body { get; set; }
         [Required]
-        public DateTime Date { get; set; }
+        [MaxLength(1500)]
+        public string Contact { get; set; }
+        [Required]
+        public DateTime ExpDate { get; set; }
+
+        public int ProfileId { get; set; }
+        [JsonIgnore]
+        public Profile Profile { get; set; }
     }
 }
