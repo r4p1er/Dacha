@@ -16,7 +16,7 @@ const App = (props) => {
   return (
     <>
       {isAuthenticated ? <Header /> : <div></div>}
-      <Container fluid style={{padding:'15px'}}>
+      <Container fluid style={{padding:'15px', height:'100%'}}>
         <Switch>
           <Route path="/signin" component={Login} />
           <Route
