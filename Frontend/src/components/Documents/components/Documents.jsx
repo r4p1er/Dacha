@@ -1,13 +1,13 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-const Vote = () => {
+const Documents = () => {
   return (
     <>
       <Container>
-        <h1>Vote Page</h1>
+        <h1>Documents Page</h1>
       </Container>
     </>
   );
 }
 
-export default Vote;
+export default Documents;

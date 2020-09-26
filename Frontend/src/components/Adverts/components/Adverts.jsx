@@ -28,7 +28,7 @@ const Styles = styled.div`
   }
 `;
 
-export default function Adverts() {
+const Adverts = () => {
 
   const dispatch = useDispatch()
   const adverts = useSelector(state => state.adverts.items)
@@ -129,3 +129,5 @@ console.log(adverts)
     </>
   );
 }
+
+export default Adverts;

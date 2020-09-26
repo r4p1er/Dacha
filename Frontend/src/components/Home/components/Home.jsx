@@ -1,4 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getNews } from "../../../redux/actions/news";
 import styled from "styled-components";
 import NewsCard from "./NewsCard";
 import { Container, Row, Col } from "react-bootstrap";
@@ -20,7 +22,15 @@ const Styles = styled.div`
   }
 `;
 
-export default function Home({news}) {
+const Home = () => {
+
+  const dispatch = useDispatch()
+  const news = useSelector(state => state.news.items)
+  console.log(news)
+  useEffect(()=>{
+    dispatch(getNews())
+  }, [])
+
   return (
     <>
       <Styles>
@@ -63,3 +73,5 @@ export default function Home({news}) {
     </>
   );
 }
+
+export default Home;
