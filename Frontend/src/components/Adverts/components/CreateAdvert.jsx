@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Modal, Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import { addAdvert } from "../../../redux/actions/ads";
 
 class CreateAdvert extends Component {
@@ -46,7 +46,7 @@ class CreateAdvert extends Component {
             <Form.Label className="mb-1">Введите текст объявления</Form.Label>
             <Form.Control
               style={{ resize: "none" }}
-              placeholder="Максимум 2000 символов"
+              placeholder="Максимум 1500 символов"
               as="textarea"
               rows="8"
               field="body"

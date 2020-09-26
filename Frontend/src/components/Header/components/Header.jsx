@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
 import { logout } from '../../../redux/actions/authActions';
+import CreateAdvert from "../../Adverts/components/CreateAdvert";
 import {
   Navbar,
   Nav,
@@ -105,32 +106,13 @@ function Header(props) {
         </Navbar>
       </HeaderStyle>
       <Modal show={showAdsCreate} onHide={handleCloseAdsCreate}>
-        <Modal.Header closeButton>
-          <Modal.Title>Создание объявления</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label className="mb-1">
-                Введите заголовок объявления
-              </Form.Label>
-              <Form.Control placeholder="Максимум 50 символов" />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label className="mb-1">Введите текст объявления</Form.Label>
-              <Form.Control
-                style={{ resize: "none" }}
-                placeholder="Максимум 2000 символов"
-                as="textarea"
-                rows="8"
-              />
-            </Form.Group>
-            <Button variant="outline-primary" type="submit">
-              Создать объявление
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
+            <Modal.Header closeButton>
+              <Modal.Title>Создание объявления</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <CreateAdvert />
+            </Modal.Body>
+          </Modal>
       <Modal show={showExit} onHide={handleCloseExit}>
         <Modal.Header closeButton>
           <Modal.Title>Выход</Modal.Title>

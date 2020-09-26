@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {
-  Container,
-  ButtonGroup,
-  Button,
-  Row,
-  Modal,
-} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Container, ButtonGroup, Button, Row, Modal } from "react-bootstrap";
 import styled from "styled-components";
 import AdCard from "./AdCard";
 import CreateAdvert from "./CreateAdvert";
@@ -29,13 +23,12 @@ const Styles = styled.div`
 `;
 
 const Adverts = () => {
+  const dispatch = useDispatch();
+  const adverts = useSelector((state) => state.adverts.items);
 
-  const dispatch = useDispatch()
-  const adverts = useSelector(state => state.adverts.items)
-
-  useEffect(()=>{
-    dispatch(getAdverts())
-  }, [])
+  useEffect(() => {
+    dispatch(getAdverts());
+  }, []);
 
   const [showAdsCreate, setshowAdsCreate] = useState(false);
 
@@ -51,9 +44,18 @@ const Adverts = () => {
             <Button onClick={handleShowAdsCreate}>Создать объявление</Button>
           </ButtonGroup>
           <Row>
-            {adverts.map(ad => <AdCard key={ad.id} {...ad}/>)}
+            {adverts.map((ad) => (
+              <AdCard key={ad.id} {...ad} />
+            ))}
           </Row>
-          {showAdsCreate ? <Modal> <Modal.Body><CreateAdvert /></Modal.Body> </Modal> : null}
+          <Modal show={showAdsCreate} onHide={handleCloseAdsCreate}>
+            <Modal.Header closeButton>
+              <Modal.Title>Создание объявления</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <CreateAdvert />
+            </Modal.Body>
+          </Modal>
           <Modal size="lg">
             <Modal.Header closeButton>
               <Modal.Title>Просмотр объявления</Modal.Title>
@@ -98,6 +100,6 @@ const Adverts = () => {
       </Styles>
     </>
   );
-}
+};
 
 export default Adverts;

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
 import {
@@ -10,22 +11,19 @@ import {
   Vote,
 } from "./components/index";
 
-const App =(props) => {
-
-    const { isAuthenticated } = props.auth;
-    return (
-      <>
-        {isAuthenticated ? <Header /> : <div></div>}
+const App = (props) => {
+  const { isAuthenticated } = props.auth;
+  return (
+    <>
+      {isAuthenticated ? <Header /> : <div></div>}
+      <Container fluid style={{padding:'15px'}}>
         <Switch>
-          <Route 
-          path="/signin"
-          component={Login}
-          />
+          <Route path="/signin" component={Login} />
           <Route
             exact
             path="/"
             render={(news) =>
-              isAuthenticated ? <Home /> : <Redirect to="/signin"/>
+              isAuthenticated ? <Home /> : <Redirect to="/signin" />
             }
           />
           <Route
@@ -47,9 +45,10 @@ const App =(props) => {
             }
           />
         </Switch>
-      </>
-    );
-  }
+      </Container>
+    </>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
