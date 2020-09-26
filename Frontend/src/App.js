@@ -8,7 +8,6 @@ import {
   Adverts,
   Documents,
   Vote,
-  Footer,
 } from "./components/index";
 
 const App =(props) => {
@@ -48,7 +47,6 @@ const App =(props) => {
             }
           />
         </Switch>
-        {isAuthenticated ? <Footer /> : <div></div>}
       </>
     );
   }

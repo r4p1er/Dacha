@@ -3,7 +3,7 @@ import { Button, Card, Col } from "react-bootstrap";
 
 const AdCard = ({title, body, contact}) => (
 
-  <Col col xl={3} lg={4} md={6} sm={6} xs={12}>
+  <Col col="true" xl={3} lg={4} md={6} sm={6} xs={12}>
     <Card>
       <Card.Body>
         <Card.Title>{title}</Card.Title>

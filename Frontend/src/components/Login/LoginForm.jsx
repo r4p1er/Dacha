@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { login } from '../../redux/actions/authActions';
-import { Form, Button, Alert, Container} from "react-bootstrap";
+import { Form, Button, Container, Image} from "react-bootstrap";
 import logo from "./../../additions/logo_dark.png";
 import style from "./loginPage.module.css";
 
@@ -35,9 +35,7 @@ class LoginForm extends Component {
       <Container fluid className={style.wrapper}>
         <Form className={style.form} onSubmit={this.onSubmit}>
 
-    {/* { errors.form && <Alert variant={"danger"}>{errors.form}</Alert> } */}
-
-          <img src={logo} width="200" height="70" className="mb-4" />
+          <Image src={logo} width="200" height="70" className="mb-4" />
           <h3 className="mb-3 font-weight-normal">Вход</h3>
           <Form.Control
             className={style.formControl}

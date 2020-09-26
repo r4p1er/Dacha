@@ -9,7 +9,7 @@ export function newsReducer(state=initialState, action){
     case NEWS_SUCCESS:
       return {
         ...state,
-        items: action.payload.items
+        items: action.payload
       }
     default:
       return state;

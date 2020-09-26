@@ -26,7 +26,6 @@ const Home = () => {
 
   const dispatch = useDispatch()
   const news = useSelector(state => state.news.items)
-  console.log(news)
   useEffect(()=>{
     dispatch(getNews())
   }, [])
@@ -56,7 +55,7 @@ const Home = () => {
             </Col>
             <Col xl={6} lg={6} md={12} sm={12} xs={12}>
               <h2>Новости</h2>
-              {/* {news.map(someNews => <NewsCard key={someNews.id} {...someNews}/>)} */}
+              {news.map(someNews => <NewsCard key={someNews.id} {...someNews}/>)}
             </Col>
           </Row>
           <Row className="mt-4">

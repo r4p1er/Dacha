@@ -6,10 +6,10 @@ import {
   Button,
   Row,
   Modal,
-  Form,
 } from "react-bootstrap";
 import styled from "styled-components";
 import AdCard from "./AdCard";
+import CreateAdvert from "./CreateAdvert";
 import { getAdverts } from "../../../redux/actions/ads";
 
 const Styles = styled.div`
@@ -33,8 +33,6 @@ const Adverts = () => {
   const dispatch = useDispatch()
   const adverts = useSelector(state => state.adverts.items)
 
-console.log(adverts)
-
   useEffect(()=>{
     dispatch(getAdverts())
   }, [])
@@ -53,37 +51,9 @@ console.log(adverts)
             <Button onClick={handleShowAdsCreate}>Создать объявление</Button>
           </ButtonGroup>
           <Row>
-            {/* {adverts.map(ad => <AdCard key={ad.id} {...ad}/>)} */}
+            {adverts.map(ad => <AdCard key={ad.id} {...ad}/>)}
           </Row>
-          <Modal show={showAdsCreate} onHide={handleCloseAdsCreate}>
-            <Modal.Header closeButton>
-              <Modal.Title>Создание объявления</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Group>
-                  <Form.Label className="mb-1">
-                    Введите заголовок объявления
-                  </Form.Label>
-                  <Form.Control placeholder="Максимум 50 символов" />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label className="mb-1">
-                    Введите текст объявления
-                  </Form.Label>
-                  <Form.Control
-                    style={{ resize: "none" }}
-                    placeholder="Максимум 2000 символов"
-                    as="textarea"
-                    rows="8"
-                  />
-                </Form.Group>
-                <Button variant="outline-primary" type="submit">
-                  Создать объявление
-                </Button>
-              </Form>
-            </Modal.Body>
-          </Modal>
+          {showAdsCreate ? <Modal> <Modal.Body><CreateAdvert /></Modal.Body> </Modal> : null}
           <Modal size="lg">
             <Modal.Header closeButton>
               <Modal.Title>Просмотр объявления</Modal.Title>

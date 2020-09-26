@@ -9,7 +9,7 @@ import {
   Modal,
   NavDropdown,
   NavItem,
-  Container,
+  Image,
 } from "react-bootstrap";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
@@ -45,7 +45,6 @@ function Header(props) {
 
   const handleCloseExit = () => setshowExit(false);
   const handleShowExit = () => setshowExit(true);
-
   const handleCloseAdsCreate = () => setshowAdsCreate(false);
   const handleShowAdsCreate = () => setshowAdsCreate(true);
 
@@ -56,10 +55,10 @@ function Header(props) {
 
   return (
     <>
-      <HeaderStyle style={{ position: "sticky", top: "0", "z-index": "10" }}>
-        <Navbar className="mb-3" inline collapseOnSelect expand="lg">
+      <HeaderStyle style={{ position: "sticky", top: "0", zIndex:"10"}}>
+        <Navbar className="mb-3" inline="true" collapseOnSelect expand="lg">
           <Navbar.Brand className="mr-5" href="/">
-            <img
+            <Image
               src={logo}
               width="200"
               height="70"
@@ -69,26 +68,26 @@ function Header(props) {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto text-center">
-              <NavItem componentClass="span">
+              <NavItem>
                 <NavLink exact to="/">Главная</NavLink>
               </NavItem>
-              <NavItem componentClass="span">
+              <NavItem>
                 <NavLink to="/adverts">Объявления</NavLink>
               </NavItem>
-              <NavItem componentClass="span">
+              <NavItem>
                 <NavLink to="/documents">Документы</NavLink>
               </NavItem>
-              <NavItem componentClass="span">
+              <NavItem>
                 <NavLink to="/vote">Голосование</NavLink>
               </NavItem>
             </Nav>
             <NavDropdown
               className="text-right"
               alignRight
-              title="Участок №242"
+              title={`Участок № ${props.auth.user.name}`}
               id="nav-dropdown"
             >
-              <NavDropdown.Item eventKeropdowy="4.1">Профиль</NavDropdown.Item>
+              <NavDropdown.Item eventKey="4.1">Профиль</NavDropdown.Item>
               <NavDropdown.Item eventKey="4.2">Мои объявления</NavDropdown.Item>
               <NavDropdown.Item eventKey="4.3" onClick={handleShowAdsCreate}>
                 Создать объявление

@@ -9,7 +9,7 @@ export function advertsReducer(state=initialState, action){
     case ADS_SUCCESS:
       return {
         ...state,
-        items: action.payload.items
+        items: action.payload
       }
     default:
       return state;
