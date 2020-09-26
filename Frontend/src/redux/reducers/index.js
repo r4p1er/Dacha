@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
-import {adverts} from "./ads";
+import {advertsReducer} from "./ads";
 import {news} from "./news";
 import {docs} from "./documets";
 import {auth} from "./auth";
 
 const rootReducer = combineReducers({
-  adverts,
+  adverts: advertsReducer,
   news,
   docs,
   auth

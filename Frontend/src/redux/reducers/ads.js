@@ -4,7 +4,7 @@ const initialState = {
   isLoading: true,
 };
 
-export default function advertsReducer(state=initialState, action){
+export function advertsReducer(state=initialState, action){
   switch(action.type){
     case ADS_SUCCESS:
       return {

@@ -28,10 +28,12 @@ const Styles = styled.div`
   }
 `;
 
-export function Adverts() {
+export default function Adverts() {
 
   const dispatch = useDispatch()
-  const adverts = useSelector(state => state.adverts.istems)
+  const adverts = useSelector(state => state.adverts.items)
+
+console.log(adverts)
 
   useEffect(()=>{
     dispatch(getAdverts())
@@ -51,7 +53,7 @@ export function Adverts() {
             <Button onClick={handleShowAdsCreate}>Создать объявление</Button>
           </ButtonGroup>
           <Row>
-            {adverts.map(ad => <AdCard key={ad.id} {...ad}/>)}
+            {/* {adverts.map(ad => <AdCard key={ad.id} {...ad}/>)} */}
           </Row>
           <Modal show={showAdsCreate} onHide={handleCloseAdsCreate}>
             <Modal.Header closeButton>

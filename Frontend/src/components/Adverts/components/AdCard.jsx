@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Card, Col } from "react-bootstrap";
-import styled from "styled-components";
 
 const AdCard = ({title, body, contact}) => (
 

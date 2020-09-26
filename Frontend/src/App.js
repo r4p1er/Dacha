@@ -11,9 +11,9 @@ import {
   Footer,
 } from "./components/index";
 
-class App extends Component {
-  render() {
-    const { isAuthenticated } = this.props.auth;
+const App =(props) => {
+
+    const { isAuthenticated } = props.auth;
     return (
       <>
         {isAuthenticated ? <Header /> : <div></div>}
@@ -52,7 +52,6 @@ class App extends Component {
       </>
     );
   }
-}
 
 const mapStateToProps = (state) => {
   return {
