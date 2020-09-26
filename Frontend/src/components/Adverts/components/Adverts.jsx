@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {
   Container,
   ButtonGroup,
@@ -9,6 +10,7 @@ import {
 } from "react-bootstrap";
 import styled from "styled-components";
 import AdCard from "./AdCard";
+import { getAdverts } from "../../../redux/actions/ads";
 
 const Styles = styled.div`
   .card {
@@ -26,13 +28,16 @@ const Styles = styled.div`
   }
 `;
 
-export function Adverts({adverts}) {
+export function Adverts() {
 
-  const [showFullAd, setShowFullAd] = useState(false);
+  const dispatch = useDispatch()
+  const adverts = useSelector(state => state.adverts.istems)
+
+  useEffect(()=>{
+    dispatch(getAdverts())
+  }, [])
+
   const [showAdsCreate, setshowAdsCreate] = useState(false);
-
-  const handleCloseFullAd = () => setShowFullAd(false);
-  const handleShowFullAd = () => setShowFullAd(true);
 
   const handleCloseAdsCreate = () => setshowAdsCreate(false);
   const handleShowAdsCreate = () => setshowAdsCreate(true);
@@ -77,7 +82,7 @@ export function Adverts({adverts}) {
               </Form>
             </Modal.Body>
           </Modal>
-          <Modal onShow={showFullAd} size="lg">
+          <Modal size="lg">
             <Modal.Header closeButton>
               <Modal.Title>Просмотр объявления</Modal.Title>
             </Modal.Header>
