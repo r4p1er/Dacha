@@ -67,6 +67,24 @@ namespace Dacha.Controllers
         }
 
         [Authorize]
+        [HttpGet("current")]
+        public async Task<ActionResult<IEnumerable<AdvertGet>>> GetCurrent()
+        {
+            int accountId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var profile = (await db.Accounts.Include(x => x.Profile).FirstOrDefaultAsync(x => x.Id == accountId)).Profile;
+
+            var adverts = await db.Adverts.Where(x => x.ExpDate <= DateTime.Now).ToListAsync();
+            db.Adverts.RemoveRange(adverts);
+            await db.SaveChangesAsync();
+
+            var selectedAdverts = await db.Adverts.Where(x => x.ProfileId == profile.Id)
+                                                  .Select(x => new AdvertGet { Id = x.Id, Title = x.Title, Body = x.Body, Contact = x.Contact, Place = profile.Place })
+                                                  .ToListAsync();
+
+            return selectedAdverts;
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Advert>> Post(AdvertPost data)
         {
