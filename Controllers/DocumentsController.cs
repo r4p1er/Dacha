@@ -43,7 +43,7 @@ namespace Dacha.Controllers
                 return NotFound();
             }
 
-            string path = Path.Combine(appEnvironment.WebRootPath, document.Path);
+            string path = Path.Combine(appEnvironment.WebRootPath, document.Name);
 
             var fs = new FileStream(path, FileMode.Open);
 
@@ -54,13 +54,13 @@ namespace Dacha.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromForm]DocumentPost uploadedFile)
         {
-            string path = "Files/" + uploadedFile.FileName;
-            using(var fileStream = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
+            string path = Path.Combine(appEnvironment.WebRootPath, uploadedFile.FileName);
+            using(var fileStream = new FileStream(path, FileMode.Create))
             {
                 await uploadedFile.FormFile.CopyToAsync(fileStream);
             }
 
-            var document = new Document { Name = uploadedFile.FileName, Path = path };
+            var document = new Document { Name = uploadedFile.FileName };
             await db.Documents.AddAsync(document);
             await db.SaveChangesAsync();
 
