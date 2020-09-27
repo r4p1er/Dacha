@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dacha.Models
+namespace Dacha.Models.Post
 {
     public class AdvertPost
     {

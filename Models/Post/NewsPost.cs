@@ -4,14 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dacha.Models
+namespace Dacha.Models.Post
 {
-    public class AccountPost
+    public class NewsPost
     {
         [Required]
-        public string Login { get; set; }
+        [MaxLength(50)]
+        public string Title { get; set; }
         [Required]
-        public string Password { get; set; }
-        public int ProfileId { get; set; }
+        [MaxLength(1500)]
+        public string Body { get; set; }
     }
 }
