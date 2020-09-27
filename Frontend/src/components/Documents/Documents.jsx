@@ -3,22 +3,15 @@ import React, { Component } from "react";
 import { Button, Container, Form, FormControl } from "react-bootstrap";
 class Documents extends Component {
   state = {
-    selectedFile: null,
+    selectedFile: {},
   };
 
   onFileChange = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
   };
 
-  onFileUpload = () => {
-    const formData = new FormData();
-    formData.append(
-      "myFile",
-      this.state.selectedFile,
-      this.state.selectedFile.name
-    );
-    Axios.post("http://localhost:5000/api/documents", formData);
-  };
+  onFileUpload = () => Axios.post("http://localhost:5000/api/documents", this.state.selectedFile);
+  
   render() {
     return (
       <>
