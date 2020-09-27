@@ -13,6 +13,7 @@ namespace Dacha.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Advert> Adverts { get; set; }
+        public DbSet<Document> Documents { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
