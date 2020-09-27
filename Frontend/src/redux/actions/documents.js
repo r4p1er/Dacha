@@ -1,17 +1,16 @@
 import axios from "axios";
-import { CREATE_DOCUMENTS } from "../reducers/actionTypes";
-import { setDocuments } from "../reducers/documets";
+import { setDocs } from "../reducers/documets";
 
-export const getDocumentss = () => {
+export const getDocuments = () => {
   return async (dispatch) => {
-    const documents = await axios.get("http://localhost:5000/api/documents")
-    dispatch(setDocuments(documents.data))
+    const docs = await axios.get("http://localhost:5000/api/documents")
+    dispatch(setDocs(docs.data))
   }
 }
 
-export function createDocument(document) {
-  return {
-    type: CREATE_DOCUMENTS,
-    payload: document
+export const downloadDocuments = (id) => {
+  return async (dispatch) => {
+    const docs = await axios.get(`http://localhost:5000/api/documents/${id}`)
+    dispatch(setDocs(docs.data))
   }
 }

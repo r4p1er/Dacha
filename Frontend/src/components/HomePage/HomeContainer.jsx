@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Container, Row } from "react-bootstrap";
 import About from "./About";
-import NewsBlock from "./NewsBlock";
+import NewsBlock from "./News/NewsBlock";
 import GMap from "./GMap";
 
 const HomeContainer = () => {

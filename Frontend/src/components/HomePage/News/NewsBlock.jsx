@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getNews } from "../../redux/actions/news";
+import { getNews } from "../../../redux/actions/news";
 import { Col } from "react-bootstrap";
 import NewsCard from "./NewsCard";
 
@@ -10,7 +10,7 @@ const NewsBlock = () => {
     const news = useSelector(state => state.news.items)
     useEffect(()=>{
       dispatch(getNews())
-    })
+    },[])
 
     return (
         <Col xl={6} lg={6} md={12} sm={12} xs={12}>

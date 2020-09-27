@@ -28,7 +28,7 @@ const Adverts = () => {
   const adverts = useSelector((state) => state.adverts.items);
   useEffect(() => {
     dispatch(getAdverts());
-  });
+  },[]);
 
   const [showAdsCreate, setshowAdsCreate] = useState(false);
 
