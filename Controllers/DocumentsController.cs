@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Dacha.Models;
+using Dacha.Models.Post;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -51,17 +52,12 @@ namespace Dacha.Controllers
 
         [Authorize(Roles = "moder,admin")]
         [HttpPost]
-        public async Task<ActionResult> Post([FromForm]IFormFile uploadedFile)
+        public async Task<ActionResult> Post([FromForm]DocumentPost uploadedFile)
         {
-            if(uploadedFile == null)
-            {
-                return BadRequest();
-            }
-
             string path = "Files/" + uploadedFile.FileName;
             using(var fileStream = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
             {
-                await uploadedFile.CopyToAsync(fileStream);
+                await uploadedFile.FormFile.CopyToAsync(fileStream);
             }
 
             var document = new Document { Name = uploadedFile.FileName, Path = path };
