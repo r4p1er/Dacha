@@ -4,6 +4,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Dacha.Models;
+using Dacha.Models.Get;
+using Dacha.Models.Post;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,18 +25,31 @@ namespace Dacha.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Advert>>> Get()
+        public async Task<ActionResult<IEnumerable<AdvertGet>>> Get()
         {
-            foreach (var item in db.Adverts) if (item.ExpDate <= DateTime.Now) db.Adverts.Remove(item);
+            var adverts = await db.Adverts.Where(x => x.ExpDate <= DateTime.Now).ToListAsync();
+
+            db.Adverts.RemoveRange(adverts);
             await db.SaveChangesAsync();
-            return await db.Adverts.ToListAsync();
+
+            var selectedAdverts = await db.Adverts.Include(x => x.Profile)
+                                          .Select(x => new AdvertGet
+                                          {
+                                              Id = x.Id,
+                                              Title = x.Title,
+                                              Body = x.Body,
+                                              Contact = x.Contact,
+                                              Place = x.Profile.Place
+                                          }).ToListAsync();
+
+            return selectedAdverts;
         }
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Advert>> Get(int id)
+        public async Task<ActionResult<AdvertGet>> Get(int id)
         {
-            var advert = await db.Adverts.FirstOrDefaultAsync(x => x.Id == id);
+            var advert = await db.Adverts.Include(x => x.Profile).FirstOrDefaultAsync(x => x.Id == id);
 
             if(advert == null)
             {
@@ -48,7 +63,7 @@ namespace Dacha.Controllers
                 return NotFound();
             }
 
-            return advert;
+            return new AdvertGet { Id = advert.Id, Title = advert.Title, Body = advert.Body, Contact = advert.Contact, Place = advert.Profile.Place };
         }
 
         [Authorize]
