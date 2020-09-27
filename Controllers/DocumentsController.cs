@@ -51,7 +51,7 @@ namespace Dacha.Controllers
 
         [Authorize(Roles = "moder,admin")]
         [HttpPost]
-        public async Task<ActionResult> Post(IFormFile uploadedFile)
+        public async Task<ActionResult> Post([FromForm]IFormFile uploadedFile)
         {
             if(uploadedFile == null)
             {
