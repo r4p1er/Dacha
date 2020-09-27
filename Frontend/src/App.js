@@ -9,9 +9,8 @@ import {
   Adverts,
   Documents,
   Vote,
-  NotFound
+  NotFound,
 } from "./components/index";
-
 
 const App = (props) => {
   const { isAuthenticated } = props.auth;
@@ -19,35 +18,39 @@ const App = (props) => {
     <>
       {isAuthenticated ? <Header /> : <div></div>}
       <Container fluid style={{padding:'15px', height:'100%'}}>
-        <Switch>
-          <Route path="/signin" component={Login} />
-          <Route
-            exact
-            path="/"
-            render={(news) =>
-              isAuthenticated ? <Home /> : <Redirect to="/signin" />
-            }
-          />
-          <Route
-            path="/adverts"
-            render={(adverts) =>
-              isAuthenticated ? <Adverts /> : <Redirect to="/signin" />
-            }
-          />
-          <Route
-            path="/documents"
-            render={(docs) =>
-              isAuthenticated ? <Documents /> : <Redirect to="/signin" />
-            }
-          />
-          <Route
-            path="/vote"
-            render={(props) =>
-              isAuthenticated ? <Vote /> : <Redirect to="/signin" />
-            }
-          />
-          <Route component={NotFound} />
-        </Switch>
+      <Switch>
+        <Route exact path="/signin" component={Login} />
+        <Route
+          exact
+          search="Home"
+          path="/"
+          render={(news) =>
+            isAuthenticated ? <Home /> : <Redirect to="/signin" />
+          }
+        />
+        <Route
+          exact
+          path="/adverts"
+          render={(adverts) =>
+            isAuthenticated ? <Adverts /> : <Redirect to="/signin" />
+          }
+        />
+        <Route
+          exact
+          path="/documents"
+          render={(docs) =>
+            isAuthenticated ? <Documents /> : <Redirect to="/signin" />
+          }
+        />
+        <Route
+          exact
+          path="/vote"
+          render={(props) =>
+            isAuthenticated ? <Vote /> : <Redirect to="/signin" />
+          }
+        />
+        <Route component={NotFound} />
+      </Switch>
       </Container>
     </>
   );

@@ -1,13 +1,11 @@
 import React from "react";
-import { Image } from "react-bootstrap";
-
 
 const NotFound = () => {
-    return (
-        <Image>
-            
-        </Image>
-    )
-}
+  return (
+    <>
+      <h1 className="text-center mt-3">Такой страницы не существует</h1>
+    </>
+  );
+};
 
 export default NotFound;

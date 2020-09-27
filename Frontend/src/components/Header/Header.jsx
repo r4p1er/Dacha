@@ -57,7 +57,7 @@ function Header(props) {
   return (
     <>
       <HeaderStyle style={{ position: "sticky", top: "0", zIndex:"10"}}>
-        <Navbar className="mb-3" inline="true" collapseOnSelect expand="lg">
+        <Navbar inline="true" collapseOnSelect expand="lg">
           <Navbar.Brand className="mr-5" href="/">
             <Image
               src={logo}
