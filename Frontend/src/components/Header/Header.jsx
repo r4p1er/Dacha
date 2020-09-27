@@ -40,6 +40,8 @@ function Header(props) {
     }
   `;
 
+  const role = props.auth.user.role;
+  const isAdmin = role === "admin" ? true : false;
 
   const [showExit, setshowExit] = useState(false);
   const [showAdsCreate, setshowAdsCreate] = useState(false);
@@ -81,6 +83,15 @@ function Header(props) {
               <NavItem>
                 <NavLink to="/vote">Голосование</NavLink>
               </NavItem>
+               {
+               isAdmin ? 
+               <NavItem>
+                 <NavLink to="/admin">Админ</NavLink>
+               </NavItem> :
+               null
+               }
+                
+              
             </Nav>
             <NavDropdown
               className="text-right"

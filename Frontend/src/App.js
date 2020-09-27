@@ -9,6 +9,7 @@ import {
   Documents,
   Vote,
   NotFound,
+  Admin,
 } from "./components/index";
 
 const App = (props) => {
@@ -57,6 +58,13 @@ const App = (props) => {
           path="/vote"
           render={() =>
             isAuthenticated ? <Vote /> : <Redirect to="/signin" />
+          }
+        />
+        <Route
+          exact
+          path="/admin"
+          render={() =>
+            props.auth.user.role === "admin" ? isAuthenticated ? <Admin /> : <Redirect to="/signin" /> : null
           }
         />
         <Route render={() => <NotFound isNotFound={isNotFound} />} />
