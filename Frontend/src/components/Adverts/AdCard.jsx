@@ -33,7 +33,7 @@ const AdCard = ({ title, body, contact, place }) => {
         <Modal.Footer className="justify-content-start">
           <Row className="w-100">
             <Col col='true'>
-              <span className="mr-4">Контакты:</span>
+              <span className="mr-2">Контакты:</span>
               <span>{contact}</span>
             </Col>
             <Col col='true'>

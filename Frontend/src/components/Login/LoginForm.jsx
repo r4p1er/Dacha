@@ -16,12 +16,10 @@ class LoginForm extends Component {
     this.onChange = this.onChange.bind(this);
   }
   
-
   onSubmit(e) {
     e.preventDefault();
-    const {history} = this.props;
       this.props.login(this.state).then(
-        (res) => history.push('/')
+        (res) => window.location = "/"
       );
     }
 
@@ -30,11 +28,9 @@ class LoginForm extends Component {
   }
   render(){
     const { login, password} = this.state;
-    
     return (
       <Container fluid className={style.wrapper}>
         <Form className={style.form} onSubmit={this.onSubmit}>
-
           <Image src={logo} width="200" height="70" className="mb-4" />
           <h3 className="mb-3 font-weight-normal">Вход</h3>
           <Form.Control
