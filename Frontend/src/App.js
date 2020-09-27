@@ -14,6 +14,7 @@ import {
 
 const App = (props) => {
   const { isAuthenticated } = props.auth;
+  const role = props.auth.user.role;
 
   const [showHeader, setShowHeader] = useState(false);
 
@@ -48,6 +49,13 @@ const App = (props) => {
         />
         <Route
           exact
+          path="/current_adverts"
+          render={() =>
+            isAuthenticated ? <Adverts /> : <Redirect to="/signin" />
+          }
+        />
+        <Route
+          exact
           path="/documents"
           render={() =>
             isAuthenticated ? <Documents /> : <Redirect to="/signin" />
@@ -64,7 +72,7 @@ const App = (props) => {
           exact
           path="/admin"
           render={() =>
-            props.auth.user.role === "admin" ? isAuthenticated ? <Admin /> : <Redirect to="/signin" /> : null
+            role === "admin" || role === "moder" ? isAuthenticated ? <Admin /> : <Redirect to="/signin" /> : null
           }
         />
         <Route render={() => <NotFound isNotFound={isNotFound} />} />

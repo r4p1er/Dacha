@@ -55,6 +55,7 @@ class CreateAdvert extends Component {
             placeholder="Максимум 50 символов"
             field="title"
             value={title}
+            maxLength="50"
             name="title"
             onChange={this.onChange}
           />
@@ -68,6 +69,7 @@ class CreateAdvert extends Component {
             rows="8"
             field="body"
             value={body}
+            maxLength="1500"
             name="body"
             onChange={this.onChange}
           />
@@ -79,6 +81,7 @@ class CreateAdvert extends Component {
             field="contact"
             value={contact}
             name="contact"
+            maxLength="50"
             onChange={this.onChange}
           />
         </Form.Group>

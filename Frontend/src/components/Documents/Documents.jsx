@@ -1,13 +1,37 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-const Documents = () => {
-  return (
-    <>
-      <Container>
-        <h1>Documents Page</h1>
-      </Container>
-    </>
-  );
+import Axios from "axios";
+import React, { Component } from "react";
+import { Button, Container, Form, FormControl } from "react-bootstrap";
+class Documents extends Component {
+  state = {
+    selectedFile: null,
+  };
+
+  onFileChange = (event) => {
+    this.setState({ selectedFile: event.target.files[0] });
+  };
+
+  onFileUpload = () => {
+    const formData = new FormData();
+    formData.append(
+      "myFile",
+      this.state.selectedFile,
+      this.state.selectedFile.name
+    );
+    Axios.post("http://localhost:5000/api/documents", formData);
+  };
+  render() {
+    return (
+      <>
+        <Container>
+          <h1>Documents Page</h1>
+          <Form>
+            <FormControl type="file" onChange={this.onFileChange} />
+              <Button variant="primary" onClick={this.onFileUpload}>Загрузить документ</Button>
+          </Form>
+        </Container>
+      </>
+    );
+  }
 }
 
 export default Documents;

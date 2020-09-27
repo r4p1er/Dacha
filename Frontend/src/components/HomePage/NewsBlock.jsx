@@ -10,7 +10,7 @@ const NewsBlock = () => {
     const news = useSelector(state => state.news.items)
     useEffect(()=>{
       dispatch(getNews())
-    }, [])
+    })
 
     return (
         <Col xl={6} lg={6} md={12} sm={12} xs={12}>

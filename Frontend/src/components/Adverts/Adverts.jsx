@@ -6,6 +6,7 @@ import AdCard from "./AdCard";
 import CreateAdvert from "./CreateAdvert";
 import { getAdverts } from "../../redux/actions/adverts";
 
+
 const Styles = styled.div`
   .card {
     margin-bottom: 1rem;
@@ -27,7 +28,7 @@ const Adverts = () => {
   const adverts = useSelector((state) => state.adverts.items);
   useEffect(() => {
     dispatch(getAdverts());
-  }, []);
+  });
 
   const [showAdsCreate, setshowAdsCreate] = useState(false);
 
