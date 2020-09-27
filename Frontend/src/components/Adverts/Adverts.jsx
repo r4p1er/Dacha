@@ -4,7 +4,8 @@ import { Container, ButtonGroup, Button, Row, Modal } from "react-bootstrap";
 import styled from "styled-components";
 import AdCard from "./AdCard";
 import CreateAdvert from "./CreateAdvert";
-import { getAdverts } from "../../redux/actions/ads";
+import { getAdverts } from "../../redux/actions/adverts";
+import { getProfiles } from "../../redux/actions/profiles";
 
 const Styles = styled.div`
   .card {
@@ -25,7 +26,6 @@ const Styles = styled.div`
 const Adverts = () => {
   const dispatch = useDispatch();
   const adverts = useSelector((state) => state.adverts.items);
-
   useEffect(() => {
     dispatch(getAdverts());
   }, []);
@@ -45,7 +45,7 @@ const Adverts = () => {
           </ButtonGroup>
           <Row>
             {adverts.map((ad) => (
-              <AdCard key={ad.id} {...ad} />
+              <AdCard key={ad.id} {...ad}/>
             ))}
           </Row>
           <Modal show={showAdsCreate} onHide={handleCloseAdsCreate}>
@@ -62,9 +62,7 @@ const Adverts = () => {
             </Modal.Header>
             <Modal.Body>
               <h3>Заголовок объявления</h3>
-              <p>
-               
-              </p>
+              <p></p>
             </Modal.Body>
             <Modal.Footer className="justify-content-start">
               <Row>

@@ -14,43 +14,43 @@ import {
 
 const App = (props) => {
   const { isAuthenticated } = props.auth;
+
   return (
     <>
-      {isAuthenticated ? <Header /> : <div></div>}
-      <Container fluid style={{padding:'15px', height:'100%'}}>
-      <Switch>
-        <Route exact path="/signin" component={Login} />
-        <Route
-          exact
-          search="Home"
-          path="/"
-          render={(news) =>
-            isAuthenticated ? <Home /> : <Redirect to="/signin" />
-          }
-        />
-        <Route
-          exact
-          path="/adverts"
-          render={(adverts) =>
-            isAuthenticated ? <Adverts /> : <Redirect to="/signin" />
-          }
-        />
-        <Route
-          exact
-          path="/documents"
-          render={(docs) =>
-            isAuthenticated ? <Documents /> : <Redirect to="/signin" />
-          }
-        />
-        <Route
-          exact
-          path="/vote"
-          render={(props) =>
-            isAuthenticated ? <Vote /> : <Redirect to="/signin" />
-          }
-        />
-        <Route component={NotFound} />
-      </Switch>
+     {isAuthenticated ? <Header /> : null}
+      <Container fluid style={{ padding: "15px", height: "100%" }}>
+        <Switch>
+          <Route exact path="/signin" component={Login} />
+          <Route
+            exact
+            path="/"
+            render={() =>
+              isAuthenticated ? <Home /> : <Redirect to="/signin" />
+            }
+          />
+          <Route
+            exact
+            path="/adverts"
+            render={() =>
+              isAuthenticated ? <Adverts /> : <Redirect to="/signin" />
+            }
+          />
+          <Route
+            exact
+            path="/documents"
+            render={() =>
+              isAuthenticated ? <Documents /> : <Redirect to="/signin" />
+            }
+          />
+          <Route
+            exact
+            path="/vote"
+            render={() =>
+              isAuthenticated ? <Vote /> : <Redirect to="/signin" />
+            }
+          />
+          <Route render={() => <NotFound />} />
+        </Switch>
       </Container>
     </>
   );

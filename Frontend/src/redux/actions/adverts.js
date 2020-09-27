@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAdverts } from "../reducers/ads";
+import { setAdverts } from "../reducers/adverts";
 
 export const getAdverts = () => {
   return async (dispatch) => {
