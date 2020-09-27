@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { showAlert } from "../../redux/actions/AlertMessages";
+import { createAdvert } from "../../redux/actions/adverts"
 import { AlertMessage } from "../Alerts/Alert";
-import Axios from "axios";
 
 class CreateAdvert extends Component {
   constructor(props) {
@@ -25,9 +25,8 @@ class CreateAdvert extends Component {
     if (title === "" || body === "" || contact === "") {
       return this.props.showAlert("Заполните форму");
     }
-
-    Axios.post("http://localhost:5000/api/adverts", this.state);
-    console.log(this.state);
+    this.props.createAdvert(this.state);
+    this.props.handleCloseAdsCreate();
     this.setState({
       title: "",
       body: "",
@@ -92,7 +91,8 @@ class CreateAdvert extends Component {
 }
 
 const mapDispatchToProps = {
-  showAlert
+  showAlert,
+  createAdvert
 };
 
 const mapStateToProps = (state) => ({

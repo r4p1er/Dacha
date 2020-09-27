@@ -5,7 +5,6 @@ import styled from "styled-components";
 import AdCard from "./AdCard";
 import CreateAdvert from "./CreateAdvert";
 import { getAdverts } from "../../redux/actions/adverts";
-import { getProfiles } from "../../redux/actions/profiles";
 
 const Styles = styled.div`
   .card {
@@ -53,7 +52,7 @@ const Adverts = () => {
               <Modal.Title>Создание объявления</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <CreateAdvert />
+              <CreateAdvert handleCloseAdsCreate={handleCloseAdsCreate}/>
             </Modal.Body>
           </Modal>
           <Modal size="lg">

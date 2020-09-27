@@ -1,6 +1,7 @@
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_PROFILES = "GET_PROFILES";
 export const GET_ADVERTS = "GET_ADVERTS";
+export const ADD_ADVERTS = "ADD_ADVERTS";
 export const GET_NEWS = "GET_NEWS";
 export const GET_DOCUMENTS = "GET_DOCUMENTS";
 export const HIDE_ALERT = "HIDE_ALERT";
