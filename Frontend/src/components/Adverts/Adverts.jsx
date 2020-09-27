@@ -55,21 +55,6 @@ const Adverts = () => {
               <CreateAdvert handleCloseAdsCreate={handleCloseAdsCreate}/>
             </Modal.Body>
           </Modal>
-          <Modal size="lg">
-            <Modal.Header closeButton>
-              <Modal.Title>Просмотр объявления</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <h3>Заголовок объявления</h3>
-              <p></p>
-            </Modal.Body>
-            <Modal.Footer className="justify-content-start">
-              <Row>
-                <span className="mr-4">Контакты:</span>
-                <span>89174558285, @mail ...</span>
-              </Row>
-            </Modal.Footer>
-          </Modal>
         </Container>
       </Styles>
     </>
