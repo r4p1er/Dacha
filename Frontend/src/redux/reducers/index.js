@@ -3,12 +3,14 @@ import {advertsReducer} from "./ads";
 import {newsReducer} from "./news";
 import {docs} from "./documets";
 import {auth} from "./auth";
+import { appReducer } from "./alertMessages";
 
 const rootReducer = combineReducers({
   adverts: advertsReducer,
   news: newsReducer,
   docs,
-  auth
+  auth,
+  app: appReducer
 });
 
 

@@ -1,6 +1,6 @@
 import userApi from '../../utils/api/user';
 import setAuthorizationToken from '../../utils/axios';
-import { SET_CURRENT_USER } from "./actionTypes";
+import { SET_CURRENT_USER } from "../reducers/actionTypes";
 import jwt from "jsonwebtoken";
 
 export function setCurrentUser(user) {

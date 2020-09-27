@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Form, Button, Container } from "react-bootstrap";
-import { addAdvert } from "../../../redux/actions/ads";
+import { Form, Button } from "react-bootstrap";
+import { showAlert } from "../../redux/actions/AlertMessages";
+import { AlertMessage } from "../Alerts/Alert";
+import Axios from "axios";
 
 class CreateAdvert extends Component {
   constructor(props) {
@@ -11,25 +13,41 @@ class CreateAdvert extends Component {
       body: "",
       contact: "",
     };
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
   }
+  
+  onSubmit = (event) => {
+    event.preventDefault();
+    
+    const title = this.state.title;
+    const body = this.state.body;
+    const contact = this.state.contact;
 
-  onSubmit(e) {
-    e.preventDefault();
-    const { history } = this.props;
-    this.props.login(this.state).then((res) => history.push("/adverts"));
-  }
+    if (title === "" || body === "" || contact === "") {
+      return this.props.showAlert("Заполните форму");
+    }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
+    Axios.post("http://localhost:5000/api/adverts", this.state)
+    console.log(this.state)
+    this.setState({
+      title:"",
+      body:"",
+      contact:""
+    });
+  };
+
+  onChange = (event) => {
+    event.persist()
+    this.setState(prev => ({...prev, ...{
+      [event.target.name]: event.target.value
+    }}));
+  };
   render() {
-    const { title, body, contact } = this.state;
+
+    const {title, body, contact} = this.state
 
     return (
-      <Container>
-        <Form>
+        <Form onSubmit={this.onSubmit}>
+          {this.props.alert && <AlertMessage text={this.props.alert} />}
           <Form.Group>
             <Form.Label className="mb-1">
               Введите заголовок объявления
@@ -69,9 +87,16 @@ class CreateAdvert extends Component {
             Создать объявление
           </Button>
         </Form>
-      </Container>
     );
   }
 }
 
-export default connect(null, { addAdvert })(CreateAdvert);
+const mapDispatchToProps = {
+  showAlert,
+};
+
+const mapStateToProps = (state) => ({
+  alert: state.app.alert,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateAdvert);

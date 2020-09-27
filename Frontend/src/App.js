@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
@@ -9,7 +9,9 @@ import {
   Adverts,
   Documents,
   Vote,
+  NotFound
 } from "./components/index";
+
 
 const App = (props) => {
   const { isAuthenticated } = props.auth;
@@ -44,6 +46,7 @@ const App = (props) => {
               isAuthenticated ? <Vote /> : <Redirect to="/signin" />
             }
           />
+          <Route component={NotFound} />
         </Switch>
       </Container>
     </>

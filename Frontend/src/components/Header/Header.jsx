@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { logout } from '../../../redux/actions/authActions';
-import CreateAdvert from "../../Adverts/components/CreateAdvert";
+import { logout } from '../../redux/actions/authActions';
+import CreateAdvert from "../Adverts/CreateAdvert";
 import {
   Navbar,
   Nav,
@@ -14,7 +14,7 @@ import {
 } from "react-bootstrap";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import logo from "../../../additions/logo_dark.png";
+import logo from "../../additions/logo_dark.png";
 
 function Header(props) {
   const HeaderStyle = styled.div`

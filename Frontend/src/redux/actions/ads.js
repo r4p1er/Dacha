@@ -7,9 +7,3 @@ export const getAdverts = () => {
     dispatch(setAdverts(adverts.data))
   }
 }
-
-export function addAdvert (data) {
-  return dispatch => {
-    return data => axios.post("http://localhost:5000/api/adverts", data)
-  }
-}

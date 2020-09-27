@@ -4,7 +4,7 @@ import { Container, ButtonGroup, Button, Row, Modal } from "react-bootstrap";
 import styled from "styled-components";
 import AdCard from "./AdCard";
 import CreateAdvert from "./CreateAdvert";
-import { getAdverts } from "../../../redux/actions/ads";
+import { getAdverts } from "../../redux/actions/ads";
 
 const Styles = styled.div`
   .card {
@@ -63,30 +63,7 @@ const Adverts = () => {
             <Modal.Body>
               <h3>Заголовок объявления</h3>
               <p>
-                Occaecat id et dolor eiusmod irure consequat ea laborum culpa
-                dolor excepteur culpa irure. Consequat sunt nostrud adipisicing
-                culpa voluptate. Amet ipsum cupidatat et nulla sit laborum in
-                nisi quis. Ad commodo tempor consequat occaecat velit sint
-                incididunt est deserunt eu. Velit aliqua aliquip id voluptate in
-                ut velit laboris esse labore aliquip nulla. Nulla minim
-                exercitation dolor anim proident ullamco ex eu ut aliquip
-                cupidatat reprehenderit velit. Tempor sunt irure pariatur
-                cupidatat mollit non voluptate sint aliquip enim ex cupidatat
-                sunt. Esse nulla sint voluptate officia sit qui officia. Nostrud
-                nostrud velit laborum sunt elit aliqua amet mollit nulla
-                occaecat ullamco. Et dolor ad sint labore et aliqua nisi labore
-                magna mollit mollit elit. Consequat consectetur adipisicing
-                tempor incididunt. Eiusmod ullamco nostrud aliquip ex ex est
-                cupidatat amet id laboris officia consequat eu dolor. Ipsum et
-                veniam fugiat eiusmod. In cupidatat adipisicing et minim.
-                Occaecat id et dolor eiusmod irure consequat ea laborum culpa
-                dolor excepteur culpa irure. Consequat sunt nostrud adipisicing
-                culpa voluptate. Amet ipsum cupidatat et nulla sit laborum in
-                nisi quis. Ad commodo tempor consequat occaecat velit sint
-                incididunt est deserunt eu. Velit aliqua aliquip id voluptate in
-                ut velit laboris esse labore aliquip nulla. Nulla minim
-                exercitation dolor anim proident ullamco ex eu ut aliquip
-                cupidatat reprehenderit velit.
+               
               </p>
             </Modal.Body>
             <Modal.Footer className="justify-content-start">
