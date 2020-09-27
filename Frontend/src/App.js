@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
 import {
@@ -60,7 +59,7 @@ const App = (props) => {
               isAuthenticated ? <Vote /> : <Redirect to="/signin" />
             }
           />
-          <Route render={() => <NotFound isNotFound={isNotFound}/>} title="NotFound" />
+          <Route render={() => <NotFound isNotFound={isNotFound}/>} />
         </Switch>
     </>
   );
