@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
@@ -15,12 +15,23 @@ import {
 const App = (props) => {
   const { isAuthenticated } = props.auth;
 
+  const [showHeader, setShowHeader] = useState(false);
+  
+  function isNotFound(e){
+    return setShowHeader(e)
+  }
+
   return (
     <>
-     {isAuthenticated ? <Header /> : null}
-      <Container fluid style={{ padding: "15px", height: "100%" }}>
+      {!showHeader ? isAuthenticated ? <Header /> : <div></div> : <div></div>}
         <Switch>
-          <Route exact path="/signin" component={Login} />
+          <Route 
+            exact 
+            path="/signin" 
+            render={() => 
+              isAuthenticated ? <NotFound isNotFound={isNotFound}/> : <Login />
+            } 
+          />
           <Route
             exact
             path="/"
@@ -49,9 +60,8 @@ const App = (props) => {
               isAuthenticated ? <Vote /> : <Redirect to="/signin" />
             }
           />
-          <Route render={() => <NotFound />} />
+          <Route render={() => <NotFound isNotFound={isNotFound}/>} title="NotFound" />
         </Switch>
-      </Container>
     </>
   );
 };

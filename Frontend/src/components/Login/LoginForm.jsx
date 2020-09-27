@@ -43,7 +43,6 @@ class LoginForm extends Component {
             field="login"
             value={login}
             name="login"
-            // error={errors.login}
             onChange={this.onChange}
           />
           <Form.Control
@@ -53,7 +52,6 @@ class LoginForm extends Component {
             field="password"
             name="password"
             value={password}
-            // error={errors.password}
             onChange={this.onChange}
           />
           <Button
