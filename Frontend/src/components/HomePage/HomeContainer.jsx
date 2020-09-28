@@ -5,7 +5,7 @@ import About from "./About";
 import NewsBlock from "./News/NewsBlock";
 import GMap from "./GMap";
 
-const HomeContainer = () => {
+const HomeContainer = (isNotFound) => {
   const Styles = styled.div`
     .google-map {
       width: 100%;
@@ -22,7 +22,7 @@ const HomeContainer = () => {
       color: #444444;
     }
   `;
-
+  isNotFound.isNotFound(false)
   return (
     <Styles>
       <Container>

@@ -29,15 +29,15 @@ const App = (props) => {
         <Route
           exact
           path="/signin"
-          render={() =>
-            isAuthenticated ? <NotFound isNotFound={isNotFound} /> : <Login />
+          render={(props) =>
+            isAuthenticated ? <NotFound isNotFound={isNotFound} /> : <Login {...props}/>
           }
         />
         <Route
           exact
           path="/"
           render={() =>
-            isAuthenticated ? <Home /> : <Redirect to="/signin" />
+            isAuthenticated ? <Home isNotFound={isNotFound}/> : <Redirect to="/signin" />
           }
         />
         <Route

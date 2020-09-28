@@ -6,13 +6,11 @@ export function showAlert(text) {
       type: SHOW_ALERT,
       payload: text
     })
-
     setTimeout(() => {
       dispatch(hideAlert())
     },10000)
   }
 }
-
 export function hideAlert() {
   return {
     type: HIDE_ALERT
