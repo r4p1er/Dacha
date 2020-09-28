@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect, Switch, withRouter } from "react-router-dom";
 import {
   Header,
   Login,
@@ -11,46 +11,40 @@ import {
   NotFound,
   Admin,
 } from "./components/index";
-import { AdminNews, AdminDocs, AdminAds, AdminVote, AdminProfiles } from "./components/Admin/components/index";
 
 const App = (props) => {
+  const showHeader = (location) => {
+    if (location === "/not-found" || location === "/signin") {
+      return false
+    } else {
+      return true 
+    }
+  }
+  const NotFoundRedirect = () => <Redirect to='/not-found' />
   const { isAuthenticated } = props.auth;
   const role = props.auth.user.role;
 
-  const [showHeader, setShowHeader] = useState(false);
-
-  function isNotFound(e) {
-    return setShowHeader(e);
-  }
-
   return (
     <>
-      {!showHeader ? isAuthenticated ? <Header /> : <div></div> : <div></div>}
+      {showHeader(props.location.pathname) ? isAuthenticated ? <Header /> : <div></div> : <div></div>}
       <Switch>
         <Route
           exact
           path="/signin"
           render={(props) =>
-            isAuthenticated ? <NotFound isNotFound={isNotFound} /> : <Login {...props}/>
+            isAuthenticated ? <NotFound /> : <Login {...props}/>
           }
         />
         <Route
           exact
           path="/"
           render={() =>
-            isAuthenticated ? <Home isNotFound={isNotFound}/> : <Redirect to="/signin" />
+            isAuthenticated ? <Home /> : <Redirect to="/signin" />
           }
         />
         <Route
           exact
           path="/adverts"
-          render={() =>
-            isAuthenticated ? <Adverts /> : <Redirect to="/signin" />
-          }
-        />
-        <Route
-          exact
-          path="/current_adverts"
           render={() =>
             isAuthenticated ? <Adverts /> : <Redirect to="/signin" />
           }
@@ -76,7 +70,8 @@ const App = (props) => {
             role === "admin" || role === "moder" ? isAuthenticated ? <Admin /> : <Redirect to="/signin" /> : null
           }
         />
-        <Route path='*' exact={true} render={() => <NotFound isNotFound={isNotFound} />} />
+        <Route path="/not-found" render={() => <NotFound />} />
+        <Route component={NotFoundRedirect} />
       </Switch>
     </>
   );
@@ -88,4 +83,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(withRouter(App));

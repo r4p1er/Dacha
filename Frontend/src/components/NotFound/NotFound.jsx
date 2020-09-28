@@ -3,15 +3,13 @@ import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import style from "./NotFound.module.css"
 
-const NotFound = (isNotFound) => {
-  const e = true
-  isNotFound.isNotFound(e)
+const NotFound = () => {
   return (
       <div className={style.bg_purple}>
         <div className={style.stars}>
                   <div className={style.central_body}>
                       <Image className={style.image-404} src="http://salehriaz.com/404Page/img/404.svg" width="300px" />
-                      <Link to="/" href="http://salehriaz.com/404Page/404.html" className={style.btn_go_home} target="_blank">Домой</Link>
+                      <Link to="/" href="http://salehriaz.com/404Page/404.html" className={style.btn_go_home}>Домой</Link>
                   </div>
                   <div className={style.objects}>
                         <Image className={style.object_rocket} src="http://salehriaz.com/404Page/img/rocket.svg" width="40px"/>

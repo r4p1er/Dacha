@@ -22,7 +22,6 @@ const HomeContainer = (isNotFound) => {
       color: #444444;
     }
   `;
-  isNotFound.isNotFound(false)
   return (
     <Styles>
       <Container>

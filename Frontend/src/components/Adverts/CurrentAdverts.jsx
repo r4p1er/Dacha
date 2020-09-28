@@ -6,7 +6,7 @@ import CreateAdvert from "./CreateAdvert";
 
 const CurrentAdverts = () => {
     return (
-
+        null
     )
 }
 

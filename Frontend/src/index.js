@@ -6,7 +6,7 @@ import App from "./App";
 import store from "./redux/store";
 import jwt from "jsonwebtoken";
 import { setCurrentUser } from "./redux/actions/authActions";
-import setAuthorizationToken from "./utils/axios";
+import setAuthorizationToken from "./utils/setAuthToken";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 if (localStorage.jwtToken) {

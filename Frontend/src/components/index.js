@@ -7,6 +7,7 @@ import Login from "./Login/LoginForm";
 import Admin from "./Admin/AdminContainer";
 import NotFound from "./NotFound/NotFound";
 import Loader from "./Loader/Loader";
+import CurrentAdverts from "./Adverts/CurrentAdverts";
 
 
-export {Header, Home, Adverts, Documents, Vote, Login, NotFound, Admin, Loader};
+export {Header, Home, Adverts, Documents, Vote, Login, NotFound, Admin, Loader, CurrentAdverts};

@@ -4,7 +4,6 @@ import {newsReducer} from "./news";
 import {profilesReducer} from "./profiles";
 import {docsReducer} from "./documets";
 import {auth} from "./auth";
-
 import { appReducer } from "./alertMessages";
 
 const rootReducer = combineReducers({

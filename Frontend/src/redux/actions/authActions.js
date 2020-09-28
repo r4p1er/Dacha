@@ -1,4 +1,4 @@
-import setAuthorizationToken from "../../utils/axios";
+import setAuthorizationToken from "../../utils/setAuthToken";
 import { SET_CURRENT_USER } from "../reducers/actionTypes";
 import jwt from "jsonwebtoken";
 import { showAlert } from "./AlertMessages";

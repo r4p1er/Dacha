@@ -6,7 +6,8 @@ import AdCard from "./AdCard";
 import CreateAdvert from "./CreateAdvert";
 import { getAdverts } from "../../redux/actions/adverts";
 import Loader from "../Loader/Loader";
-
+import { Link, NavLink, Route } from "react-router-dom";
+import CurrentAdverts from "./CurrentAdverts";
 
 const Styles = styled.div`
   .card {
@@ -27,10 +28,10 @@ const Styles = styled.div`
 const Adverts = () => {
   const dispatch = useDispatch();
   const adverts = useSelector((state) => state.adverts.items);
-  const loading = useSelector((state) => state.app.loading)
+  const loading = useSelector((state) => state.app.loading);
   useEffect(() => {
     dispatch(getAdverts());
-  },[]);
+  }, []);
 
   const [showAdsCreate, setshowAdsCreate] = useState(false);
 
@@ -42,18 +43,28 @@ const Adverts = () => {
       <Styles>
         <Container fluid className="text-center">
           <ButtonGroup className="my-4">
-            <Button>Мои объявления</Button>
+            <Button>
+              <NavLink exact to="/current_adverts">
+                Мои объявления
+              </NavLink>
+            </Button>
             <Button onClick={handleShowAdsCreate}>Создать объявление</Button>
           </ButtonGroup>
           <Row>
-            { loading ? <Loader /> : !adverts.length ? <h3>Объявления отсутствуют</h3> :adverts.map(ad => <AdCard key={ad.id} {...ad}/>)}
+            {loading ? (
+              <Loader />
+            ) : !adverts.length ? (
+              <h3>Объявления отсутствуют</h3>
+            ) : (
+              adverts.map((ad) => <AdCard key={ad.id} {...ad} />)
+            )}
           </Row>
           <Modal show={showAdsCreate} onHide={handleCloseAdsCreate}>
             <Modal.Header closeButton>
               <Modal.Title>Создание объявления</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <CreateAdvert handleCloseAdsCreate={handleCloseAdsCreate}/>
+              <CreateAdvert handleCloseAdsCreate={handleCloseAdsCreate} />
             </Modal.Body>
           </Modal>
         </Container>
