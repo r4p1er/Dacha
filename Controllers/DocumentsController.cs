@@ -30,6 +30,15 @@ namespace Dacha.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Document>>> Get()
         {
+            foreach(var item in await db.Documents.ToListAsync())
+            {
+                if(!System.IO.File.Exists(Path.Combine(appEnvironment.WebRootPath, item.Name)))
+                {
+                    db.Documents.Remove(item);
+                }
+            }
+            await db.SaveChangesAsync();
+
             return await db.Documents.ToListAsync();
         }
 
