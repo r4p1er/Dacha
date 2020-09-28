@@ -5,6 +5,7 @@ import styled from "styled-components";
 import AdCard from "./AdCard";
 import CreateAdvert from "./CreateAdvert";
 import { getAdverts } from "../../redux/actions/adverts";
+import Loader from "../Loader/Loader";
 
 
 const Styles = styled.div`
@@ -26,6 +27,7 @@ const Styles = styled.div`
 const Adverts = () => {
   const dispatch = useDispatch();
   const adverts = useSelector((state) => state.adverts.items);
+  const loading = useSelector((state) => state.app.loading)
   useEffect(() => {
     dispatch(getAdverts());
   },[]);
@@ -44,9 +46,7 @@ const Adverts = () => {
             <Button onClick={handleShowAdsCreate}>Создать объявление</Button>
           </ButtonGroup>
           <Row>
-            {adverts.map((ad) => (
-              <AdCard key={ad.id} {...ad}/>
-            ))}
+            { loading ? <Loader /> : !adverts.length ? <h3>Объявления отсутствуют</h3> :adverts.map(ad => <AdCard key={ad.id} {...ad}/>)}
           </Row>
           <Modal show={showAdsCreate} onHide={handleCloseAdsCreate}>
             <Modal.Header closeButton>

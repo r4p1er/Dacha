@@ -6,6 +6,7 @@ import Vote from "./Vote/Vote";
 import Login from "./Login/LoginForm";
 import Admin from "./Admin/AdminContainer";
 import NotFound from "./NotFound/NotFound";
+import Loader from "./Loader/Loader";
 
 
-export {Header, Home, Adverts, Documents, Vote, Login, NotFound, Admin};
+export {Header, Home, Adverts, Documents, Vote, Login, NotFound, Admin, Loader};
