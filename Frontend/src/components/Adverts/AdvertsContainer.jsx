@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, ButtonGroup, Container, Modal, Row } from "react-bootstrap";
 import styled from "styled-components";
-import { Link, Outlet, Route, Routes } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import CreateAdvert from "./CreateAdvert";
 
 const AdvertsContainer = () => {
@@ -30,11 +30,7 @@ const AdvertsContainer = () => {
     <Styles>
       <Container fluid className="text-center">
         <ButtonGroup className="my-4">
-          <Button>
-            <Link to="/adverts/current_adverts">
-              Мои объявления
-            </Link>
-          </Button>
+          <Link className="btn btn-primary" to="/adverts/current_adverts">Мои объявления</Link>
           <Button onClick={handleShowAdsCreate}>Создать объявление</Button>
         </ButtonGroup>
         <Modal show={showAdsCreate} onHide={handleCloseAdsCreate}>

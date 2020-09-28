@@ -38,7 +38,7 @@ export function advertsReducer(state=initialState, action){
 };
 
 export const setAd = (adverts) => ({type:GET_ADVERTS, payload:adverts})
-export const getCurrentAd = (adverts) => ({type:GET_CURRENT_ADVERTS, payload:adverts})
+export const setCurrentAd = (adverts) => ({type:GET_CURRENT_ADVERTS, payload:adverts})
 export const addAd = (adverts) => ({type:ADD_ADVERTS, payload:adverts})
 export const changeAd = (advert) => ({type:CHANGE_ADVERTS, payload:advert})
 export const deleteAd = (adId) => ({type:DELETE_ADVERTS, payload:adId})

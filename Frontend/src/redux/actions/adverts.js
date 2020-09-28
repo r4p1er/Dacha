@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAd, addAd, deleteAd, changeAd, getCurrentAd } from "../reducers/adverts";
+import { setAd, addAd, deleteAd, changeAd, setCurrentAd } from "../reducers/adverts";
 import { showLoader, hideLoader } from "../reducers/alertMessages";
 import { showAlert } from "./AlertMessages";
 
@@ -18,7 +18,7 @@ export const getCurrentAdverts = () => {
   return async (dispatch) => {
     dispatch(showLoader())
     const adverts = await axios.get(`${baseUrl}/current`)
-      dispatch(getCurrentAd(adverts.data))
+      dispatch(setCurrentAd(adverts.data))
       dispatch(hideLoader())  
   }
 }

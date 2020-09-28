@@ -38,6 +38,9 @@ function Header(props) {
     .dropdown-item:active {
       background-color: #fff;
     }
+    .dropdown-item:focus {
+      color: #477fe0;
+    }
   `;
 
   const role = props.auth.user.role;
@@ -72,9 +75,7 @@ function Header(props) {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto text-center">
               <NavItem>
-                <NavLink to="/">
-                  Главная
-                </NavLink>
+                <NavLink to="/">Главная</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink to="/adverts">Объявления</NavLink>
@@ -97,9 +98,7 @@ function Header(props) {
               title={`Участок № ${props.auth.user.name}`}
               id="nav-dropdown"
             >
-              <NavDropdown.Item>
-                <Link style={{fontSize:"25px"}} to="/current_adverts">Мои объявления</Link>
-              </NavDropdown.Item>
+              <Link className="dropdown-item" to="/adverts/current_adverts">Мои объявления</Link>
               <NavDropdown.Item onClick={handleShowAdsCreate}>
                 Создать объявление
               </NavDropdown.Item>

@@ -2,6 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import {
+  AdminAds,
+  AdminNews,
+  AdminDocs,
+  AdminProfiles,
+  AdminVote,
+} from "./components/Admin/components/index"
+import {
   Header,
   Login,
   Home,
@@ -53,18 +60,16 @@ const App = (props) => {
             isAuthenticated ? <AdvertsContainer /> : <Navigate to="/signin" />
           }
         >
-            <Route
-              path="/"
-              element={
-                isAuthenticated ? <Adverts /> : <Navigate to="/signin" />
-              }
-            />
-            <Route
-              path="/current_adverts"
-              element={
-                isAuthenticated ? <CurrentAdverts /> : <Navigate to="/signin" />
-              }
-            />
+          <Route
+            path="/"
+            element={isAuthenticated ? <Adverts /> : <Navigate to="/signin" />}
+          />
+          <Route
+            path="/current_adverts"
+            element={
+              isAuthenticated ? <CurrentAdverts /> : <Navigate to="/signin" />
+            }
+          />
         </Route>
         <Route
           path="/documents"
@@ -85,7 +90,38 @@ const App = (props) => {
               )
             ) : null
           }
-        />
+        >
+          <Route
+            path="/news"
+            element={
+              isAuthenticated ? <AdminNews /> : <Navigate to="/signin" />
+            }
+          />
+          <Route
+            path="/adverts"
+            element={
+              isAuthenticated ? <AdminAds /> : <Navigate to="/signin" />
+            }
+          />
+          <Route
+            path="/documents"
+            element={
+              isAuthenticated ? <AdminDocs /> : <Navigate to="/signin" />
+            }
+          />
+          <Route
+            path="/vote"
+            element={
+              isAuthenticated ? <AdminVote /> : <Navigate to="/signin" />
+            }
+          />
+          <Route
+            path="/profiles"
+            element={
+              isAuthenticated ? <AdminProfiles /> : <Navigate to="/signin" />
+            }
+          />
+        </Route>
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/*" element={<NotFoundRedirect />} />
       </Routes>
