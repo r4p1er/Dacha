@@ -1,33 +1,52 @@
 import axios from "axios";
-import { setAd, addAd, deleteAd, changeAd } from "../reducers/adverts";
+import { setAd, addAd, deleteAd, changeAd, getCurrentAd } from "../reducers/adverts";
 import { showLoader, hideLoader } from "../reducers/alertMessages";
+import { showAlert } from "./AlertMessages";
+
+const baseUrl = "http://localhost:5000/api/adverts";
 
 export const getAdverts = () => {
   return async (dispatch) => {
     dispatch(showLoader())
-    const adverts = await axios.get("http://localhost:5000/api/adverts")
+    const adverts = await axios.get(baseUrl)
       dispatch(setAd(adverts.data))
+      dispatch(hideLoader())  
+  }
+}
+
+export const getCurrentAdverts = () => {
+  return async (dispatch) => {
+    dispatch(showLoader())
+    const adverts = await axios.get(`${baseUrl}/current`)
+      dispatch(getCurrentAd(adverts.data))
       dispatch(hideLoader())  
   }
 }
 
 export const createAdvert = (advert) => {
   return async (dispatch) => {
-    await axios.post("http://localhost:5000/api/adverts", advert)
+    await axios.post(baseUrl, advert)
     dispatch(addAd(advert))
   }
 }
 
 export const changeAdvert = (advert) => {
   return async (dispatch) => {
-    await axios.put(`http://localhost:5000/api/adverts${advert.id}`, advert)
+    await axios.put(`${baseUrl}/${advert.id}`, advert)
     dispatch(changeAd(advert))
   }
 }
 
 export const deleteAdvert = (id) => {
   return async (dispatch) => {
-    await axios.delete(`http://localhost:5000/api/adverts${id}`)
+    try {
+      await axios.delete(`${baseUrl}/${id}`)
     dispatch(deleteAd(id))
+    } catch (error) {
+      if (error.response.status === 404) {
+        dispatch(showAlert('Такого объявления не существует'))
+      }
+        dispatch(showAlert('Упсс, что-то пошло не так'))
+    }
   }
 }

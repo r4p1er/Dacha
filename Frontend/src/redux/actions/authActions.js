@@ -29,8 +29,10 @@ export function login(data) {
         setAuthorizationToken(token);
         dispatch(setCurrentUser(jwt.decode(token)));
       });
-    } catch (e) {
-      dispatch(showAlert("Неверный логин или пароль"));
+    } catch (error) {
+      if (error.response.status === 400) {
+        dispatch(showAlert("Неверный логин или пароль"));
+      }
     }
   };
 }

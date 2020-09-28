@@ -11,6 +11,7 @@ import {
   NotFound,
   Admin,
 } from "./components/index";
+import { AdminNews, AdminDocs, AdminAds, AdminVote, AdminProfiles } from "./components/Admin/components/index";
 
 const App = (props) => {
   const { isAuthenticated } = props.auth;
@@ -75,7 +76,7 @@ const App = (props) => {
             role === "admin" || role === "moder" ? isAuthenticated ? <Admin /> : <Redirect to="/signin" /> : null
           }
         />
-        <Route render={() => <NotFound isNotFound={isNotFound} />} />
+        <Route path='*' exact={true} render={() => <NotFound isNotFound={isNotFound} />} />
       </Switch>
     </>
   );

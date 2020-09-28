@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, ButtonGroup, Dropdown, DropdownButton } from "react-bootstrap";
-import Switch from "react-bootstrap/esm/Switch";
-import { Link, Route } from "react-router-dom";
+import { Button, ButtonGroup } from "react-bootstrap";
+import { Link, Route, Switch } from "react-router-dom";
 import "./AdminContainer.css";
+import { AdminNews, AdminDocs, AdminAds, AdminVote, AdminProfiles } from "./components/index";
 
 const AdminContainer = () => {
   return (
@@ -10,24 +10,28 @@ const AdminContainer = () => {
       <h1>Администрирование сайта</h1>
       <ButtonGroup vertical size="lg">
         <Button>
-          <Link to="/a">Новости</Link>
+          <Link to="/admin/news">Новости</Link>
         </Button>
         <Button>
-          <Link>Объявления</Link>
+          <Link to="/admin/adverts">Объявления</Link>
         </Button>
         <Button>
-          <Link>Документы</Link>
+          <Link to="/admin/documents">Документы</Link>
         </Button>
         <Button>
-          <Link>Голосование</Link>
+          <Link to="/admin/vote">Голосование</Link>
         </Button>
         <Button>
-          <Link>Профили</Link>
+          <Link to="/admin/profiles">Профили</Link>
         </Button>
       </ButtonGroup>
-        <Switch>
-            <Route/>
-        </Switch>
+      {/* <Switch>
+        <Route exact path="/admin/news" component={AdminNews}/>
+        <Route exact path="/admin/adverts" component={AdminAds}/>
+        <Route exact path="/admin/documents" component={AdminDocs}/>
+        <Route exact path="/admin/vote" component={AdminVote}/>
+        <Route exact path="/admin/profiles" component={AdminProfiles}/>
+      </Switch> */}
     </>
   );
 };
