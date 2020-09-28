@@ -1,8 +1,12 @@
-import Header from "./Header/index";
-import Home from "./Home/index";
-import Adverts from "./Adverts/index";
-import Documents from "./Documents/index";
-import Vote from "./Vote/index";
+import Header from "./Header/Header";
+import Home from "./HomePage/HomeContainer";
+import Adverts from "./Adverts/Adverts";
+import Documents from "./Documents/Documents";
+import Vote from "./Vote/Vote";
 import Login from "./Login/LoginForm";
+import Admin from "./Admin/AdminContainer";
+import NotFound from "./NotFound/NotFound";
+import Loader from "./Loader/Loader";
 
-export {Header, Home, Adverts, Documents, Vote, Login};
+
+export {Header, Home, Adverts, Documents, Vote, Login, NotFound, Admin, Loader};

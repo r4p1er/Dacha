@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { connect } from 'react-redux';
-import { logout } from '../../../redux/actions/authActions';
-import CreateAdvert from "../../Adverts/components/CreateAdvert";
+import { connect } from "react-redux";
+import { logout } from "../../redux/actions/authActions";
+import CreateAdvert from "../Adverts/CreateAdvert";
 import {
   Navbar,
   Nav,
@@ -13,8 +13,8 @@ import {
   Image,
 } from "react-bootstrap";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
-import logo from "../../../additions/logo_dark.png";
+import { Link, NavLink } from "react-router-dom";
+import logo from "../../additions/logo_dark.png";
 
 function Header(props) {
   const HeaderStyle = styled.div`
@@ -32,7 +32,7 @@ function Header(props) {
         color: #477fe0;
       }
     }
-    .active{
+    .active {
       color: #477fe0;
     }
     .dropdown-item:active {
@@ -40,6 +40,8 @@ function Header(props) {
     }
   `;
 
+  const role = props.auth.user.role;
+  const isAdmin = role === "admin" || role === "moder" ? true : false;
 
   const [showExit, setshowExit] = useState(false);
   const [showAdsCreate, setshowAdsCreate] = useState(false);
@@ -56,8 +58,8 @@ function Header(props) {
 
   return (
     <>
-      <HeaderStyle style={{ position: "sticky", top: "0", zIndex:"10"}}>
-        <Navbar className="mb-3" inline="true" collapseOnSelect expand="lg">
+      <HeaderStyle style={{ position: "sticky", top: "0", zIndex: "10" }}>
+        <Navbar inline="true" collapseOnSelect expand="lg">
           <Navbar.Brand className="mr-5" href="/">
             <Image
               src={logo}
@@ -70,7 +72,9 @@ function Header(props) {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto text-center">
               <NavItem>
-                <NavLink exact to="/">Главная</NavLink>
+                <NavLink exact to="/">
+                  Главная
+                </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink to="/adverts">Объявления</NavLink>
@@ -81,6 +85,11 @@ function Header(props) {
               <NavItem>
                 <NavLink to="/vote">Голосование</NavLink>
               </NavItem>
+              {isAdmin ? (
+                <NavItem>
+                  <NavLink to="/admin">Комната админа</NavLink>
+                </NavItem>
+              ) : null}
             </Nav>
             <NavDropdown
               className="text-right"
@@ -88,13 +97,14 @@ function Header(props) {
               title={`Участок № ${props.auth.user.name}`}
               id="nav-dropdown"
             >
-              <NavDropdown.Item eventKey="4.1">Профиль</NavDropdown.Item>
-              <NavDropdown.Item eventKey="4.2">Мои объявления</NavDropdown.Item>
-              <NavDropdown.Item eventKey="4.3" onClick={handleShowAdsCreate}>
+              <NavDropdown.Item>
+                <Link style={{fontSize:"25px"}} to="/current_adverts">Мои объявления</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={handleShowAdsCreate}>
                 Создать объявление
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item eventKey="4.4">
+              <NavDropdown.Item>
                 <Form className="text-right">
                   <Button variant="outline-danger" onClick={handleShowExit}>
                     Выход
@@ -106,13 +116,13 @@ function Header(props) {
         </Navbar>
       </HeaderStyle>
       <Modal show={showAdsCreate} onHide={handleCloseAdsCreate}>
-            <Modal.Header closeButton>
-              <Modal.Title>Создание объявления</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <CreateAdvert />
-            </Modal.Body>
-          </Modal>
+        <Modal.Header closeButton>
+          <Modal.Title>Создание объявления</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <CreateAdvert handleCloseAdsCreate={handleCloseAdsCreate} />
+        </Modal.Body>
+      </Modal>
       <Modal show={showExit} onHide={handleCloseExit}>
         <Modal.Header closeButton>
           <Modal.Title>Выход</Modal.Title>
@@ -122,7 +132,9 @@ function Header(props) {
             <Form.Label className="text-muted mr-3">
               Вы собираетесь выйти?
             </Form.Label>
-            <Button onClick={logout} variant="outline-danger">Да</Button>
+            <Button onClick={logout} variant="outline-danger">
+              Да
+            </Button>
           </Form>
         </Modal.Body>
       </Modal>
@@ -132,7 +144,7 @@ function Header(props) {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+    auth: state.auth,
   };
 }
 

@@ -1,14 +1,19 @@
 import { combineReducers } from "redux";
-import {advertsReducer} from "./ads";
+import {advertsReducer} from "./adverts";
 import {newsReducer} from "./news";
-import {docs} from "./documets";
+import {profilesReducer} from "./profiles";
+import {docsReducer} from "./documets";
 import {auth} from "./auth";
+
+import { appReducer } from "./alertMessages";
 
 const rootReducer = combineReducers({
   adverts: advertsReducer,
   news: newsReducer,
-  docs,
-  auth
+  docs: docsReducer,
+  auth,
+  app: appReducer,
+  profiles: profilesReducer
 });
 
 

@@ -1,32 +1,36 @@
-import userApi from '../../utils/api/user';
-import setAuthorizationToken from '../../utils/axios';
-import { SET_CURRENT_USER } from "./actionTypes";
+import setAuthorizationToken from "../../utils/axios";
+import { SET_CURRENT_USER } from "../reducers/actionTypes";
 import jwt from "jsonwebtoken";
+import { showAlert } from "./AlertMessages";
+import axios from "axios";
 
 export function setCurrentUser(user) {
   return {
-      type: SET_CURRENT_USER,
-      user
+    type: SET_CURRENT_USER,
+    user,
   };
 }
 
-export function logout(){
-  return dispatch => {
-    localStorage.removeItem('jwtToken');
+export function logout() {
+  return (dispatch) => {
+    localStorage.removeItem("jwtToken");
     setAuthorizationToken(false);
-    dispatch(setCurrentUser({})); 
-  }
+    dispatch(setCurrentUser({}));
+  };
 }
 
 export function login(data) {
-  return dispatch => {
-    return userApi
-      .signIn(data)
-      .then(res => {
-        const token = res.data.access_token;
-        localStorage.setItem('jwtToken', token);
+  return async dispatch => {
+    try {
+      await axios.post("http://localhost:5000/api/token", data)
+      .then((response) => {
+        const token = response.data.access_token;
+        localStorage.setItem("jwtToken", token);
         setAuthorizationToken(token);
         dispatch(setCurrentUser(jwt.decode(token)));
       });
-  }
+    } catch (e) {
+      dispatch(showAlert("Неверный логин или пароль"));
+    }
+  };
 }

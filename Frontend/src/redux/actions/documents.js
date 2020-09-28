@@ -1,21 +1,16 @@
-import { DOCS_SUCCESS } from "./actionTypes";
+import axios from "axios";
+import { setDocs } from "../reducers/documets";
 
-export function docsFetchDataSuccess(docs){
-  return{
-      type: DOCS_SUCCESS,
-      docs
-  };
-};
-export function docsFetchData(url) {
-  return(dispatch) => {
-    fetch(url)
-      .then(response => {
-          if(!response.ok){
-              throw new Error(response.statusText)
-          }
-          return response;
-      })
-      .then(response=> response.json())
-      .then(docs => dispatch(docsFetchDataSuccess(docs)))
-  };
-};
+export const getDocuments = () => {
+  return async (dispatch) => {
+    const docs = await axios.get("http://localhost:5000/api/documents")
+    dispatch(setDocs(docs.data))
+  }
+}
+
+export const downloadDocuments = (id) => {
+  return async (dispatch) => {
+    const docs = await axios.get(`http://localhost:5000/api/documents/${id}`)
+    dispatch(setDocs(docs.data))
+  }
+}
