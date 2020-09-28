@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Route, Redirect, Switch, withRouter } from "react-router-dom";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import {
   Header,
   Login,
@@ -10,69 +10,85 @@ import {
   Vote,
   NotFound,
   Admin,
+  AdvertsContainer,
+  CurrentAdverts,
 } from "./components/index";
 
 const App = (props) => {
   const showHeader = (location) => {
     if (location === "/not-found" || location === "/signin") {
-      return false
+      return false;
     } else {
-      return true 
+      return true;
     }
-  }
-  const NotFoundRedirect = () => <Redirect to='/not-found' />
+  };
+  const NotFoundRedirect = () => <Navigate to="/not-found" />;
   const { isAuthenticated } = props.auth;
   const role = props.auth.user.role;
 
   return (
     <>
-      {showHeader(props.location.pathname) ? isAuthenticated ? <Header /> : <div></div> : <div></div>}
-      <Switch>
+      {showHeader(useLocation().pathname) ? (
+        isAuthenticated ? (
+          <Header />
+        ) : (
+          <div></div>
+        )
+      ) : (
+        <div></div>
+      )}
+      <Routes>
         <Route
-          exact
           path="/signin"
-          render={(props) =>
-            isAuthenticated ? <NotFound /> : <Login {...props}/>
-          }
+          element={isAuthenticated ? <NotFound /> : <Login {...props} />}
         />
         <Route
           exact
           path="/"
-          render={() =>
-            isAuthenticated ? <Home /> : <Redirect to="/signin" />
-          }
+          element={isAuthenticated ? <Home /> : <Navigate to="/signin" />}
         />
         <Route
-          exact
           path="/adverts"
-          render={() =>
-            isAuthenticated ? <Adverts /> : <Redirect to="/signin" />
+          element={
+            isAuthenticated ? <AdvertsContainer /> : <Navigate to="/signin" />
           }
-        />
+        >
+            <Route
+              path="/"
+              element={
+                isAuthenticated ? <Adverts /> : <Navigate to="/signin" />
+              }
+            />
+            <Route
+              path="/current_adverts"
+              element={
+                isAuthenticated ? <CurrentAdverts /> : <Navigate to="/signin" />
+              }
+            />
+        </Route>
         <Route
-          exact
           path="/documents"
-          render={() =>
-            isAuthenticated ? <Documents /> : <Redirect to="/signin" />
-          }
+          element={isAuthenticated ? <Documents /> : <Navigate to="/signin" />}
         />
         <Route
-          exact
           path="/vote"
-          render={() =>
-            isAuthenticated ? <Vote /> : <Redirect to="/signin" />
-          }
+          element={isAuthenticated ? <Vote /> : <Navigate to="/signin" />}
         />
         <Route
-          exact
           path="/admin"
-          render={() =>
-            role === "admin" || role === "moder" ? isAuthenticated ? <Admin /> : <Redirect to="/signin" /> : null
+          element={
+            role === "admin" || role === "moder" ? (
+              isAuthenticated ? (
+                <Admin />
+              ) : (
+                <Navigate to="/signin" />
+              )
+            ) : null
           }
         />
-        <Route path="/not-found" render={() => <NotFound />} />
-        <Route component={NotFoundRedirect} />
-      </Switch>
+        <Route path="/not-found" element={<NotFound />} />
+        <Route path="/*" element={<NotFoundRedirect />} />
+      </Routes>
     </>
   );
 };
@@ -83,4 +99,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(withRouter(App));
+export default connect(mapStateToProps)(App);

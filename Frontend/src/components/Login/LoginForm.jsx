@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { login } from "../../redux/actions/authActions";
 import { showAlert } from "../../redux/actions/AlertMessages";
@@ -6,45 +6,43 @@ import { Form, Button, Container, Image } from "react-bootstrap";
 import logo from "./../../additions/logo_dark.png";
 import style from "./loginPage.module.css";
 import { AlertMessage } from "../Alerts/Alert";
+import { useNavigate } from "react-router-dom";
 
-class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      login: "",
-      password: "",
-    };
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onSubmit(e) {
+const LoginForm = (props) => {
+  const [state, setState] = useState({
+    login:"",
+    password:""
+  })
+  const history = useNavigate() 
+  const onSubmit = (e) => {
     e.preventDefault();
-    this.props.login(this.state).then(res => {
+    props.login(state).then(res => {
       return (
-        this.props.history.push('/')
+        history("/")
       )
     })
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-  render() {
-    const { login, password } = this.state;
+  const handleChange = (e) => {
+    const {name , value} = e.target   
+    setState(prevState => ({
+        ...prevState,
+        [name] : value
+    }))
+}
     return (
       <Container fluid className={style.wrapper}>
-        <Form className={style.form} onSubmit={this.onSubmit}>
+        <Form className={style.form} onSubmit={onSubmit}>
           <Image src={logo} width="200" height="70" className="mb-4" />
           <h3 className="mb-3 font-weight-normal">Вход</h3>
-          {this.props.alert && <AlertMessage text={this.props.alert} />}
+          {props.alert && <AlertMessage text={props.alert} />}
           <Form.Control
             className={style.formControl}
             placeholder="Введите номер участка"
             field="login"
-            value={login}
+            value={state.login}
             name="login"
-            onChange={this.onChange}
+            onChange={handleChange}
           />
           <Form.Control
             className={style.formControl}
@@ -52,8 +50,8 @@ class LoginForm extends Component {
             placeholder="Введите пароль"
             field="password"
             name="password"
-            value={password}
-            onChange={this.onChange}
+            value={state.password}
+            onChange={handleChange}
           />
           <Button variant="primary" size="lg" type="submit" block>
             Войти
@@ -62,7 +60,6 @@ class LoginForm extends Component {
       </Container>
     );
   }
-}
 
 const mapDispatchToProps = {
   login,

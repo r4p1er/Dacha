@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getCurrentAdverts } from "../../redux/actions/adverts";
+import Loader from "../Loader/Loader";
 import AdCard from "./AdCard";
-import CreateAdvert from "./CreateAdvert";
 
 
 const CurrentAdverts = () => {
+
+    const dispatch = useDispatch();
+    const adverts = useSelector((state) => state.adverts.items);
+    const loading = useSelector((state) => state.app.loading);
+    useEffect(() => {
+      dispatch(getCurrentAdverts());
+    }, []);
+
     return (
-        null
+        <>
+        {loading ? (
+          <Loader />
+        ) : !adverts.length ? (
+          <h3>У вас нет объявлений</h3>
+        ) : (
+          adverts.map((ad) => <AdCard key={ad.id} {...ad} />)
+        )}
+      </>
     )
 }
 

@@ -72,7 +72,7 @@ function Header(props) {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto text-center">
               <NavItem>
-                <NavLink exact to="/">
+                <NavLink to="/">
                   Главная
                 </NavLink>
               </NavItem>
