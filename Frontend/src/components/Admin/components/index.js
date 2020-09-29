@@ -1,7 +1,7 @@
-import AdminNews from "./News";
-import AdminDocs from "./Documents";
-import AdminAds from "./Adverts";
-import AdminVote from "./Vote";
-import AdminProfiles from "./Profiles";
+import AdminNews from "./News/News";
+import AdminDocs from "./Documents/Documents";
+import AdminAds from "./Adverts/Adverts";
+import AdminVote from "./Vote/Vote";
+import AdminProfiles from "./Profiles/Profiles";
 
 export {AdminNews, AdminDocs, AdminAds, AdminVote, AdminProfiles};

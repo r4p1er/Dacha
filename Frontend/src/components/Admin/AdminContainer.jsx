@@ -1,7 +1,6 @@
 import React from "react";
 import { ButtonGroup, Col, Container, Row } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
-import "./AdminContainer.css";
 
 const AdminContainer = () => {
   return (

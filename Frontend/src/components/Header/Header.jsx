@@ -63,14 +63,14 @@ function Header(props) {
     <>
       <HeaderStyle style={{ position: "sticky", top: "0", zIndex: "10" }}>
         <Navbar inline="true" collapseOnSelect expand="lg">
-          <Navbar.Brand className="mr-5" href="/">
+          <Link className="mr-5 navbar-brand" to="/">
             <Image
               src={logo}
               width="200"
               height="70"
               className="d-inline-block align-top"
             />
-          </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto text-center">
@@ -103,13 +103,11 @@ function Header(props) {
                 Создать объявление
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item>
-                <Form className="text-right">
+                <Form className="text-right dropdown-item">
                   <Button variant="outline-danger" onClick={handleShowExit}>
                     Выход
                   </Button>
                 </Form>
-              </NavDropdown.Item>
             </NavDropdown>
           </Navbar.Collapse>
         </Navbar>

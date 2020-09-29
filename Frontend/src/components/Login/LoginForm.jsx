@@ -1,41 +1,41 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions/authActions";
-import { showAlert } from "../../redux/actions/AlertMessages";
 import { Form, Button, Container, Image } from "react-bootstrap";
 import logo from "./../../additions/logo_dark.png";
 import style from "./loginPage.module.css";
 import { AlertMessage } from "../Alerts/Alert";
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = (props) => {
+const LoginForm = () => {
+  const alert = useSelector((state) => state.app.alert);
+  const dispatch = useDispatch();
+  const history = useNavigate();
   const [state, setState] = useState({
     login:"",
     password:""
   })
-  const history = useNavigate() 
   const onSubmit = (e) => {
     e.preventDefault();
-    props.login(state).then(res => {
+    dispatch(login(state)).then(res => {
       return (
         history("/")
       )
     })
   }
-
   const handleChange = (e) => {
     const {name , value} = e.target   
     setState(prevState => ({
         ...prevState,
         [name] : value
     }))
-}
+  } 
     return (
       <Container fluid className={style.wrapper}>
         <Form className={style.form} onSubmit={onSubmit}>
           <Image src={logo} width="200" height="70" className="mb-4" />
           <h3 className="mb-3 font-weight-normal">Вход</h3>
-          {props.alert && <AlertMessage text={props.alert} />}
+          {alert && <AlertMessage text={alert} />}
           <Form.Control
             className={style.formControl}
             placeholder="Введите номер участка"
@@ -61,13 +61,5 @@ const LoginForm = (props) => {
     );
   }
 
-const mapDispatchToProps = {
-  login,
-  showAlert,
-};
 
-const mapStateToProps = (state) => ({
-  alert: state.app.alert,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;
