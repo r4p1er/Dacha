@@ -86,11 +86,6 @@ function Header(props) {
               <NavItem>
                 <NavLink to="/vote">Голосование</NavLink>
               </NavItem>
-              {isAdmin ? (
-                <NavItem>
-                  <NavLink to="/admin">Комната админа</NavLink>
-                </NavItem>
-              ) : null}
             </Nav>
             <NavDropdown
               className="text-right"
@@ -102,6 +97,9 @@ function Header(props) {
               <NavDropdown.Item onClick={handleShowAdsCreate}>
                 Создать объявление
               </NavDropdown.Item>
+              {isAdmin ? (
+                  <Link className="dropdown-item" to="/admin">Комната админа</Link>
+              ) : null}
               <NavDropdown.Divider />
                 <Form className="text-right dropdown-item">
                   <Button variant="outline-danger" onClick={handleShowExit}>
