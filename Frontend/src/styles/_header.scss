@@ -1,0 +1,32 @@
+.navbar {
+    background-color: #ededee;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    a,
+    .navbar-link,
+    .nav-link {
+        font-size: 1.5em;
+        color: #1b9ae0;
+        text-decoration: none;
+        margin-right: 15px;
+
+        &:hover {
+            color: #477fe0;
+            text-decoration: none;
+        }
+    }
+
+    .active {
+        color: #477fe0;
+    }
+
+    .dropdown-item:active {
+        background-color: #fff;
+    }
+
+    .dropdown-item:focus {
+        color: #477fe0;
+    }
+}

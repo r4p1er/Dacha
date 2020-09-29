@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { showAlert } from "../../redux/actions/AlertMessages";
-import { createAdvert } from "../../redux/actions/adverts"
+import { createAdvert } from "../../redux/actions/adverts";
 import { AlertMessage } from "../Alerts/Alert";
 
 class CreateAdvert extends Component {
@@ -95,7 +95,7 @@ class CreateAdvert extends Component {
 
 const mapDispatchToProps = {
   showAlert,
-  createAdvert
+  createAdvert,
 };
 
 const mapStateToProps = (state) => ({

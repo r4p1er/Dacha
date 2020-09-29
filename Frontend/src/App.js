@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes, Navigate, useLocation, Outlet } from "react-router-dom";
-import "./styles/styles.css";
+import "./app.scss";
 import {
   AdminAds,
   AdminNews,
@@ -24,9 +24,9 @@ import {
 
 const App = () => {
   const NotFoundRedirect = () => <Navigate to="/not-found" />;
-  const authState = useSelector((state) => state.auth)
+  const authState = useSelector((state) => state.auth);
   const role = authState.user.role;
-  const {isAuthenticated} = authState;
+  const { isAuthenticated } = authState;
   const showHeader = (location) => {
     if (location === "/not-found" || location === "/signin") {
       return false;
@@ -35,17 +35,24 @@ const App = () => {
     }
   };
   const PrivateRoute = () => {
-    if(!isAuthenticated) {
-      return <Navigate to="/signin"/>
+    if (!isAuthenticated) {
+      return <Navigate to="/signin" />;
     }
-    return <Outlet />
-  }
+    return <Outlet />;
+  };
   return (
     <>
-      {showHeader(useLocation().pathname) ? isAuthenticated ? <Header /> : null : null}
+      {showHeader(useLocation().pathname) ? (
+        isAuthenticated ? (
+          <Header />
+        ) : null
+      ) : null}
       <Routes>
-        <Route path="/signin" element={isAuthenticated ? <NotFound /> : <Login />} />
-        <Route path="/" element={<PrivateRoute/>}>
+        <Route
+          path="/signin"
+          element={isAuthenticated ? <NotFound /> : <Login />}
+        />
+        <Route path="/" element={<PrivateRoute />}>
           <Route exact path="/" element={<Home />} />
 
           <Route path="/adverts" element={<AdvertsContainer />}>
@@ -57,7 +64,10 @@ const App = () => {
 
           <Route path="/vote" element={<Vote />} />
 
-          <Route path="/admin" element={ role === "admin" || role === "moder" ? <Admin /> : null}>
+          <Route
+            path="/admin"
+            element={role === "admin" || role === "moder" ? <Admin /> : null}
+          >
             <Route path="/news" element={<AdminNews />} />
             <Route path="/adverts" element={<AdminAds />} />
             <Route path="/documents" element={<AdminDocs />} />
