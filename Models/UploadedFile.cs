@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dacha.Models.Post
+namespace Dacha.Models
 {
-    public class DocumentPost
+    public class UploadedFile
     {
         [Required]
         public string FileName { get; set; }

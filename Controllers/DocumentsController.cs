@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dacha.Models;
-using Dacha.Models.Post;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -62,7 +61,7 @@ namespace Dacha.Controllers
 
         [Authorize(Roles = "moder,admin")]
         [HttpPost]
-        public async Task<ActionResult> Post([FromForm]DocumentPost uploadedFile)
+        public async Task<ActionResult<Document>> Post([FromForm]UploadedFile uploadedFile)
         {
             string path = Path.Combine(appEnvironment.WebRootPath, uploadedFile.FileName);
             using(var fileStream = new FileStream(path, FileMode.Create))
@@ -73,13 +72,14 @@ namespace Dacha.Controllers
             var document = new Document { Name = uploadedFile.FileName };
             await db.Documents.AddAsync(document);
             await db.SaveChangesAsync();
+            document = await db.Documents.FirstOrDefaultAsync(x => x.Name == document.Name);
 
-            return Ok();
+            return CreatedAtAction(nameof(Get), new { id = document.Id }, document);
         }
 
         [Authorize(Roles = "moder,admin")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult<Document>> Delete(int id)
         {
             var document = await db.Documents.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -91,7 +91,7 @@ namespace Dacha.Controllers
             db.Documents.Remove(document);
             await db.SaveChangesAsync();
 
-            return Ok();
+            return document;
         }
     }
 }

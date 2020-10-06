@@ -32,10 +32,12 @@ namespace Dacha.Controllers
         public async Task<ActionResult<Role>> Get(int id)
         {
             var role = await db.Roles.FirstOrDefaultAsync(x => x.Id == id);
+
             if(role == null)
             {
                 return NotFound();
             }
+
             return role;
         }
     }

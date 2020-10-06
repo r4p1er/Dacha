@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Dacha.Models;
-using Dacha.Models.Post;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +23,7 @@ namespace Dacha.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Token(TokenPost data)
+        public async Task<ActionResult> Token(Token data)
         {
             var identity = await GetIdentity(data.Login, data.Password);
             if(identity == null)

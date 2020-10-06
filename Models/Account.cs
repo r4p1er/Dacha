@@ -11,9 +11,11 @@ namespace Dacha.Models
     {
         public int Id { get; set; }
         [Required]
+        [MaxLength(10)]
         public string Login { get; set; }
         [Required]
         [JsonIgnore]
+        [MaxLength(16)]
         public string Password { get; set; }
 
         public int ProfileId { get; set; }

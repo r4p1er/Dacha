@@ -17,7 +17,7 @@ namespace Dacha.Models
         [MaxLength(1500)]
         public string Body { get; set; }
         [Required]
-        [MaxLength(1500)]
+        [MaxLength(100)]
         public string Contact { get; set; }
         [Required]
         public DateTime ExpDate { get; set; }
