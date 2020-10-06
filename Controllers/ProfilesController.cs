@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Dacha.Models;
-using Dacha.Models.Post;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -62,7 +61,7 @@ namespace Dacha.Controllers
             profile.Id = default;
             await db.Profiles.AddAsync(profile);
             await db.SaveChangesAsync();
-            profile = await db.Profiles.FirstOrDefaultAsync(x => x.LastName == profile.LastName && x.MiddleName == profile.MiddleName && x.Name == profile.Name);
+            profile = await db.Profiles.FirstOrDefaultAsync(x => x.LastName == profile.LastName && x.MiddleName == profile.MiddleName && x.Name == profile.Name && x.Place == profile.Place);
 
             return CreatedAtAction(nameof(Get), new { id = profile.Id }, profile);
         }
