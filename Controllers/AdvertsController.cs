@@ -4,8 +4,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Dacha.Models;
-using Dacha.Models.Get;
-using Dacha.Models.Post;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -86,29 +84,36 @@ namespace Dacha.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<Advert>> Post(AdvertPost data)
+        public async Task<ActionResult<Advert>> Post(Advert advert)
         {
-            var advert = new Advert();
+            var userProfileId = (await db.Accounts.FindAsync(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))).ProfileId;
 
-            advert.Title = data.Title;
-            advert.Body = data.Body;
-            advert.Contact = data.Contact;
-            advert.ExpDate = DateTime.Now.AddDays(30);
-            advert.ProfileId = (await db.Accounts.FirstOrDefaultAsync(x => x.Id.ToString() == User.FindFirstValue(ClaimTypes.NameIdentifier))).ProfileId;
-
+            if(advert.ProfileId != userProfileId)
+            {
+                return Forbid();
+            }
+            
+            advert.Id = default;
             await db.Adverts.AddAsync(advert);
             await db.SaveChangesAsync();
+            advert = await db.Adverts.FirstOrDefaultAsync(x => x.Title == advert.Title && x.Body == advert.Body
+                                                                                       && x.Contact == advert.Contact 
+                                                                                       && x.ExpDate == advert.ExpDate 
+                                                                                       && x.ProfileId == advert.ProfileId);
 
-            return advert;
+            return CreatedAtAction(nameof(Get), new { id = advert.Id }, advert);
         }
 
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, AdvertPost data)
+        public async Task<ActionResult> Put(int id, Advert advert)
         {
-            var advert = await db.Adverts.FirstOrDefaultAsync(x => x.Id == id);
+            if(id != advert.Id)
+            {
+                return BadRequest();
+            }
 
-            if(advert == null)
+            if((await db.Adverts.FindAsync(id)) == null)
             {
                 return NotFound();
             }
@@ -118,22 +123,17 @@ namespace Dacha.Controllers
                 return Forbid();
             }
 
-            advert.Title = data.Title;
-            advert.Body = data.Body;
-            advert.Contact = data.Contact;
-            advert.ExpDate = DateTime.Now.AddDays(30);
-
             db.Adverts.Update(advert);
             await db.SaveChangesAsync();
 
-            return Ok();
+            return NoContent();
         }
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult<AdvertGet>> Delete(int id)
         {
-            var advert = await db.Adverts.FirstOrDefaultAsync(x => x.Id == id);
+            var advert = await db.Adverts.Include(x => x.Profile).FirstOrDefaultAsync(x => x.Id == id);
 
             if(advert == null)
             {
@@ -148,7 +148,7 @@ namespace Dacha.Controllers
             db.Adverts.Remove(advert);
             await db.SaveChangesAsync();
 
-            return Ok();
+            return new AdvertGet { Id = advert.Id, Title = advert.Title, Body = advert.Body, Contact = advert.Contact, Place = advert.Profile.Place };
         }
     }
 }
