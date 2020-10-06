@@ -1,11 +1,12 @@
-import { GET_DOCUMENTS } from "./actionTypes";
+import { FETCH_DOCUMENTS } from "../actions/actionTypes";
 const initialState = {
-  items: []
+  items: [],
+  isLoading: false
 };
 
 export function docsReducer(state=initialState, action){
   switch(action.type){
-    case GET_DOCUMENTS:
+    case FETCH_DOCUMENTS:
       return {
         ...state,
         items: action.payload
@@ -14,4 +15,4 @@ export function docsReducer(state=initialState, action){
   };
 };
 
-export const setDocs = (docs) => ({type:GET_DOCUMENTS, payload:docs})
+export const setDocs = (docs) => ({type:FETCH_DOCUMENTS, payload:docs})

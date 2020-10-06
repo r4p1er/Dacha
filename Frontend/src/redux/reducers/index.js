@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import {advertsReducer} from "./adverts";
-import {newsReducer} from "./news";
+import advertsReducer from "./adverts";
+import newsReducer from "./news";
 import {profilesReducer} from "./profiles";
 import {docsReducer} from "./documets";
 import {auth} from "./auth";

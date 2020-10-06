@@ -1,17 +1,36 @@
-import { GET_NEWS } from "./actionTypes";
+import {
+  ADD_NEWS,
+  ADD_NEWS_LOADING,
+  DELETE_NEWS,
+  EDIT_NEWS,
+  FETCH_NEWS,
+  FETCH_NEWS_LOADING,
+} from "../actions/actionTypes";
+
 const initialState = {
-  items: []
+  news: [],
+  isLoading: true
 };
 
-export function newsReducer(state=initialState, action){
-  switch(action.type){
-    case GET_NEWS:
-      return {
-        ...state,
-        items: action.payload
-      }
-    default: return state;
-  };
+const newsReducer = (state = initialState, action) => {    
+  switch(action.type) {
+      case ADD_NEWS:            
+          return { ...state, news: [ ...state.news, action.payload ]}; 
+      case ADD_NEWS_LOADING:
+          return { ...state, isLoading: action.payload }         
+      case EDIT_NEWS:            
+          const updatedNews = state.news.filter(news => news.id !== action.payload.id);    
+          return { ...state, news: [...updatedNews, action.payload ]};   
+      case DELETE_NEWS:
+          const filteredNews = state.news.filter(news => news.id !== action.payload.id);
+          return { ...state, news: filteredNews };
+      case FETCH_NEWS:  
+          return { ...state, news: action.payload }
+      case FETCH_NEWS_LOADING:
+          return { ...state, isLoading: action.payload }
+      default:
+          return state;
+  }
 };
 
-export const setNews = (news) => ({type:GET_NEWS, payload:news})
+export default newsReducer;

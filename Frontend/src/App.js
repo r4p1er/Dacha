@@ -1,38 +1,38 @@
 import React from "react";
+import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Route, Routes, Navigate, useLocation, Outlet } from "react-router-dom";
 import "./app.scss";
 import {
   AdminAds,
-  AdminNews,
   AdminDocs,
+  AdminNews,
   AdminProfiles,
   AdminVote,
 } from "./components/Admin/components/index";
 import {
-  Header,
-  Login,
-  Home,
-  Adverts,
-  Documents,
-  Vote,
-  NotFound,
   Admin,
+  Adverts,
   AdvertsContainer,
   CurrentAdverts,
+  Documents,
+  Header,
+  Home,
+  Login,
+  NotFound,
+  Vote,
 } from "./components/index";
 
-const App = () => {
-  const NotFoundRedirect = () => <Navigate to="/not-found" />;
+function App(props) {
   const authState = useSelector((state) => state.auth);
   const role = authState.user.role;
   const { isAuthenticated } = authState;
+  const NotFoundRedirect = () => <Navigate to="/not-found" />;
   const showHeader = (location) => {
-    if (location === "/not-found" || location === "/signin") {
-      return false;
-    } else {
-      return true;
-    }
+    return !(
+      location === "/not-found" ||
+      location === "/signin" ||
+      location === "/loading"
+    );
   };
   const PrivateRoute = () => {
     if (!isAuthenticated) {
@@ -80,6 +80,6 @@ const App = () => {
       </Routes>
     </>
   );
-};
+}
 
 export default App;

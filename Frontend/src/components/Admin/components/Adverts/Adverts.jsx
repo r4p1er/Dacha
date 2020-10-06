@@ -1,23 +1,18 @@
 import React, { useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAdverts } from "../../../../redux/actions/adverts";
-import Loader from "../../../Loader/Loader";
+import { fetchAllAdverts } from "../../../../redux/actions/adverts";
 import AdvertItem from "./AdvertItem";
 
 const News = () => {
   const dispatch = useDispatch();
-  const adverts = useSelector((state) => state.adverts.items);
-  const loading = useSelector((state) => state.app.loading);
   useEffect(() => {
-    dispatch(getAdverts());
-  }, []);
+    dispatch(fetchAllAdverts());
+  }, [])
+  const adverts = useSelector((state) => state.adverts.adverts);
   return (
     <>
       <h2>Объявления</h2>
-      {loading ? (
-        <Loader />
-      ) : (
         <Table size="sm" striped bordered hover>
           <thead>
             <tr>
@@ -38,7 +33,6 @@ const News = () => {
             )}
           </tbody>
         </Table>
-      )}
     </>
   );
 };

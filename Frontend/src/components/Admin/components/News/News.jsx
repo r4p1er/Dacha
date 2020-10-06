@@ -1,30 +1,33 @@
-import React, { useEffect } from "react";
-import { Button, Table } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Modal, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getNews } from "../../../../redux/actions/news";
-import Loader from "../../../Loader/Loader";
+import { deleteNews, fetchAllNews } from "../../../../redux/actions/news";
+import CreateNews from "./CreateNews";
 import NewsItem from "./NewsItem";
 
 const News = () => {
   const dispatch = useDispatch();
-  const news = useSelector((state) => state.news.items);
-  const loading = useSelector((state) => state.app.loading);
+  const onDelete = (id) => dispatch(deleteNews(id));
   useEffect(() => {
-    dispatch(getNews());
+    dispatch(fetchAllNews());
   }, []);
+  const news = useSelector((state) => state.news.news);
+  const [showNewsCreate, setshowNewsCreate] = useState(false);
+
+  const handleCloseNewsCreate = () => setshowNewsCreate(false);
+  const handleShowNewsCreate = () => setshowNewsCreate(true);
   return (
     <>
       <h2>Новости</h2>
-      <Button>Добавить</Button>
-      {loading ? (
-        <Loader />
-      ) : (
+      <Button onClick={handleShowNewsCreate}>Добавить</Button>
         <Table size="sm" striped bordered hover>
           <thead>
             <tr>
               <th>#</th>
               <th>Заголовок</th>
               <th>Новость</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -33,11 +36,18 @@ const News = () => {
                 <td>Новости отсутствуют</td>
               </tr>
             ) : (
-              news.map((aNews) => <NewsItem key={aNews.id} {...aNews} />)
+              news.map((aNews) => <tr> <NewsItem key={aNews.id} onDelete={onDelete} {...aNews} /> </tr>)
             )}
           </tbody>
         </Table>
-      )}
+      <Modal show={showNewsCreate} onHide={handleCloseNewsCreate}>
+        <Modal.Header closeButton>
+          <Modal.Title>Создание новости</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <CreateNews handleCloseNewsCreate={handleCloseNewsCreate} />
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

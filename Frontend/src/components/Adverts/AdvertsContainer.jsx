@@ -22,7 +22,7 @@ const AdvertsContainer = () => {
           <Modal.Title>Создание объявления</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CreateAdvert handleCloseAdsCreate={handleCloseAdsCreate} />
+          <CreateAdvert handleCloseAdsCreate={handleCloseAdsCreate}/>
         </Modal.Body>
       </Modal>
       <Row>

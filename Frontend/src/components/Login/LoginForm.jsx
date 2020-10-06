@@ -37,6 +37,7 @@ const LoginForm = () => {
         <Form.Control
           placeholder="Введите номер участка"
           field="login"
+          maxLength="10"
           value={state.login}
           name="login"
           onChange={handleChange}
@@ -45,6 +46,7 @@ const LoginForm = () => {
           type="password"
           placeholder="Введите пароль"
           field="password"
+          maxLength="16"
           name="password"
           value={state.password}
           onChange={handleChange}

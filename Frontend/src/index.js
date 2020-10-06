@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import App from "./App";
 import store from "./redux/store";
 import jwt from "jsonwebtoken";
 import { setCurrentUser } from "./redux/actions/authActions";
 import setAuthorizationToken from "./utils/setAuthToken";
+import App from "./App";
 
 if (localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);
@@ -16,7 +16,7 @@ if (localStorage.jwtToken) {
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App />
+      <App/>
     </Router>
   </Provider>,
   document.getElementById("root")

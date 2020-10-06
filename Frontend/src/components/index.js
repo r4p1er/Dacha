@@ -8,7 +8,7 @@ import Adverts from "./Adverts/Adverts";
 import CurrentAdverts from "./Adverts/CurrentAdverts";
 import Documents from "./Documents/Documents";
 import Vote from "./Vote/Vote";
-import Loader from "./Loader/Loader";
+import FullPageLoader from "./Loader/Loader";
 
 
-export {Header, Home, Adverts, Documents, Vote, Login, NotFound, Admin, Loader, CurrentAdverts, AdvertsContainer};
+export {Header, Home, Adverts, Documents, Vote, Login, NotFound, Admin, FullPageLoader, CurrentAdverts, AdvertsContainer};

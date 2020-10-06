@@ -4,7 +4,7 @@ import About from "./About";
 import NewsBlock from "./News/NewsBlock";
 import GMap from "./GMap";
 
-const HomeContainer = (isNotFound) => {
+const HomeContainer = () => {
   return (
       <Container className="home_container">
         <Row>
