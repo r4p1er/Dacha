@@ -4,13 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dacha.Models.Put
+namespace Dacha.Models
 {
-    public class AccountPut
+    public class Token
     {
         [Required]
+        [MaxLength(10)]
         public string Login { get; set; }
-        public string NewPassword { get; set; }
-        public int ProfileId { get; set; }
+        [Required]
+        [MaxLength(16)]
+        public string Password { get; set; }
     }
 }

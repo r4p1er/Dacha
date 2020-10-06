@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Dacha.Models;
-using Dacha.Models.Post;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,72 +33,74 @@ namespace Dacha.Controllers
         public async Task<ActionResult<Profile>> Get(int id)
         {
             var profile = await db.Profiles.FirstOrDefaultAsync(x => x.Id == id);
+
             if(profile == null)
             {
                 return NotFound();
             }
+
             return profile;
         }
 
         [Authorize(Roles = "moder,admin")]
         [HttpPost]
-        public async Task<ActionResult<Profile>> Post(ProfilePost data)
+        public async Task<ActionResult<Profile>> Post(Profile profile)
         {
-            var profile = new Profile();
+            var profileRole = await db.Roles.FindAsync(profile.RoleId);
 
-            if (User.IsInRole("moder"))
+            if(profileRole == null)
             {
-                profile.RoleId = (await db.Roles.FirstOrDefaultAsync(x => x.Name == "user")).Id;
+                return BadRequest();
             }
-            else
-            {
-                var role = await db.Roles.FirstOrDefaultAsync(x => x.Name == data.Role);
-                if (role == null) return BadRequest();
-                profile.RoleId = role.Id;
-            }
-            profile.Name = data.Name;
-            profile.MiddleName = data.MiddleName;
-            profile.LastName = data.LastName;
-            profile.Place = data.Place;
 
+            if (User.IsInRole("moder") && profileRole.Name != "user")
+            {
+                return Forbid();
+            }
+
+            profile.Id = default;
             await db.Profiles.AddAsync(profile);
             await db.SaveChangesAsync();
+            profile = await db.Profiles.FirstOrDefaultAsync(x => x.LastName == profile.LastName && x.MiddleName == profile.MiddleName && x.Name == profile.Name && x.Place == profile.Place);
 
-            return profile;
+            return CreatedAtAction(nameof(Get), new { id = profile.Id }, profile);
         }
 
         [Authorize(Roles = "moder,admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, ProfilePost data)
+        public async Task<ActionResult> Put(int id, Profile profile)
         {
-            var profile = await db.Profiles.FirstOrDefaultAsync(x => x.Id == id);
+            if(id != profile.Id)
+            {
+                return BadRequest();
+            }
 
-            if(profile == null)
+            if((await db.Profiles.FindAsync(id)) == null)
             {
                 return NotFound();
             }
 
-            if(User.IsInRole("admin"))
+            var profileRole = await db.Roles.FindAsync(profile.RoleId);
+
+            if(profileRole == null)
             {
-                var role = await db.Roles.FirstOrDefaultAsync(x => x.Name == data.Role);
-                if (role == null) return BadRequest();
-                profile.RoleId = role.Id;
+                return BadRequest();
             }
 
-            profile.Name = data.Name;
-            profile.MiddleName = data.MiddleName;
-            profile.LastName = data.LastName;
-            profile.Place = data.Place;
+            if(User.IsInRole("moder") && profileRole.Name != "user")
+            {
+                return Forbid();
+            }
 
             db.Profiles.Update(profile);
             await db.SaveChangesAsync();
 
-            return Ok();
+            return NoContent();
         }
 
         [Authorize(Roles = "moder,admin")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult<Profile>> Delete(int id)
         {
             var profile = await db.Profiles.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
             if(profile == null)
@@ -115,7 +116,7 @@ namespace Dacha.Controllers
             db.Profiles.Remove(profile);
             await db.SaveChangesAsync();
 
-            return Ok();
+            return profile;
         }
     }
 }
