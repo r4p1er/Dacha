@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dacha.Models;
-using Dacha.Models.Post;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,53 +32,52 @@ namespace Dacha.Controllers
         public async Task<ActionResult<News>> Get(int id)
         {
             var news = await db.News.FirstOrDefaultAsync(x => x.Id == id);
+
             if(news == null)
             {
                 return NotFound();
             }
+
             return news;
         }
 
         [Authorize(Roles = "moder,admin")]
         [HttpPost]
-        public async Task<ActionResult<News>> Post(NewsPost data)
+        public async Task<ActionResult<News>> Post(News news)
         {
-            var news = new News();
-
-            news.Title = data.Title;
-            news.Body = data.Body;
-            news.Date = DateTime.Now;
+            news.Id = default;
 
             await db.News.AddAsync(news);
             await db.SaveChangesAsync();
 
-            return news;
+            news = await db.News.FirstOrDefaultAsync(x => x.Title == news.Title && x.Body == news.Body && x.Date == news.Date);
+
+            return CreatedAtAction(nameof(Get), new { id = news.Id }, news);
         }
 
         [Authorize(Roles = "moder,admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, NewsPost data)
+        public async Task<ActionResult> Put(int id, News news)
         {
-            var news = await db.News.FirstOrDefaultAsync(x => x.Id == id);
+            if(id != news.Id)
+            {
+                return BadRequest();
+            }
 
-            if(news == null)
+            if((await db.News.FindAsync(id)) == null)
             {
                 return NotFound();
             }
 
-            news.Title = data.Title;
-            news.Body = data.Body;
-            news.Date = DateTime.Now;
-
             db.News.Update(news);
             await db.SaveChangesAsync();
 
-            return Ok();
+            return NoContent();
         }
 
         [Authorize(Roles = "moder,admin")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult<News>> Delete(int id)
         {
             var news = await db.News.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -91,7 +89,7 @@ namespace Dacha.Controllers
             db.News.Remove(news);
             await db.SaveChangesAsync();
 
-            return Ok();
+            return news;
         }
     }
 }
