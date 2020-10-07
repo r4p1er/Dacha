@@ -12,6 +12,7 @@ class CreateAdvert extends Component {
       title: "",
       body: "",
       contact: "",
+      expDate: "",
     };
   }
 
@@ -21,6 +22,10 @@ class CreateAdvert extends Component {
     const title = this.state.title;
     const body = this.state.body;
     const contact = this.state.contact;
+    let tzoffset = new Date().getTimezoneOffset() * 60000;
+    const date = new Date(Date.now() - tzoffset);
+    date.setMonth(date.getMonth() + 1);
+    this.state.expDate = date.toISOString();
 
     if (title === "" || body === "" || contact === "") {
       return this.props.isValid("Заполните форму");
@@ -31,6 +36,7 @@ class CreateAdvert extends Component {
       title: "",
       body: "",
       contact: "",
+      expDate: "",
     });
   };
 
@@ -45,7 +51,6 @@ class CreateAdvert extends Component {
   };
   render() {
     const { title, body, contact } = this.state;
-
     return (
       <Form onSubmit={this.onSubmit}>
         {this.props.alert && <AlertMessage text={this.props.alert} />}
@@ -100,8 +105,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     isValid: (message) => dispatch(showAlert(message)),
-    onAdd: (advert) => dispatch(createAdvert(advert))
-  }
+    onAdd: (advert) => dispatch(createAdvert(advert)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateAdvert);

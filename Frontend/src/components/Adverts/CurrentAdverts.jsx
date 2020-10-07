@@ -1,12 +1,15 @@
 import React from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllAdverts } from "../../redux/actions/adverts";
+import { fetchCurrentAdverts } from "../../redux/actions/adverts";
 import AdCard from "./AdCard";
 
 const CurrentAdverts = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCurrentAdverts());
+  }, []);
   const adverts = useSelector((state) => state.adverts.items);
-  dispatch(fetchAllAdverts())
 
   return (
     <>

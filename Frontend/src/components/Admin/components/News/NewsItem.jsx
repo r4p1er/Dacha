@@ -6,7 +6,7 @@ const NewsItem = ({ id, title, body, date, onDelete}) => {
   const newsDate = new Date(date).toLocaleString();
 
   return (
-    <>
+    <tr>
       <td>{id}</td>
       <td>{title}</td>
       <td>{body}</td>
@@ -17,7 +17,7 @@ const NewsItem = ({ id, title, body, date, onDelete}) => {
       <td>
         <span onClick={()=> {onDelete(id)}}>Удалить</span>
       </td>
-    </>
+    </tr>
   );
 };
 

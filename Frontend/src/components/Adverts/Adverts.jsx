@@ -9,7 +9,6 @@ const Adverts = () => {
     dispatch(fetchAllAdverts());
   }, []);
   const adverts = useSelector((state) => state.adverts.adverts);
-  console.log(adverts);
   return (
       <>
         {!adverts.length ? <h3>Объявления отсутствуют</h3> : adverts.map((ad) => <AdCard key={ad.id} {...ad} />)}

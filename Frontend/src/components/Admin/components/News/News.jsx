@@ -37,7 +37,7 @@ const News = () => {
                 <td>Новости отсутствуют</td>
               </tr>
             ) : (
-              news.map((aNews) => <tr> <NewsItem key={aNews.id} onDelete={onDelete} {...aNews} /> </tr>)
+              news.map((aNews) =><NewsItem key={aNews.id} onDelete={onDelete} {...aNews} />)
             )}
           </tbody>
         </Table>

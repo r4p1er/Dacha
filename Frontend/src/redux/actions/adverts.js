@@ -9,7 +9,7 @@ import {
   FETCH_ADVERTS_LOADING,
 } from "./actionTypes";
 
-const baseUrl = "http://localhost:5000/api/adverts";
+const baseUrl = "http://localhost:5000/api/posts";
 
 export const createAdvert = (advert) => {
   if (advert.id) {
@@ -18,6 +18,7 @@ export const createAdvert = (advert) => {
       title: advert.title,
       body: advert.body,
       contact: advert.contact,
+      expDate: advert.expDate,
     };
 
     return (dispatch) => {
@@ -28,6 +29,7 @@ export const createAdvert = (advert) => {
       title: advert.title,
       body: advert.body,
       contact: advert.contact,
+      expDate: advert.expDate,
     };
     let isLoading = true;
 
@@ -39,8 +41,9 @@ export const createAdvert = (advert) => {
       return axios
         .post(baseUrl, data)
         .then((response) => {
+          const id = response.data.id;
           return axios
-            .get(`${baseUrl}/${data.id}`)
+            .get(`${baseUrl}/${id}`)
             .then((response) => {
               isLoading = false;
               dispatch(createAdvertLoading(isLoading));
@@ -66,6 +69,7 @@ export const createAdvertSuccess = (advert) => {
       title: advert.title,
       body: advert.body,
       contact: advert.contact,
+      expDate: advert.expDate,
     },
   };
 };
@@ -84,6 +88,7 @@ export const updateAdvertSuccess = (advert) => {
       title: advert.title,
       body: advert.body,
       contact: advert.contact,
+      expDate: advert.expDate,
     },
   };
 };
@@ -154,6 +159,30 @@ export const fetchAllAdverts = () => {
 
     return await axios
       .get(baseUrl)
+      .then((response) => {
+        isLoading = false;
+        dispatch(fetchAllAdvertsLoading(isLoading));
+        const data = response.data;
+        dispatch(fetchAdvertsSuccess(data));
+      })
+      .catch((error) => {
+        isLoading = false;
+        dispatch(fetchAllAdvertsLoading(isLoading));
+        dispatch(showAlert("Упс, что-то пошло не так"));
+      });
+  };
+};
+
+export const fetchCurrentAdverts = () => {
+  let isLoading = true;
+
+  return async (dispatch) => {
+    if (isLoading) {
+      dispatch(fetchAllAdvertsLoading(isLoading));
+    }
+
+    return await axios
+      .get(`${baseUrl}/current`)
       .then((response) => {
         isLoading = false;
         dispatch(fetchAllAdvertsLoading(isLoading));
