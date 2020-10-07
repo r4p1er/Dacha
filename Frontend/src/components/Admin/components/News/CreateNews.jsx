@@ -11,6 +11,7 @@ class CreateNews extends Component {
     this.state = {
       title: "",
       body: "",
+      date: "",
     };
   }
 
@@ -19,15 +20,19 @@ class CreateNews extends Component {
 
     const title = this.state.title;
     const body = this.state.body;
+    let tzoffset = (new Date()).getTimezoneOffset() * 60000
+    const date = new Date(Date.now() - tzoffset).toISOString()
+    this.state.date = date;
 
     if (title === "" || body === "") {
       return this.props.showAlert("Заполните форму");
-    }
+    };
     this.props.createNews(this.state);
     this.props.handleCloseNewsCreate();
     this.setState({
       title: "",
       body: "",
+      date: "",
     });
   };
 

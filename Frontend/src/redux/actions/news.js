@@ -18,6 +18,7 @@ export const createNews = (news) => {
       id: news.id,
       title: news.title,
       body: news.body,
+      date: news.date,
     };
 
     return (dispatch) => {
@@ -27,6 +28,7 @@ export const createNews = (news) => {
     const data = {
         title: news.title,
         body: news.body,
+        date: news.date,
     };
     let isLoading = true;
 
@@ -38,7 +40,7 @@ export const createNews = (news) => {
       return axios
         .post(baseUrl, data)
         .then((response) => {
-          const id = response.data;
+          const id = response.data.id;
 
           return axios
             .get(`${baseUrl}/${id}`)
@@ -67,6 +69,7 @@ export const createNewsSuccess = (news) => {
       id: news.id,
       title: news.title,
       body: news.body,
+      date: news.date,
     },
   };
 };
@@ -85,6 +88,7 @@ export const updateNewsSuccess = (news) => {
       id: news.id,
       title: news.title,
       body: news.body,
+      date: news.date,
     },
   };
 };

@@ -14,6 +14,7 @@ const baseUrl = "http://localhost:5000/api/adverts";
 export const createAdvert = (advert) => {
   if (advert.id) {
     const data = {
+      id: advert.id,
       title: advert.title,
       body: advert.body,
       contact: advert.contact,
@@ -39,7 +40,7 @@ export const createAdvert = (advert) => {
         .post(baseUrl, data)
         .then((response) => {
           return axios
-            .get(`${baseUrl}/${id}`)
+            .get(`${baseUrl}/${data.id}`)
             .then((response) => {
               isLoading = false;
               dispatch(createAdvertLoading(isLoading));

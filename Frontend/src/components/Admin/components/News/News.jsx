@@ -26,6 +26,7 @@ const News = () => {
               <th>#</th>
               <th>Заголовок</th>
               <th>Новость</th>
+              <th>Дата</th>
               <th></th>
               <th></th>
             </tr>
