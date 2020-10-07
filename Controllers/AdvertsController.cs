@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dacha.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/posts")]
     [ApiController]
     public class AdvertsController : ControllerBase
     {
@@ -88,12 +88,8 @@ namespace Dacha.Controllers
         {
             var userProfileId = (await db.Accounts.FindAsync(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))).ProfileId;
 
-            if(advert.ProfileId != userProfileId)
-            {
-                return Forbid();
-            }
-            
             advert.Id = default;
+            advert.ProfileId = userProfileId;
             await db.Adverts.AddAsync(advert);
             await db.SaveChangesAsync();
             advert = await db.Adverts.FirstOrDefaultAsync(x => x.Title == advert.Title && x.Body == advert.Body
