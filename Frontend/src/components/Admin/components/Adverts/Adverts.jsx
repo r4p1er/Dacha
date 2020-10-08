@@ -29,7 +29,7 @@ const News = () => {
                 <td>Объявления отсутствуют</td>
               </tr>
             ) : (
-              adverts.map((ad) => <AdvertItem key={ad.id} {...ad} />)
+              adverts.map((ad, index) => <AdvertItem key={ad.id} index={index} {...ad} />)
             )}
           </tbody>
         </Table>

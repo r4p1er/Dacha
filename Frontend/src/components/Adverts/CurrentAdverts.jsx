@@ -6,10 +6,10 @@ import AdCard from "./AdCard";
 
 const CurrentAdverts = () => {
   const dispatch = useDispatch();
+  const adverts = useSelector((state) => state.adverts.adverts);
   useEffect(() => {
     dispatch(fetchCurrentAdverts());
   }, []);
-  const adverts = useSelector((state) => state.adverts.items);
 
   return (
     <>

@@ -66,10 +66,12 @@ export const createAdvertSuccess = (advert) => {
   return {
     type: ADD_ADVERT,
     payload: {
+      id: advert.id,
       title: advert.title,
       body: advert.body,
       contact: advert.contact,
       expDate: advert.expDate,
+      place: advert.place,
     },
   };
 };
@@ -89,6 +91,7 @@ export const updateAdvertSuccess = (advert) => {
       body: advert.body,
       contact: advert.contact,
       expDate: advert.expDate,
+      place: advert.place,
     },
   };
 };

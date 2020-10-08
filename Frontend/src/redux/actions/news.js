@@ -1,16 +1,15 @@
 import axios from "axios";
-import {showAlert} from "./AlertMessages";
+import { showAlert } from "./AlertMessages";
 import {
-    ADD_NEWS,
-    ADD_NEWS_LOADING,
-    DELETE_NEWS,
-    EDIT_NEWS,
-    FETCH_NEWS,
-    FETCH_NEWS_LOADING,
-  } from "./actionTypes";
+  ADD_NEWS,
+  ADD_NEWS_LOADING,
+  DELETE_NEWS,
+  EDIT_NEWS,
+  FETCH_NEWS,
+  FETCH_NEWS_LOADING,
+} from "./actionTypes";
 
 const baseUrl = "http://localhost:5000/api/news";
-
 
 export const createNews = (news) => {
   if (news.id) {
@@ -26,9 +25,9 @@ export const createNews = (news) => {
     };
   } else {
     const data = {
-        title: news.title,
-        body: news.body,
-        date: news.date,
+      title: news.title,
+      body: news.body,
+      date: news.date,
     };
     let isLoading = true;
 
@@ -95,9 +94,14 @@ export const updateNewsSuccess = (news) => {
 
 export const updateNews = (dispatch, data) => {
   const id = data.id;
-
+  const putData = {
+    id: data.id,
+    title: data.title,
+    body: data.body,
+    date: data.date,
+  }
   return axios
-    .put(baseUrl, data)
+    .put(`${baseUrl}/${id}`, putData)
     .then((response) => {
       return axios
         .get(`${baseUrl}/${id}`)

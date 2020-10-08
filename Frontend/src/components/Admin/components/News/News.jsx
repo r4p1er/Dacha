@@ -7,15 +7,18 @@ import NewsItem from "./NewsItem";
 
 const News = () => {
   const dispatch = useDispatch();
-  const onDelete = (id) => dispatch(deleteNews(id));
   useEffect(() => {
     dispatch(fetchAllNews());
   }, []);
   const news = useSelector((state) => state.news.news);
-  const [showNewsCreate, setshowNewsCreate] = useState(false);
 
+  const onDelete = (id) => dispatch(deleteNews(id));
+
+  const [showNewsCreate, setshowNewsCreate] = useState(false);
+  
   const handleCloseNewsCreate = () => setshowNewsCreate(false);
   const handleShowNewsCreate = () => setshowNewsCreate(true);
+
   return (
     <>
       <h2>Новости</h2>
@@ -37,7 +40,7 @@ const News = () => {
                 <td>Новости отсутствуют</td>
               </tr>
             ) : (
-              news.map((aNews) =><NewsItem key={aNews.id} onDelete={onDelete} {...aNews} />)
+              news.map((aNews, index) =><NewsItem key={aNews.id} onDelete={onDelete} index={index} {...aNews} />)
             )}
           </tbody>
         </Table>
@@ -49,6 +52,7 @@ const News = () => {
           <CreateNews handleCloseNewsCreate={handleCloseNewsCreate} />
         </Modal.Body>
       </Modal>
+      
     </>
   );
 };
