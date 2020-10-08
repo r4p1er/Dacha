@@ -69,11 +69,6 @@ namespace Dacha.Controllers
                 return BadRequest();
             }
 
-            if((await db.Accounts.FindAsync(id)) == null)
-            {
-                return NotFound();
-            }
-
             if(User.IsInRole("user") && account.Id.ToString() != User.FindFirstValue(ClaimTypes.NameIdentifier))
             {
                 return Forbid();
@@ -91,8 +86,22 @@ namespace Dacha.Controllers
                 return Forbid();
             }
 
-            db.Accounts.Update(account);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Accounts.Update(account);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if((await ExistsAsync(id)) == false)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return NoContent();
         }
@@ -118,5 +127,7 @@ namespace Dacha.Controllers
 
             return account;
         }
+
+        private async Task<bool> ExistsAsync(int id) => await db.Accounts.AnyAsync(e => e.Id == id);
     }
 }
