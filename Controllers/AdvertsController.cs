@@ -67,7 +67,8 @@ namespace Dacha.Controllers
             db.Adverts.RemoveRange(adverts);
             await db.SaveChangesAsync();
 
-            var selectedAdverts = await db.Adverts.Where(x => x.ProfileId == profile.Id)
+            var selectedAdverts = await db.Adverts.Include(x => x.Profile)
+                                                  .Where(x => x.ProfileId == profile.Id)
                                                   .Select(x => new AdvertGet(x))
                                                   .ToListAsync();
 
