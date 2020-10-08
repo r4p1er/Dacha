@@ -62,19 +62,19 @@ namespace Dacha.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, Account account)
+        public async Task<ActionResult> Put(int id, AccountDTO accountDTO)
         {
-            if(id != account.Id)
+            if(id != accountDTO.Id)
             {
                 return BadRequest();
             }
 
-            if(User.IsInRole("user") && account.Id.ToString() != User.FindFirstValue(ClaimTypes.NameIdentifier))
+            if(User.IsInRole("user") && accountDTO.Id.ToString() != User.FindFirstValue(ClaimTypes.NameIdentifier))
             {
                 return Forbid();
             }
 
-            var role = await db.Roles.FindAsync(account.RoleId);
+            var role = await db.Roles.FindAsync(accountDTO.RoleId);
 
             if (role == null)
             {
@@ -85,6 +85,15 @@ namespace Dacha.Controllers
             {
                 return Forbid();
             }
+
+            var account = await db.Accounts.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
+            account.Login = accountDTO.Login;
+            account.Name = accountDTO.Name;
+            account.MiddleName = account.MiddleName;
+            account.LastName = accountDTO.LastName;
+            account.Place = accountDTO.Place;
+            account.RoleId = accountDTO.RoleId;
+            if (accountDTO.Password != null) account.Password = accountDTO.Password;
 
             try
             {
@@ -129,5 +138,18 @@ namespace Dacha.Controllers
         }
 
         private async Task<bool> ExistsAsync(int id) => await db.Accounts.AnyAsync(e => e.Id == id);
+
+        private static AccountDTO ItemToDTO(Account account) =>
+            new AccountDTO
+            {
+                Id = account.Id,
+                Login = account.Login,
+                Password = account.Password,
+                Name = account.Name,
+                MiddleName = account.MiddleName,
+                LastName = account.LastName,
+                Place = account.Place,
+                RoleId = account.RoleId
+            };
     }
 }
