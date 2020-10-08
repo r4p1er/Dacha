@@ -14,7 +14,7 @@ const NewsBlock = () => {
   return (
     <Col xl={6} lg={6} md={12} sm={12} xs={12}>
       <h2>Новости</h2>
-      {!news.length ? <h3>Новости отсутствуют</h3> : news.map((someNews) => <NewsCard key={someNews.id} {...someNews} />)}
+      {!news.length ? <h3>Новости отсутствуют</h3> : news.reverse().map((someNews) => <NewsCard key={someNews.id} {...someNews} />)}
     </Col>
   );
 };

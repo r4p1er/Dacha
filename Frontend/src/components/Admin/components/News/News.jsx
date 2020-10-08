@@ -40,7 +40,7 @@ const News = () => {
                 <td>Новости отсутствуют</td>
               </tr>
             ) : (
-              news.map((aNews, index) =><NewsItem key={aNews.id} onDelete={onDelete} index={index} {...aNews} />)
+              news.reverse().map((aNews, index) =><NewsItem key={aNews.id} onDelete={onDelete} index={index} {...aNews} />)
             )}
           </tbody>
         </Table>
