@@ -30,15 +30,7 @@ namespace Dacha.Controllers
             db.Adverts.RemoveRange(adverts);
             await db.SaveChangesAsync();
 
-            var selectedAdverts = await db.Adverts.Include(x => x.Profile)
-                                          .Select(x => new AdvertGet
-                                          {
-                                              Id = x.Id,
-                                              Title = x.Title,
-                                              Body = x.Body,
-                                              Contact = x.Contact,
-                                              Place = x.Profile.Place
-                                          }).ToListAsync();
+            var selectedAdverts = await db.Adverts.Include(x => x.Profile).Select(x => new AdvertGet(x)).ToListAsync();
 
             return selectedAdverts;
         }
@@ -61,7 +53,7 @@ namespace Dacha.Controllers
                 return NotFound();
             }
 
-            return new AdvertGet { Id = advert.Id, Title = advert.Title, Body = advert.Body, Contact = advert.Contact, Place = advert.Profile.Place };
+            return new AdvertGet(advert);
         }
 
         [Authorize]
@@ -76,7 +68,7 @@ namespace Dacha.Controllers
             await db.SaveChangesAsync();
 
             var selectedAdverts = await db.Adverts.Where(x => x.ProfileId == profile.Id)
-                                                  .Select(x => new AdvertGet { Id = x.Id, Title = x.Title, Body = x.Body, Contact = x.Contact, Place = profile.Place })
+                                                  .Select(x => new AdvertGet(x))
                                                   .ToListAsync();
 
             return selectedAdverts;
@@ -153,7 +145,7 @@ namespace Dacha.Controllers
             db.Adverts.Remove(advert);
             await db.SaveChangesAsync();
 
-            return new AdvertGet { Id = advert.Id, Title = advert.Title, Body = advert.Body, Contact = advert.Contact, Place = advert.Profile.Place };
+            return new AdvertGet(advert);
         }
 
         private async Task<bool> ExistsAsync(int id) => await db.Adverts.AnyAsync(e => e.Id == id);

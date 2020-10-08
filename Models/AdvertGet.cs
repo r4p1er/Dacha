@@ -18,6 +18,17 @@ namespace Dacha.Models
         [Required]
         [MaxLength(100)]
         public string Contact { get; set; }
-        public int Place { get; set; }
+        public int ProfileId { get; set; }
+        public int? Place { get; set; }
+
+        public AdvertGet(Advert advert)
+        {
+            Id = advert.Id;
+            Title = advert.Title;
+            Body = advert.Body;
+            Contact = advert.Contact;
+            ProfileId = advert.ProfileId;
+            Place = advert.Profile?.Place;
+        }
     }
 }
