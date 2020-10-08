@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
-import { showAlert } from "../../redux/actions/AlertMessages";
-import { createAdvert } from "../../redux/actions/adverts";
-import { AlertMessage } from "../Alerts/Alert";
+import { showAlert } from "../../../../redux/actions/AlertMessages";
+import { createNews } from "../../../../redux/actions/news";
+import { AlertMessage } from "../../../Alerts/Alert";
 
-class CreateAdvert extends Component {
+class CreateNews extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
       body: "",
-      contact: "",
-      expDate: "",
+      date: "",
     };
   }
 
@@ -21,22 +20,18 @@ class CreateAdvert extends Component {
 
     const title = this.state.title;
     const body = this.state.body;
-    const contact = this.state.contact;
     let tzoffset = new Date().getTimezoneOffset() * 60000;
-    const date = new Date(Date.now() - tzoffset);
-    date.setMonth(date.getMonth() + 1);
-    this.state.expDate = date.toISOString();
+    this.state.date = new Date(Date.now() - tzoffset).toISOString();
 
-    if (title === "" || body === "" || contact === "") {
-      return this.props.isValid("Заполните форму");
+    if (title === "" || body === "") {
+      return this.props.showAlert("Заполните форму");
     }
-    this.props.onAdd(this.state);
-    this.props.handleCloseAdsCreate();
+    this.props.createNews(this.state);
+    this.props.handleCloseNewsCreate();
     this.setState({
       title: "",
       body: "",
-      contact: "",
-      expDate: "",
+      date: "",
     });
   };
 
@@ -50,12 +45,13 @@ class CreateAdvert extends Component {
     }));
   };
   render() {
-    const { title, body, contact } = this.state;
+    const { title, body } = this.state;
+
     return (
       <Form onSubmit={this.onSubmit}>
         {this.props.alert && <AlertMessage text={this.props.alert} />}
         <Form.Group>
-          <Form.Label className="mb-1">Введите заголовок объявления</Form.Label>
+          <Form.Label className="mb-1">Введите заголовок новости</Form.Label>
           <Form.Control
             placeholder="Максимум 50 символов"
             field="title"
@@ -66,7 +62,7 @@ class CreateAdvert extends Component {
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label className="mb-1">Введите текст объявления</Form.Label>
+          <Form.Label className="mb-1">Введите текст новости</Form.Label>
           <Form.Control
             style={{ resize: "none" }}
             placeholder="Максимум 1500 символов"
@@ -79,34 +75,21 @@ class CreateAdvert extends Component {
             onChange={this.onChange}
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label className="mb-1">Контактная информация</Form.Label>
-          <Form.Control
-            placeholder="Максимум 50 символов"
-            field="contact"
-            value={contact}
-            name="contact"
-            maxLength="50"
-            onChange={this.onChange}
-          />
-        </Form.Group>
         <Button variant="outline-primary" type="submit">
-          Создать объявление
+          Создать новость
         </Button>
       </Form>
     );
   }
 }
 
+const mapDispatchToProps = {
+  showAlert,
+  createNews,
+};
+
 const mapStateToProps = (state) => ({
   alert: state.app.alert,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    isValid: (message) => dispatch(showAlert(message)),
-    onAdd: (advert) => dispatch(createAdvert(advert)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateAdvert);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNews);

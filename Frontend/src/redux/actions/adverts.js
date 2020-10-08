@@ -1,33 +1,201 @@
 import axios from "axios";
-import { setAd, addAd, deleteAd, changeAd } from "../reducers/adverts";
-import { showLoader, hideLoader } from "../reducers/alertMessages";
+import { showAlert } from "./AlertMessages";
+import {
+  ADD_ADVERT,
+  ADD_ADVERT_LOADING,
+  DELETE_ADVERT,
+  EDIT_ADVERT,
+  FETCH_ADVERTS,
+  FETCH_ADVERTS_LOADING,
+} from "./actionTypes";
 
-export const getAdverts = () => {
-  return async (dispatch) => {
-    dispatch(showLoader())
-    const adverts = await axios.get("http://localhost:5000/api/adverts")
-      dispatch(setAd(adverts.data))
-      dispatch(hideLoader())  
-  }
-}
+const baseUrl = "http://localhost:5000/api/posts";
 
 export const createAdvert = (advert) => {
-  return async (dispatch) => {
-    await axios.post("http://localhost:5000/api/adverts", advert)
-    dispatch(addAd(advert))
-  }
-}
+  if (advert.id) {
+    const data = {
+      id: advert.id,
+      title: advert.title,
+      body: advert.body,
+      contact: advert.contact,
+      expDate: advert.expDate,
+    };
 
-export const changeAdvert = (advert) => {
-  return async (dispatch) => {
-    await axios.put(`http://localhost:5000/api/adverts${advert.id}`, advert)
-    dispatch(changeAd(advert))
+    return (dispatch) => {
+      updateAdvert(dispatch, data);
+    };
+  } else {
+    const data = {
+      title: advert.title,
+      body: advert.body,
+      contact: advert.contact,
+      expDate: advert.expDate,
+    };
+    let isLoading = true;
+
+    return (dispatch) => {
+      if (isLoading) {
+        dispatch(createAdvertLoading(isLoading));
+      }
+
+      return axios
+        .post(baseUrl, data)
+        .then((response) => {
+          const id = response.data.id;
+          return axios
+            .get(`${baseUrl}/${id}`)
+            .then((response) => {
+              isLoading = false;
+              dispatch(createAdvertLoading(isLoading));
+              dispatch(createAdvertSuccess(response.data));
+            })
+            .catch((error) => {
+              isLoading = false;
+              dispatch(createAdvertLoading(isLoading));
+              dispatch(showAlert("Упс, что-то пошло не так"));
+            });
+        })
+        .catch((error) => {
+          dispatch(showAlert("Упс, что-то пошло не так"));
+        });
+    };
   }
-}
+};
+
+export const createAdvertSuccess = (advert) => {
+  return {
+    type: ADD_ADVERT,
+    payload: {
+      id: advert.id,
+      title: advert.title,
+      body: advert.body,
+      contact: advert.contact,
+      expDate: advert.expDate,
+      place: advert.place,
+    },
+  };
+};
+
+export const createAdvertLoading = (isLoading) => {
+  return {
+    type: ADD_ADVERT_LOADING,
+    payload: isLoading,
+  };
+};
+
+export const updateAdvertSuccess = (advert) => {
+  return {
+    type: EDIT_ADVERT,
+    payload: {
+      title: advert.title,
+      body: advert.body,
+      contact: advert.contact,
+      expDate: advert.expDate,
+      place: advert.place,
+    },
+  };
+};
+
+export const updateAdvert = (dispatch, data) => {
+  const id = data.id;
+
+  return axios
+    .put(baseUrl, data)
+    .then((response) => {
+      return axios
+        .get(`${baseUrl}/${id}`)
+        .then((response) => {
+          dispatch(updateAdvertSuccess(response.data));
+        })
+        .catch((error) => {
+          dispatch(showAlert("Упс, что-то пошло не так"));
+        });
+    })
+    .catch((error) => {
+      dispatch(showAlert("Упс, что-то пошло не так"));
+    });
+};
 
 export const deleteAdvert = (id) => {
+  return (dispatch) => {
+    return axios
+      .delete(`${baseUrl}/${id}`)
+      .then(() => {
+        dispatch(deleteAdvertSuccess(id));
+      })
+      .catch((error) => {
+        dispatch(showAlert("Упс, что-то пошло не так"));
+      });
+  };
+};
+
+export const deleteAdvertSuccess = (id) => {
+  return {
+    type: DELETE_ADVERT,
+    payload: {
+      id: id,
+    },
+  };
+};
+
+export const fetchAdvertsSuccess = (adverts) => {
+  return {
+    type: FETCH_ADVERTS,
+    payload: adverts,
+  };
+};
+
+const fetchAllAdvertsLoading = (isLoading) => {
+  return {
+    type: FETCH_ADVERTS_LOADING,
+    payload: isLoading,
+  };
+};
+
+export const fetchAllAdverts = () => {
+  let isLoading = true;
+
   return async (dispatch) => {
-    await axios.delete(`http://localhost:5000/api/adverts${id}`)
-    dispatch(deleteAd(id))
-  }
-}
+    if (isLoading) {
+      dispatch(fetchAllAdvertsLoading(isLoading));
+    }
+
+    return await axios
+      .get(baseUrl)
+      .then((response) => {
+        isLoading = false;
+        dispatch(fetchAllAdvertsLoading(isLoading));
+        const data = response.data;
+        dispatch(fetchAdvertsSuccess(data));
+      })
+      .catch((error) => {
+        isLoading = false;
+        dispatch(fetchAllAdvertsLoading(isLoading));
+        dispatch(showAlert("Упс, что-то пошло не так"));
+      });
+  };
+};
+
+export const fetchCurrentAdverts = () => {
+  let isLoading = true;
+
+  return async (dispatch) => {
+    if (isLoading) {
+      dispatch(fetchAllAdvertsLoading(isLoading));
+    }
+
+    return await axios
+      .get(`${baseUrl}/current`)
+      .then((response) => {
+        isLoading = false;
+        dispatch(fetchAllAdvertsLoading(isLoading));
+        const data = response.data;
+        dispatch(fetchAdvertsSuccess(data));
+      })
+      .catch((error) => {
+        isLoading = false;
+        dispatch(fetchAllAdvertsLoading(isLoading));
+        dispatch(showAlert("Упс, что-то пошло не так"));
+      });
+  };
+};

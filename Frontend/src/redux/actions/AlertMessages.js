@@ -1,4 +1,4 @@
-import { SHOW_ALERT, HIDE_ALERT } from '../reducers/actionTypes';
+import { SHOW_ALERT, HIDE_ALERT } from './actionTypes';
 
 export function showAlert(text) {
   return dispatch => {
