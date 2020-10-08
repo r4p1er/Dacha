@@ -23,6 +23,9 @@ const AccountItem = ({
         <td>
           <span onClick={() => {onDelete(id)}}>Удалить</span>
         </td>
+        <td>
+          <span onClick={() => {onDelete(id)}}>Изменить</span>
+        </td>
       </tr>
     </>
   );

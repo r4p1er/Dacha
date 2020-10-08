@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { Button, Modal, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAccount, fetchAllAccounts } from "../../../../redux/actions/accounts";
 import AccountItem from "./AccountItem";
+import CreateAccount from "./CreateAccounts";
 
 const Accounts = () => {
   const dispatch = useDispatch();
@@ -11,10 +12,11 @@ const Accounts = () => {
   }, []);
   const accounts = useSelector((state) => state.accounts.accounts);
   const onDelete = (id) => dispatch(deleteAccount(id));
-
+  console.log(accounts);
   return (
     <>
       <h2>Аккаунты</h2>
+      <CreateAccount />
         <Table size="sm" striped bordered hover>
           <thead>
             <tr>

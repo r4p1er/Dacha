@@ -15,9 +15,13 @@ export const createAccount = (account) => {
   if (account.id) {
     const data = {
       id: account.id,
-      firstName: account.firstName,
-      secondName: account.secondName,
+      login: account.login,
+      password: account.password,
       lastName: account.lastName,
+      name: account.name,
+      middleName: account.middleName,
+      place: account.place,
+      roleId: account.roleId,
     };
 
     return (dispatch) => {
@@ -25,9 +29,13 @@ export const createAccount = (account) => {
     };
   } else {
     const data = {
-      firstName: account.firstName,
-      secondName: account.secondName,
+      login: account.login,
+      password: account.password,
       lastName: account.lastName,
+      name: account.name,
+      middleName: account.middleName,
+      place: account.place,
+      roleId: account.roleId,
     };
     let isLoading = true;
 
@@ -66,9 +74,12 @@ export const createAccountSuccess = (account) => {
     type: ADD_ACCOUNT,
     payload: {
       id: account.id,
-      firstName: account.firstName,
-      secondName: account.secondName,
+      login: account.login,
       lastName: account.lastName,
+      name: account.name,
+      middleName: account.middleName,
+      place: account.place,
+      roleId: account.roleId,
     },
   };
 };

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Col } from "react-bootstrap";
 import { showAlert } from "../../../../redux/actions/AlertMessages";
 import { createAccount } from "../../../../redux/actions/accounts";
 import { AlertMessage } from "../../../Alerts/Alert";
@@ -15,7 +15,7 @@ class CreateAccount extends Component {
       name: "",
       middleName: "",
       place: "",
-      roleId: "",
+      roleId: 1,
     };
   }
 
@@ -30,14 +30,37 @@ class CreateAccount extends Component {
     const place = this.state.place;
     const roleId = this.state.roleId;
 
-    if (login === "" || password === "" || lastName === "" || name === "" || middleName === "" || place === "" || roleId === "") {
+    const submitData = {
+      login: login,
+      password: password,
+      lastName: lastName,
+      name: name,
+      middleName: middleName,
+      place: +place,
+      roleId: +roleId,
+    }
+
+    console.log(submitData);
+
+    if (
+      login === "" ||
+      password === "" ||
+      lastName === "" ||
+      name === "" ||
+      middleName === "" ||
+      place === ""
+    ) {
       return this.props.showAlert("Заполните форму");
     }
-    this.props.createAccount(this.state);
+    this.props.createAccount(submitData);
     this.setState({
-      title: "",
-      body: "",
-      date: "",
+      login: "",
+      password: "",
+      lastName: "",
+      name: "",
+      middleName: "",
+      place: "",
+      roleId: 1,
     });
   };
 
@@ -51,40 +74,103 @@ class CreateAccount extends Component {
     }));
   };
   render() {
-    const { title, body } = this.state;
+    const {
+      login,
+      password,
+      lastName,
+      name,
+      middleName,
+      place,
+      roleId,
+    } = this.state;
 
     return (
-      <Form onSubmit={this.onSubmit}>
-        {this.props.alert && <AlertMessage text={this.props.alert} />}
-        <Form.Group>
-          <Form.Label className="mb-1">Введите заголовок новости</Form.Label>
-          <Form.Control
-            placeholder="Максимум 50 символов"
-            field="title"
-            value={title}
-            maxLength="50"
-            name="title"
-            onChange={this.onChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label className="mb-1">Введите текст новости</Form.Label>
-          <Form.Control
-            style={{ resize: "none" }}
-            placeholder="Максимум 1500 символов"
-            as="textarea"
-            rows="8"
-            field="body"
-            value={body}
-            maxLength="1500"
-            name="body"
-            onChange={this.onChange}
-          />
-        </Form.Group>
-        <Button variant="outline-primary" type="submit">
-          Создать новость
-        </Button>
-      </Form>
+      <>
+        <Form onSubmit={this.onSubmit} className="create-acc-form">
+          {this.props.alert && <AlertMessage text={this.props.alert} />}
+          <Form.Row>
+            <Col>
+              <Form.Group controlId="formGridLogin">
+                <Form.Label>Логин</Form.Label>
+                <Form.Control
+                  value={login}
+                  onChange={this.onChange}
+                  name="login"
+                  placeholder="Введите логин"
+                />
+              </Form.Group>
+
+              <Form.Group controlId="RoleId">
+                <Form.Label>Роль</Form.Label>
+                <Form.Control
+                  onChange={this.onChange}
+                  name="roleId"
+                  as="select"
+                >
+                  <option value={1}>Пользователь</option>
+                  <option value={2}>Модератор</option>
+                  <option value={3}>Админ</option>
+                </Form.Control>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="formGridPassword">
+                <Form.Label>Пароль</Form.Label>
+                <Form.Control
+                  value={password}
+                  onChange={this.onChange}
+                  name="password"
+                  type="password"
+                  placeholder="Введите пароль"
+                />
+              </Form.Group>
+              <Form.Group controlId="place">
+                <Form.Label>Участок</Form.Label>
+                <Form.Control
+                  value={place}
+                  onChange={this.onChange}
+                  name="place"
+                />
+              </Form.Group>
+            </Col>
+          </Form.Row>
+          <Form.Row>
+            <Form.Group as={Col} controlId="lastName">
+              <Form.Label>Фамилия</Form.Label>
+              <Form.Control
+                value={lastName}
+                onChange={this.onChange}
+                name="lastName"
+                placeholder="Введите фамилию"
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="name">
+              <Form.Label>Имя</Form.Label>
+              <Form.Control
+                value={name}
+                onChange={this.onChange}
+                name="name"
+                placeholder="Введите имя"
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="middleName">
+              <Form.Label>Отчество</Form.Label>
+              <Form.Control
+                value={middleName}
+                onChange={this.onChange}
+                name="middleName"
+                placeholder="Введите отчество"
+              />
+            </Form.Group>
+          </Form.Row>
+
+          <Button variant="primary" type="submit">
+            Создать аккаунт
+          </Button>
+        </Form>
+      </>
     );
   }
 }
