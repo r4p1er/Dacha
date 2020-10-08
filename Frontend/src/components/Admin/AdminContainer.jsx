@@ -1,34 +1,37 @@
 import React from "react";
-import { Button, ButtonGroup, Dropdown, DropdownButton } from "react-bootstrap";
-import Switch from "react-bootstrap/esm/Switch";
-import { Link, Route } from "react-router-dom";
-import "./AdminContainer.css";
+import { ButtonGroup, Col, Container, Row } from "react-bootstrap";
+import { Link, Outlet } from "react-router-dom";
 
 const AdminContainer = () => {
   return (
-    <>
-      <h1>Администрирование сайта</h1>
-      <ButtonGroup vertical size="lg">
-        <Button>
-          <Link to="/a">Новости</Link>
-        </Button>
-        <Button>
-          <Link>Объявления</Link>
-        </Button>
-        <Button>
-          <Link>Документы</Link>
-        </Button>
-        <Button>
-          <Link>Голосование</Link>
-        </Button>
-        <Button>
-          <Link>Профили</Link>
-        </Button>
-      </ButtonGroup>
-        <Switch>
-            <Route/>
-        </Switch>
-    </>
+    <Container fluid>
+      <Row className="text-center">
+        <Col col="true" xl={1} lg={1} md={2} sm={3} xs={12}>
+          <ButtonGroup vertical size="lg">
+            <Link className="btn btn-primary" to="/admin/news">
+              Новости
+            </Link>
+            <Link className="btn btn-primary" to="/admin/adverts">
+              Объявления
+            </Link>
+            <Link className="btn btn-primary" to="/admin/documents">
+              Документы
+            </Link>
+            <Link className="btn btn-primary" to="/admin/vote">
+              Голосование
+            </Link>
+            <Link className="btn btn-primary" to="/admin/profiles">
+              Профили
+            </Link>
+          </ButtonGroup>
+        </Col>
+
+        <Col col="true" xl={11} lg={11} md={10} sm={9} xs={12}>
+          <h1>Администрирование сайта</h1>
+          <Outlet />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

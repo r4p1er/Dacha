@@ -1,37 +1,36 @@
-import { GET_ADVERTS, ADD_ADVERTS, DELETE_ADVERTS, CHANGE_ADVERTS } from "./actionTypes";
+import {
+  ADD_ADVERT_LOADING,
+  ADD_ADVERT,
+  EDIT_ADVERT,
+  DELETE_ADVERT,
+  FETCH_ADVERTS,
+  FETCH_ADVERTS_LOADING
+} from "../actions/actionTypes"
+
 const initialState = {
-  items: []
+  adverts: [],
+  isLoading: true
 };
 
-export function advertsReducer(state=initialState, action){
-  switch(action.type){
-    
-    case GET_ADVERTS:
-      return {
-        ...state,
-        items: action.payload
-      }
-
-    case ADD_ADVERTS:
-      return {
-        ...state,
-        items: state.items.concat([action.payload])
-      }
-
-    case DELETE_ADVERTS:
-      return state.filter(item => item.id !== action.adId);
-
-    case CHANGE_ADVERTS:
-      return state.map(item => {
-        if (item.id === action.advert.id ) return action.advert;
-        return item;
-      })
-      
-    default: return state;
-  };
+const advertsReducer = (state = initialState, action) => {    
+  switch(action.type) {
+      case ADD_ADVERT:            
+          return { ...state, adverts: [ ...state.adverts, action.payload ]}; 
+      case ADD_ADVERT_LOADING:
+          return { ...state, isLoading: action.payload }         
+      case EDIT_ADVERT:            
+          const updatedAdverts = state.adverts.filter(advert => advert.id !== action.payload.id);    
+          return { ...state, adverts: [...updatedAdverts, action.payload ]};   
+      case DELETE_ADVERT:
+          const filteredAdverts = state.adverts.filter(advert => advert.id !== action.payload.id);
+          return { ...state, adverts: filteredAdverts };
+      case FETCH_ADVERTS:  
+          return { ...state, adverts: action.payload }
+      case FETCH_ADVERTS_LOADING:
+          return { ...state, isLoading: action.payload }
+      default:
+          return state;
+  }
 };
 
-export const setAd = (adverts) => ({type:GET_ADVERTS, payload:adverts})
-export const addAd = (adverts) => ({type:ADD_ADVERTS, payload:adverts})
-export const changeAd = (advert) => ({type:CHANGE_ADVERTS, payload:advert})
-export const deleteAd = (adId) => ({type:DELETE_ADVERTS, payload:adId})
+export default advertsReducer;

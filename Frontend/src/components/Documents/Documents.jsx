@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDocuments } from "../../redux/actions/documents";
-import fileDownload from 'js-file-download';
+import fileDownload from "js-file-download";
 import { Button, Container, Form, FormControl } from "react-bootstrap";
 
 const Documents = () => {
@@ -46,21 +46,25 @@ const Documents = () => {
             Загрузить документ
           </Button>
         </Form>
-        {documents.map((doc) => <Button key={doc.id} variant="primary"
+        {documents.map((doc) => (
+          <Button
+            key={doc.id}
+            variant="primary"
             onClick={() => {
-              axios.get(`http://localhost:5000/api/documents/${doc.id}`, {
-                  responseType: 'blob',
-                  headers: { Authorization: AuthStr },                  
-                })                
+              axios
+                .get(`http://localhost:5000/api/documents/${doc.id}`, {
+                  responseType: "blob",
+                  headers: { Authorization: AuthStr },
+                })
                 .then((response) => {
-                  console.log(response)
+                  console.log(response);
                   fileDownload(response.data, `${doc.name}`);
                 });
             }}
           >
             {doc.name}
           </Button>
-        )}
+        ))}
       </Container>
     </>
   );

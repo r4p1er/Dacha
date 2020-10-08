@@ -1,5 +1,5 @@
-import setAuthorizationToken from "../../utils/axios";
-import { SET_CURRENT_USER } from "../reducers/actionTypes";
+import setAuthorizationToken from "../../utils/setAuthToken";
+import { SET_CURRENT_USER } from "./actionTypes";
 import jwt from "jsonwebtoken";
 import { showAlert } from "./AlertMessages";
 import axios from "axios";
@@ -29,8 +29,10 @@ export function login(data) {
         setAuthorizationToken(token);
         dispatch(setCurrentUser(jwt.decode(token)));
       });
-    } catch (e) {
-      dispatch(showAlert("Неверный логин или пароль"));
+    } catch (error) {
+      if (error.response.status === 400) {
+        dispatch(showAlert("Неверный логин или пароль"));
+      }
     }
   };
 }

@@ -1,76 +1,62 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions/authActions";
-import { showAlert } from "../../redux/actions/AlertMessages";
 import { Form, Button, Container, Image } from "react-bootstrap";
 import logo from "./../../additions/logo_dark.png";
-import style from "./loginPage.module.css";
+// import style from "./loginPage.module.css";
 import { AlertMessage } from "../Alerts/Alert";
+import { useNavigate } from "react-router-dom";
 
-class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      login: "",
-      password: "",
-    };
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onSubmit(e) {
+const LoginForm = () => {
+  const alert = useSelector((state) => state.app.alert);
+  const dispatch = useDispatch();
+  const history = useNavigate();
+  const [state, setState] = useState({
+    login: "",
+    password: "",
+  });
+  const onSubmit = (e) => {
     e.preventDefault();
-    this.props.login(this.state).then(res => {
-      return (
-        this.props.history.push('/')
-      )
-    })
-  }
-
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-  render() {
-    const { login, password } = this.state;
-    return (
-      <Container fluid className={style.wrapper}>
-        <Form className={style.form} onSubmit={this.onSubmit}>
-          <Image src={logo} width="200" height="70" className="mb-4" />
-          <h3 className="mb-3 font-weight-normal">Вход</h3>
-          {this.props.alert && <AlertMessage text={this.props.alert} />}
-          <Form.Control
-            className={style.formControl}
-            placeholder="Введите номер участка"
-            field="login"
-            value={login}
-            name="login"
-            onChange={this.onChange}
-          />
-          <Form.Control
-            className={style.formControl}
-            type="password"
-            placeholder="Введите пароль"
-            field="password"
-            name="password"
-            value={password}
-            onChange={this.onChange}
-          />
-          <Button variant="primary" size="lg" type="submit" block>
-            Войти
-          </Button>
-        </Form>
-      </Container>
-    );
-  }
-}
-
-const mapDispatchToProps = {
-  login,
-  showAlert,
+    dispatch(login(state)).then((res) => {
+      return history("/");
+    });
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  return (
+    <Container fluid className="login_wrapper">
+      <Form className="form" onSubmit={onSubmit}>
+        <Image src={logo} width="200" height="70" className="mb-4" />
+        <h3 className="mb-3 font-weight-normal">Вход</h3>
+        {alert && <AlertMessage text={alert} />}
+        <Form.Control
+          placeholder="Введите номер участка"
+          field="login"
+          maxLength="10"
+          value={state.login}
+          name="login"
+          onChange={handleChange}
+        />
+        <Form.Control
+          type="password"
+          placeholder="Введите пароль"
+          field="password"
+          maxLength="16"
+          name="password"
+          value={state.password}
+          onChange={handleChange}
+        />
+        <Button variant="primary" size="lg" type="submit" block>
+          Войти
+        </Button>
+      </Form>
+    </Container>
+  );
 };
 
-const mapStateToProps = (state) => ({
-  alert: state.app.alert,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;

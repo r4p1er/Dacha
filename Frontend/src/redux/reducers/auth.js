@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from "./actionTypes";
+import { SET_CURRENT_USER } from "../actions/actionTypes";
 import isEmpty from "lodash/isEmpty";
 
 const initialState = {
@@ -7,6 +7,7 @@ const initialState = {
     name: "",
     role: ""
   },
+  isLoading: false
 };
 
 export function auth(state = initialState, action = {}) {

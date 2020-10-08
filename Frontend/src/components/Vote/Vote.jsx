@@ -8,6 +8,6 @@ const Vote = () => {
       </Container>
     </>
   );
-}
+};
 
 export default Vote;

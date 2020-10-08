@@ -32,11 +32,11 @@ const AdCard = ({ title, body, contact, place }) => {
         </Modal.Body>
         <Modal.Footer className="justify-content-start">
           <Row className="w-100">
-            <Col col='true'>
+            <Col col="true">
               <span className="mr-2">Контакты:</span>
               <span>{contact}</span>
             </Col>
-            <Col col='true'>
+            <Col col="true">
               <span>Участок №</span>
               <span>{place}</span>
             </Col>

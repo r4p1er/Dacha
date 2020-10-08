@@ -1,90 +1,85 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Route, Redirect, Switch } from "react-router-dom";
+import React from "react";
+import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import "./app.scss";
 import {
-  Header,
-  Login,
-  Home,
-  Adverts,
-  Documents,
-  Vote,
-  NotFound,
+  AdminAds,
+  AdminDocs,
+  AdminNews,
+  AdminProfiles,
+  AdminVote,
+} from "./components/Admin/components/index";
+import {
   Admin,
+  Adverts,
+  AdvertsContainer,
+  CurrentAdverts,
+  Documents,
+  Header,
+  Home,
+  Login,
+  NotFound,
+  Vote,
 } from "./components/index";
 
-const App = (props) => {
-  const { isAuthenticated } = props.auth;
-  const role = props.auth.user.role;
-
-  const [showHeader, setShowHeader] = useState(false);
-
-  function isNotFound(e) {
-    return setShowHeader(e);
-  }
-
+function App(props) {
+  const authState = useSelector((state) => state.auth);
+  const role = authState.user.role;
+  const { isAuthenticated } = authState;
+  const NotFoundRedirect = () => <Navigate to="/not-found" />;
+  const showHeader = (location) => {
+    return !(
+      location === "/not-found" ||
+      location === "/signin" ||
+      location === "/loading"
+    );
+  };
+  const PrivateRoute = () => {
+    if (!isAuthenticated) {
+      return <Navigate to="/signin" />;
+    }
+    return <Outlet />;
+  };
   return (
     <>
-      {!showHeader ? isAuthenticated ? <Header /> : <div></div> : <div></div>}
-      <Switch>
+      {showHeader(useLocation().pathname) ? (
+        isAuthenticated ? (
+          <Header />
+        ) : null
+      ) : null}
+      <Routes>
         <Route
-          exact
           path="/signin"
-          render={(props) =>
-            isAuthenticated ? <NotFound isNotFound={isNotFound} /> : <Login {...props}/>
-          }
+          element={isAuthenticated ? <NotFound /> : <Login />}
         />
-        <Route
-          exact
-          path="/"
-          render={() =>
-            isAuthenticated ? <Home isNotFound={isNotFound}/> : <Redirect to="/signin" />
-          }
-        />
-        <Route
-          exact
-          path="/adverts"
-          render={() =>
-            isAuthenticated ? <Adverts /> : <Redirect to="/signin" />
-          }
-        />
-        <Route
-          exact
-          path="/current_adverts"
-          render={() =>
-            isAuthenticated ? <Adverts /> : <Redirect to="/signin" />
-          }
-        />
-        <Route
-          exact
-          path="/documents"
-          render={() =>
-            isAuthenticated ? <Documents /> : <Redirect to="/signin" />
-          }
-        />
-        <Route
-          exact
-          path="/vote"
-          render={() =>
-            isAuthenticated ? <Vote /> : <Redirect to="/signin" />
-          }
-        />
-        <Route
-          exact
-          path="/admin"
-          render={() =>
-            role === "admin" || role === "moder" ? isAuthenticated ? <Admin /> : <Redirect to="/signin" /> : null
-          }
-        />
-        <Route render={() => <NotFound isNotFound={isNotFound} />} />
-      </Switch>
+        <Route path="/" element={<PrivateRoute />}>
+          <Route exact path="/" element={<Home />} />
+
+          <Route path="/adverts" element={<AdvertsContainer />}>
+            <Route path="/" element={<Adverts />} />
+            <Route path="/current_adverts" element={<CurrentAdverts />} />
+          </Route>
+
+          <Route path="/documents" element={<Documents />} />
+
+          <Route path="/vote" element={<Vote />} />
+
+          <Route
+            path="/admin"
+            element={role === "admin" || role === "moder" ? <Admin /> : null}
+          >
+            <Route path="/news" element={<AdminNews />} />
+            <Route path="/adverts" element={<AdminAds />} />
+            <Route path="/documents" element={<AdminDocs />} />
+            <Route path="/vote" element={<AdminVote />} />
+            <Route path="/profiles" element={<AdminProfiles />} />
+          </Route>
+        </Route>
+        <Route path="/not-found" element={<NotFound />} />
+        <Route path="/*" element={<NotFoundRedirect />} />
+      </Routes>
     </>
   );
-};
+}
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth,
-  };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;

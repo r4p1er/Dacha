@@ -1,5 +1,6 @@
 const initialState = {
   vote: [],
+  isLoading: false
 };
 
 export default (state = initialState, action) => {
