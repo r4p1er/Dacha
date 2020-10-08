@@ -64,13 +64,22 @@ namespace Dacha.Controllers
                 return BadRequest();
             }
 
-            if((await db.News.FindAsync(id)) == null)
+            try
             {
-                return NotFound();
+                db.News.Update(news);
+                await db.SaveChangesAsync();
             }
-
-            db.News.Update(news);
-            await db.SaveChangesAsync();
+            catch (DbUpdateConcurrencyException)
+            {
+                if ((await ExistsAsync(id)) == false)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return NoContent();
         }
@@ -91,5 +100,7 @@ namespace Dacha.Controllers
 
             return news;
         }
+
+        private async Task<bool> ExistsAsync(int id) => await db.News.AnyAsync(e => e.Id == id);
     }
 }
