@@ -19,6 +19,7 @@ export const createAdvert = (advert) => {
       body: advert.body,
       contact: advert.contact,
       expDate: advert.expDate,
+      profileId: advert.profileId,
     };
 
     return (dispatch) => {
@@ -91,7 +92,7 @@ export const updateAdvertSuccess = (advert) => {
       body: advert.body,
       contact: advert.contact,
       expDate: advert.expDate,
-      place: advert.place,
+      profileId: advert.profileId,
     },
   };
 };
@@ -100,7 +101,7 @@ export const updateAdvert = (dispatch, data) => {
   const id = data.id;
 
   return axios
-    .put(baseUrl, data)
+    .put(`${baseUrl}/${id}`, data)
     .then((response) => {
       return axios
         .get(`${baseUrl}/${id}`)
@@ -113,6 +114,7 @@ export const updateAdvert = (dispatch, data) => {
     })
     .catch((error) => {
       dispatch(showAlert("Упс, что-то пошло не так"));
+      console.log(error);
     });
 };
 

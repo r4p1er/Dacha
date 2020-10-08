@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCurrentAdverts } from "../../redux/actions/adverts";
+import { deleteAdvert, fetchCurrentAdverts } from "../../redux/actions/adverts";
 import AdCard from "./AdCard";
 
 const CurrentAdverts = () => {
@@ -11,13 +11,16 @@ const CurrentAdverts = () => {
     dispatch(fetchCurrentAdverts());
   }, []);
 
+  const onDelete = (id) => dispatch(deleteAdvert(id));
+
   return (
     <>
       {!adverts.length ? (
         <h3>У вас нет объявлений</h3>
       ) : (
-        adverts.map((ad) => <AdCard key={ad.id} {...ad} />)
+        adverts.reverse().map((ad) => <AdCard key={ad.id} onDelete={onDelete} {...ad}  />)
       )}
+      
     </>
   );
 };
