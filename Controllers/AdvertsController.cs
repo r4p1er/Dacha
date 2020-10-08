@@ -109,18 +109,27 @@ namespace Dacha.Controllers
                 return BadRequest();
             }
 
-            if((await db.Adverts.FindAsync(id)) == null)
-            {
-                return NotFound();
-            }
-
             if(advert.ProfileId != (await db.Accounts.FirstOrDefaultAsync(x => x.Id.ToString() == User.FindFirstValue(ClaimTypes.NameIdentifier))).ProfileId)
             {
                 return Forbid();
             }
 
-            db.Adverts.Update(advert);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Adverts.Update(advert);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if((await ExistsAsync(id)) == false)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return NoContent();
         }
@@ -146,5 +155,7 @@ namespace Dacha.Controllers
 
             return new AdvertGet { Id = advert.Id, Title = advert.Title, Body = advert.Body, Contact = advert.Contact, Place = advert.Profile.Place };
         }
+
+        private async Task<bool> ExistsAsync(int id) => await db.Adverts.AnyAsync(e => e.Id == id);
     }
 }

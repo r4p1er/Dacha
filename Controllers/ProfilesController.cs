@@ -75,11 +75,6 @@ namespace Dacha.Controllers
                 return BadRequest();
             }
 
-            if((await db.Profiles.FindAsync(id)) == null)
-            {
-                return NotFound();
-            }
-
             var profileRole = await db.Roles.FindAsync(profile.RoleId);
 
             if(profileRole == null)
@@ -92,8 +87,22 @@ namespace Dacha.Controllers
                 return Forbid();
             }
 
-            db.Profiles.Update(profile);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Update(profile);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if((await ExistsAsync(id)) == false)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return NoContent();
         }
@@ -118,5 +127,7 @@ namespace Dacha.Controllers
 
             return profile;
         }
+
+        private async Task<bool> ExistsAsync(int id) => await db.Profiles.AnyAsync(e => e.Id == id);
     }
 }
