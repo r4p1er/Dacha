@@ -30,7 +30,7 @@ namespace Dacha.Controllers
             db.Adverts.RemoveRange(adverts);
             await db.SaveChangesAsync();
 
-            var selectedAdverts = await db.Adverts.Include(x => x.Profile).Select(x => new AdvertGet(x)).ToListAsync();
+            var selectedAdverts = await db.Adverts.Include(x => x.Account).Select(x => new AdvertGet(x)).ToListAsync();
 
             return selectedAdverts;
         }
@@ -39,7 +39,7 @@ namespace Dacha.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AdvertGet>> Get(int id)
         {
-            var advert = await db.Adverts.Include(x => x.Profile).FirstOrDefaultAsync(x => x.Id == id);
+            var advert = await db.Adverts.Include(x => x.Account).FirstOrDefaultAsync(x => x.Id == id);
 
             if(advert == null)
             {
@@ -61,14 +61,13 @@ namespace Dacha.Controllers
         public async Task<ActionResult<IEnumerable<AdvertGet>>> GetCurrent()
         {
             int accountId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var profile = (await db.Accounts.Include(x => x.Profile).FirstOrDefaultAsync(x => x.Id == accountId)).Profile;
 
             var adverts = await db.Adverts.Where(x => x.ExpDate <= DateTime.Now).ToListAsync();
             db.Adverts.RemoveRange(adverts);
             await db.SaveChangesAsync();
 
-            var selectedAdverts = await db.Adverts.Include(x => x.Profile)
-                                                  .Where(x => x.ProfileId == profile.Id)
+            var selectedAdverts = await db.Adverts.Include(x => x.Account)
+                                                  .Where(x => x.AccountId == accountId)
                                                   .Select(x => new AdvertGet(x))
                                                   .ToListAsync();
 
@@ -79,16 +78,16 @@ namespace Dacha.Controllers
         [HttpPost]
         public async Task<ActionResult<Advert>> Post(Advert advert)
         {
-            var userProfileId = (await db.Accounts.FindAsync(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))).ProfileId;
+            var userAccountId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             advert.Id = default;
-            advert.ProfileId = userProfileId;
+            advert.AccountId = userAccountId;
             await db.Adverts.AddAsync(advert);
             await db.SaveChangesAsync();
             advert = await db.Adverts.FirstOrDefaultAsync(x => x.Title == advert.Title && x.Body == advert.Body
                                                                                        && x.Contact == advert.Contact 
                                                                                        && x.ExpDate == advert.ExpDate 
-                                                                                       && x.ProfileId == advert.ProfileId);
+                                                                                       && x.AccountId == advert.AccountId);
 
             return CreatedAtAction(nameof(Get), new { id = advert.Id }, advert);
         }
@@ -102,7 +101,7 @@ namespace Dacha.Controllers
                 return BadRequest();
             }
 
-            if(advert.ProfileId != (await db.Accounts.FirstOrDefaultAsync(x => x.Id.ToString() == User.FindFirstValue(ClaimTypes.NameIdentifier))).ProfileId)
+            if(advert.AccountId != int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
             {
                 return Forbid();
             }
@@ -131,14 +130,14 @@ namespace Dacha.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<AdvertGet>> Delete(int id)
         {
-            var advert = await db.Adverts.Include(x => x.Profile).FirstOrDefaultAsync(x => x.Id == id);
+            var advert = await db.Adverts.Include(x => x.Account).FirstOrDefaultAsync(x => x.Id == id);
 
             if(advert == null)
             {
                 return NotFound();
             }
 
-            if(User.IsInRole("user") && advert.ProfileId != (await db.Accounts.FirstOrDefaultAsync(x => x.Id.ToString() == User.FindFirstValue(ClaimTypes.NameIdentifier))).ProfileId)
+            if(User.IsInRole("user") && advert.AccountId != int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
             {
                 return Forbid();
             }

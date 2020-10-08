@@ -41,21 +41,21 @@ namespace Dacha.Controllers
         [HttpPost]
         public async Task<ActionResult<Account>> Post(Account account)
         {
-            var profile = await db.Profiles.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == account.ProfileId);
+            var role = await db.Roles.FindAsync(account.RoleId);
 
-            if(profile == null)
+            if(role == null)
             {
                 return BadRequest();
             }
 
-            if(User.IsInRole("moder") && profile.Role.Name != "user")
+            if(User.IsInRole("moder") && role.Name != "user")
             {
                 return Forbid();
             }
             
             await db.Accounts.AddAsync(account);
             await db.SaveChangesAsync();
-            account = await db.Accounts.FirstOrDefaultAsync(x => x.Login == account.Login && x.Password == account.Password && x.ProfileId == account.ProfileId);
+            account = await db.Accounts.FirstOrDefaultAsync(x => x.Login == account.Login && x.Password == account.Password && x.Place == account.Place);
 
             return CreatedAtAction(nameof(Get), new { id = account.Id }, account);
         }
@@ -74,14 +74,14 @@ namespace Dacha.Controllers
                 return Forbid();
             }
 
-            var profile = await db.Profiles.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == account.ProfileId);
+            var role = await db.Roles.FindAsync(account.RoleId);
 
-            if (profile == null)
+            if (role == null)
             {
                 return BadRequest();
             }
 
-            if (!User.IsInRole("admin") && profile.Role.Name != "user")
+            if (!User.IsInRole("admin") && role.Name != "user")
             {
                 return Forbid();
             }
@@ -110,14 +110,14 @@ namespace Dacha.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Account>> Delete(int id)
         {
-            var account = await db.Accounts.Include(x => x.Profile).ThenInclude(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
+            var account = await db.Accounts.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
 
             if(account == null)
             {
                 return NotFound();
             }
 
-            if(User.IsInRole("moder") && account.Profile.Role.Name != "user")
+            if(User.IsInRole("moder") && account.Role.Name != "user")
             {
                 return Forbid();
             }

@@ -53,13 +53,13 @@ namespace Dacha.Controllers
 
         private async Task<ClaimsIdentity> GetIdentity(string username, string password)
         {
-            var account = await db.Accounts.Include(x => x.Profile).ThenInclude(x => x.Role).FirstOrDefaultAsync(x => x.Login == username && x.Password == password);
+            var account = await db.Accounts.Include(x => x.Role).FirstOrDefaultAsync(x => x.Login == username && x.Password == password);
             if(account != null)
             {
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, username),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, account.Profile.Role.Name),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, account.Role.Name),
                     new Claim(ClaimTypes.NameIdentifier, account.Id.ToString())
                 };
                 return new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

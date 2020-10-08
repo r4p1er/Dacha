@@ -9,7 +9,6 @@ namespace Dacha.Models
     public class ApplicationContext : DbContext
     {
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Profile> Profiles { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Advert> Adverts { get; set; }
@@ -25,8 +24,18 @@ namespace Dacha.Models
                     new Role{Id=2, Name="moder"},
                     new Role{Id=3, Name="admin"}
                 });
-            modelBuilder.Entity<Profile>().HasData(new Profile { Id = 1, Name = "admin", MiddleName = "admin", LastName = "admin", Place = 228, RoleId = 3 });
-            modelBuilder.Entity<Account>().HasData(new Account { Id = 1, Login = "admin", Password = "admin", ProfileId = 1 });
+
+            modelBuilder.Entity<Account>().HasData(new Account
+            {
+                Id = 1,
+                Login = "admin",
+                Password = "admin",
+                Name = "Rapier",
+                MiddleName = "M1xa4kala",
+                LastName = "Neef4",
+                Place = 228,
+                RoleId = 3
+            });
         }
     }
 }

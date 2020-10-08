@@ -22,8 +22,8 @@ namespace Dacha.Models
         [Required]
         public DateTime ExpDate { get; set; }
 
-        public int ProfileId { get; set; }
+        public int AccountId { get; set; }
         [JsonIgnore]
-        public Profile Profile { get; set; }
+        public Account Account { get; set; }
     }
 }
