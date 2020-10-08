@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
+import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAdvert, fetchCurrentAdverts } from "../../redux/actions/adverts";
 import AdCard from "./AdCard";
@@ -15,12 +16,15 @@ const CurrentAdverts = () => {
 
   return (
     <>
-      {!adverts.length ? (
-        <h3>У вас нет объявлений</h3>
-      ) : (
-        adverts.reverse().map((ad) => <AdCard key={ad.id} onDelete={onDelete} {...ad}  />)
-      )}
-      
+      <Container fluid className="text-center">
+        {!adverts.length ? (
+          <h3>У вас нет объявлений</h3>
+        ) : (
+          adverts
+            .reverse()
+            .map((ad) => <AdCard key={ad.id} onDelete={onDelete} {...ad} />)
+        )}
+      </Container>
     </>
   );
 };

@@ -12,6 +12,7 @@ const AdCard = ({ title, body, contact, place, id, onDelete, expDate, profileId 
 
   const handleCloseFullAd = () => setshowFullAd(false);
   const handleShowFullAd = () => setshowFullAd(true);
+
   return (
     <Col col="true" xl={3} lg={4} md={6} sm={6} xs={12}>
       <Card>
@@ -83,7 +84,6 @@ const AdCard = ({ title, body, contact, place, id, onDelete, expDate, profileId 
             title={title}
             body={body}
             contact={contact}
-            expDate={expDate}
             profileId={profileId}
             handleCloseAdvertUpadate={handleCloseAdvertUpadate}
           />

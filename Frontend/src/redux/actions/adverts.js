@@ -34,12 +34,12 @@ export const createAdvert = (advert) => {
     };
     let isLoading = true;
 
-    return (dispatch) => {
+    return async (dispatch) => {
       if (isLoading) {
         dispatch(createAdvertLoading(isLoading));
       }
 
-      return axios
+      return await axios
         .post(baseUrl, data)
         .then((response) => {
           const id = response.data.id;
@@ -88,19 +88,20 @@ export const updateAdvertSuccess = (advert) => {
   return {
     type: EDIT_ADVERT,
     payload: {
+      id: advert.id,
       title: advert.title,
       body: advert.body,
       contact: advert.contact,
       expDate: advert.expDate,
-      profileId: advert.profileId,
+      place: advert.place,
     },
   };
 };
 
-export const updateAdvert = (dispatch, data) => {
+export const updateAdvert = async (dispatch, data) => {
   const id = data.id;
 
-  return axios
+  return await axios
     .put(`${baseUrl}/${id}`, data)
     .then((response) => {
       return axios
@@ -119,8 +120,8 @@ export const updateAdvert = (dispatch, data) => {
 };
 
 export const deleteAdvert = (id) => {
-  return (dispatch) => {
-    return axios
+  return async (dispatch) => {
+    return await axios
       .delete(`${baseUrl}/${id}`)
       .then(() => {
         dispatch(deleteAdvertSuccess(id));
