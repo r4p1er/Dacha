@@ -11,7 +11,7 @@ const Adverts = () => {
   const adverts = useSelector((state) => state.adverts.adverts);
   return (
       <>
-        {!adverts.length ? <h3>Объявления отсутствуют</h3> : adverts.map((ad) => <AdCard key={ad.id} {...ad} />)}
+        {!adverts.length ? <h3>Объявления отсутствуют</h3> : adverts.reverse().map((ad) => <AdCard key={ad.id} {...ad} />)}
       </>
   );
 };

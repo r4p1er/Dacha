@@ -57,7 +57,6 @@ const Documents = () => {
                   headers: { Authorization: AuthStr },
                 })
                 .then((response) => {
-                  console.log(response);
                   fileDownload(response.data, `${doc.name}`);
                 });
             }}

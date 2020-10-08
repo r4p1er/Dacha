@@ -1,6 +1,6 @@
 import React from "react";
 
-const AdvertItem = ({ id, index, place, title, body, contact }) => {
+const AdvertItem = ({ id, onDelete, index, place, title, body, contact }) => {
   return (
     <tr>
       <td>{index+1}</td>
@@ -8,6 +8,9 @@ const AdvertItem = ({ id, index, place, title, body, contact }) => {
       <td>{title}</td>
       <td>{body}</td>
       <td>{contact}</td>
+      <td>
+          <span onClick={() => {onDelete(id)}}>Удалить</span>
+      </td>
     </tr>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllAdverts } from "../../../../redux/actions/adverts";
+import { fetchAllAdverts, deleteAdvert } from "../../../../redux/actions/adverts";
 import AdvertItem from "./AdvertItem";
 
 const News = () => {
@@ -10,6 +10,7 @@ const News = () => {
     dispatch(fetchAllAdverts());
   }, [])
   const adverts = useSelector((state) => state.adverts.adverts);
+  const onDelete = (id) => dispatch(deleteAdvert(id));
   return (
     <>
       <h2>Объявления</h2>
@@ -21,6 +22,7 @@ const News = () => {
               <th>Заголовок</th>
               <th>Объявление</th>
               <th>Контакты</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -29,7 +31,7 @@ const News = () => {
                 <td>Объявления отсутствуют</td>
               </tr>
             ) : (
-              adverts.map((ad, index) => <AdvertItem key={ad.id} index={index} {...ad} />)
+              adverts.map((ad, index) => <AdvertItem key={ad.id} index={index} onDelete={onDelete} {...ad} />)
             )}
           </tbody>
         </Table>
