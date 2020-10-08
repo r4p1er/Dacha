@@ -6,7 +6,7 @@ import {
   AdminAds,
   AdminDocs,
   AdminNews,
-  AdminProfiles,
+  AdminAccounts,
   AdminVote,
 } from "./components/Admin/components/index";
 import {
@@ -72,7 +72,7 @@ function App(props) {
             <Route path="/adverts" element={<AdminAds />} />
             <Route path="/documents" element={<AdminDocs />} />
             <Route path="/vote" element={<AdminVote />} />
-            <Route path="/profiles" element={<AdminProfiles />} />
+            <Route path="/accounts" element={<AdminAccounts />} />
           </Route>
         </Route>
         <Route path="/not-found" element={<NotFound />} />

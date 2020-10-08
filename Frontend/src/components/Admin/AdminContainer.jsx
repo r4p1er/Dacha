@@ -20,8 +20,8 @@ const AdminContainer = () => {
             <Link className="btn btn-primary" to="/admin/vote">
               Голосование
             </Link>
-            <Link className="btn btn-primary" to="/admin/profiles">
-              Профили
+            <Link className="btn btn-primary" to="/admin/accounts">
+              Аккаунты
             </Link>
           </ButtonGroup>
         </Col>
