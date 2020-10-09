@@ -53,7 +53,7 @@ namespace Dacha.Controllers
                 return Forbid();
             }
 
-            if(string.IsNullOrWhiteSpace(accountDTO.Password))
+            if(string.IsNullOrWhiteSpace(accountDTO.Login) || string.IsNullOrWhiteSpace(accountDTO.Password))
             {
                 return BadRequest();
             }
@@ -100,6 +100,11 @@ namespace Dacha.Controllers
             if (!User.IsInRole("admin") && role.Name != "user")
             {
                 return Forbid();
+            }
+
+            if (string.IsNullOrWhiteSpace(accountDTO.Login))
+            {
+                return BadRequest();
             }
 
             var account = await db.Accounts.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
