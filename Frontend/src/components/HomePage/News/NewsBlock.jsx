@@ -9,7 +9,7 @@ const NewsBlock = () => {
   const news = useSelector((state) => state.news.news);
   useEffect(() => {
     dispatch(fetchAllNews());
-  }, []);
+  }, [dispatch]);
   return (
     <Col xl={6} lg={6} md={12} sm={12} xs={12}>
       <h2>Новости</h2>

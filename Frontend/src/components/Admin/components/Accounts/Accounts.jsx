@@ -12,7 +12,7 @@ const Accounts = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllAccounts());
-  }, []);
+  }, [dispatch]);
   const accounts = useSelector((state) => state.accounts.accounts);
   const onDelete = (id) => dispatch(deleteAccount(id));
   return (

@@ -11,7 +11,7 @@ const Documents = () => {
   const documents = useSelector((state) => state.docs.items);
   useEffect(() => {
     dispatch(getDocuments());
-  }, []);
+  }, [dispatch]);
 
   const token = localStorage.jwtToken;
   const AuthStr = "Bearer ".concat(token);

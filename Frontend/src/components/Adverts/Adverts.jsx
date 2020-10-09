@@ -8,7 +8,7 @@ const Adverts = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllAdverts());
-  }, []);
+  }, [dispatch]);
   const adverts = useSelector((state) => state.adverts.adverts);
   return (
     <>

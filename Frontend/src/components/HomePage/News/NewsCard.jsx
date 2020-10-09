@@ -6,9 +6,9 @@ const NewsCard = ({ title, body, date }) => {
   function urlify(text) {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.split(urlRegex)
-       .map(part => {
+       .map((part, index) => {
           if(part.match(urlRegex)) {
-             return <a href={part} rel="noopener noreferrer" target="_blank">{part}</a>;
+             return <a key={index} href={part} rel="noopener noreferrer" target="_blank">{part}</a>;
           }
           return part;
        });

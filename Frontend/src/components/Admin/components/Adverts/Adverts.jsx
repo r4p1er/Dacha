@@ -8,10 +8,11 @@ import {
 import AdvertItem from "./AdvertItem";
 
 const News = () => {
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllAdverts());
-  }, []);
+  }, [dispatch]);
   const adverts = useSelector((state) => state.adverts.adverts);
   const onDelete = (id) => dispatch(deleteAdvert(id));
   return (

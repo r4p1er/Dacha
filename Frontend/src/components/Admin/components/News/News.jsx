@@ -9,7 +9,7 @@ const News = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllNews());
-  }, []);
+  }, [dispatch]);
   const news = useSelector((state) => state.news.news);
 
   const onDelete = (id) => dispatch(deleteNews(id));

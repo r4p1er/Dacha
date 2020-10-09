@@ -10,7 +10,7 @@ const CurrentAdverts = () => {
   const adverts = useSelector((state) => state.adverts.adverts);
   useEffect(() => {
     dispatch(fetchCurrentAdverts());
-  }, []);
+  }, [dispatch]);
 
   const onDelete = (id) => dispatch(deleteAdvert(id));
 
