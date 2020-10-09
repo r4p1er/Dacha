@@ -3,15 +3,18 @@ import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import UpdateAdvert from "./UpdateAdvert";
 
 const AdCard = ({ title, body, contact, place, id, onDelete, expDate, accountId }) => {
-  const [showAdvertUpdate, setshowAdvertUpadate] = useState(false);
 
+  const [showAdvertUpdate, setshowAdvertUpadate] = useState(false);
   const handleCloseAdvertUpadate = () => setshowAdvertUpadate(false);
   const handleShowAdvertUpadate = () => setshowAdvertUpadate(true);
 
   const [showFullAd, setshowFullAd] = useState(false);
-
   const handleCloseFullAd = () => setshowFullAd(false);
   const handleShowFullAd = () => setshowFullAd(true);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const handleClose = () => setShowDeleteModal(false);
+  const handleShow = () => setShowDeleteModal(true);
 
   return (
     <Col col="true" xl={3} lg={4} md={6} sm={6} xs={12}>
@@ -38,7 +41,7 @@ const AdCard = ({ title, body, contact, place, id, onDelete, expDate, accountId 
                 </Button>
               </Col>
               <Col>
-                <Button onClick={() => {onDelete(id)}} block variant="outline-primary">
+                <Button onClick={handleShow} block variant="outline-primary">
                   Удалить
                 </Button>
               </Col>
@@ -87,6 +90,14 @@ const AdCard = ({ title, body, contact, place, id, onDelete, expDate, accountId 
             accountId={accountId}
             handleCloseAdvertUpadate={handleCloseAdvertUpadate}
           />
+        </Modal.Body>
+      </Modal>
+      <Modal show={showDeleteModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Вы действительно хотите удалить</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <Button onClick={() => {onDelete(id)}} variant="outline-danger">Удалить</Button>
         </Modal.Body>
       </Modal>
     </Col>

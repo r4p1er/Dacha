@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 
 const AccountItem = ({
   id,
@@ -11,6 +12,11 @@ const AccountItem = ({
   onDelete,
 }) => {
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleClose = () => setShowDeleteModal(false);
+  const handleShow = () => setShowDeleteModal(true);
+
   return (
     <>
       <tr>
@@ -21,12 +27,20 @@ const AccountItem = ({
         <td>{place}</td>
         <td>{roleId}</td>
         <td>
-          <span onClick={() => {onDelete(id)}}>Удалить</span>
+          <span onClick={handleShow}>Удалить</span>
         </td>
         <td>
-          <span onClick={() => {onDelete(id)}}>Изменить</span>
+          {/* <span onClick={() => {onDelete(id)}}>Изменить</span> */}
         </td>
       </tr>
+      <Modal show={showDeleteModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Вы действительно хотите удалить</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <Button onClick={() => {onDelete(id)}} variant="outline-danger">Удалить</Button>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

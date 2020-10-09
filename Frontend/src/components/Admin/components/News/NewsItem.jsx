@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import UpdateNews from "./UpdateNews";
 
 const NewsItem = ({
@@ -12,8 +12,12 @@ const NewsItem = ({
 }) => {
 
   const newsDate = new Date(date).toLocaleString();
-  const [showNewsUpdate, setshowNewsUpadate] = useState(false);
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const handleClose = () => setShowDeleteModal(false);
+  const handleShow = () => setShowDeleteModal(true);
+
+  const [showNewsUpdate, setshowNewsUpadate] = useState(false);
   const handleCloseNewsUpadate = () => setshowNewsUpadate(false);
   const handleShowNewsUpadate = () => setshowNewsUpadate(true);
 
@@ -28,10 +32,17 @@ const NewsItem = ({
           <span onClick={() => {handleShowNewsUpadate()}}>Изменить</span>
         </td>
         <td>
-          <span onClick={() => {onDelete(id)}}>Удалить</span>
+          <span onClick={handleShow}>Удалить</span>
         </td>
       </tr>
-
+      <Modal show={showDeleteModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Вы действительно хотите удалить</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <Button onClick={() => {onDelete(id)}} variant="outline-danger">Удалить</Button>
+        </Modal.Body>
+      </Modal>
       <Modal show={showNewsUpdate} onHide={handleCloseNewsUpadate}>
         <Modal.Header closeButton>
           <Modal.Title>Редактирование новости</Modal.Title>
