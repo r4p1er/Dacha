@@ -13,6 +13,10 @@ const NewsItem = ({
 
   const newsDate = new Date(date).toLocaleString();
 
+  const [showFullNews, setshowFullNews] = useState(false);
+  const handleCloseFullNews = () => setshowFullNews(false);
+  const handleShowFullNews = () => setshowFullNews(true);
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const handleClose = () => setShowDeleteModal(false);
   const handleShow = () => setShowDeleteModal(true);
@@ -24,10 +28,10 @@ const NewsItem = ({
   return (
     <>
       <tr>
-        <td>{index + 1}</td>
-        <td className="table-news-title">{title}</td>
-        <td className="table-news-body">{body}</td>
-        <td className="table-news-date">{newsDate}</td>
+        <td onClick={handleShowFullNews}>{index + 1}</td>
+        <td onClick={handleShowFullNews} className="table-news-title">{title}</td>
+        <td onClick={handleShowFullNews} className="table-news-body">{body}</td>
+        <td onClick={handleShowFullNews} className="table-news-date">{newsDate}</td>
         <td>
           <span onClick={() => {handleShowNewsUpadate()}}>Изменить</span>
         </td>
@@ -50,6 +54,17 @@ const NewsItem = ({
         <Modal.Body>
           <UpdateNews id={id} title={title} body={body} date={date} handleCloseNewsUpadate={handleCloseNewsUpadate} />
         </Modal.Body>
+      </Modal>
+      <Modal show={showFullNews} onHide={handleCloseFullNews} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{body}</p>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-start">
+          {newsDate}
+        </Modal.Footer>
       </Modal>
     </>
   );
