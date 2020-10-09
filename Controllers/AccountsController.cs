@@ -53,7 +53,7 @@ namespace Dacha.Controllers
                 return Forbid();
             }
 
-            if(accountDTO.Password == null)
+            if(string.IsNullOrWhiteSpace(accountDTO.Password))
             {
                 return BadRequest();
             }
@@ -109,7 +109,7 @@ namespace Dacha.Controllers
             account.LastName = accountDTO.LastName;
             account.Place = accountDTO.Place;
             account.RoleId = accountDTO.RoleId;
-            if (accountDTO.Password != null) account.Password = accountDTO.Password;
+            if (!string.IsNullOrWhiteSpace(accountDTO.Password)) account.Password = accountDTO.Password;
 
             try
             {
