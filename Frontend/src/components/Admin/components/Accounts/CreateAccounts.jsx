@@ -40,8 +40,6 @@ class CreateAccount extends Component {
       roleId: +roleId,
     }
 
-    console.log(submitData);
-
     if (
       login === "" ||
       password === "" ||

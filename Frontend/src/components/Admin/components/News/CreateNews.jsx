@@ -70,7 +70,7 @@ class CreateNews extends Component {
             rows="8"
             field="body"
             value={body}
-            maxLength="1500"
+            maxLength="600"
             name="body"
             onChange={this.onChange}
           />

@@ -19,7 +19,7 @@ const Documents = () => {
     <>
       <Container>
         <h1>Документы</h1>
-        {documents.map((doc) => (
+        {!documents.length ? <h3>Документы отсутствуют</h3> : documents.map((doc) => (
           <Button
             key={doc.id}
             variant="primary"

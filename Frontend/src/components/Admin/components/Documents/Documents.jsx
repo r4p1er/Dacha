@@ -39,7 +39,6 @@ const Documents = () => {
 
   return (
     <>
-      <h1>Документы</h1>
       <Container>
         <Form encType="multipart/form-data">
           <FormControl type="file" onChange={saveFile} />

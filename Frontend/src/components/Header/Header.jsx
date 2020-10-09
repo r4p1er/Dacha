@@ -72,7 +72,7 @@ function Header(props) {
               Создать объявление
             </NavDropdown.Item>
             {isAdmin ? (
-              <Link className="dropdown-item" to="/admin">
+              <Link className="dropdown-item" to="/admin/news">
                 Комната админа
               </Link>
             ) : null}
