@@ -31,12 +31,12 @@ export const createNews = (news) => {
     };
     let isLoading = true;
 
-    return (dispatch) => {
+    return async (dispatch) => {
       if (isLoading) {
         dispatch(createNewsLoading(isLoading));
       }
 
-      return axios
+      return await axios
         .post(baseUrl, data)
         .then((response) => {
           const id = response.data.id;
@@ -92,7 +92,7 @@ export const updateNewsSuccess = (news) => {
   };
 };
 
-export const updateNews = (dispatch, data) => {
+export const updateNews = async (dispatch, data) => {
   const id = data.id;
   const putData = {
     id: data.id,
@@ -100,7 +100,7 @@ export const updateNews = (dispatch, data) => {
     body: data.body,
     date: data.date,
   }
-  return axios
+  return await axios
     .put(`${baseUrl}/${id}`, putData)
     .then((response) => {
       return axios
@@ -118,8 +118,8 @@ export const updateNews = (dispatch, data) => {
 };
 
 export const deleteNews = (id) => {
-  return (dispatch) => {
-    return axios
+  return async (dispatch) => {
+    return await axios
       .delete(`${baseUrl}/${id}`)
       .then(() => {
         dispatch(deleteNewsSuccess(id));
@@ -156,12 +156,12 @@ const fetchAllNewsLoading = (isLoading) => {
 export const fetchAllNews = () => {
   let isLoading = true;
 
-  return (dispatch) => {
+  return async (dispatch) => {
     if (isLoading) {
       dispatch(fetchAllNewsLoading(isLoading));
     }
 
-    return axios
+    return await axios
       .get(baseUrl)
       .then((response) => {
         isLoading = false;

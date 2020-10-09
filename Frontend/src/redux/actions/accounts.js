@@ -39,12 +39,12 @@ export const createAccount = (account) => {
     };
     let isLoading = true;
 
-    return (dispatch) => {
+    return async (dispatch) => {
       if (isLoading) {
         dispatch(createAccountLoading(isLoading));
       }
 
-      return axios
+      return await axios
         .post(baseUrl, data)
         .then((response) => {
           const id = response.data.id;
@@ -103,7 +103,7 @@ export const updateAccountSuccess = (account) => {
   };
 };
 
-export const updateAccount = (dispatch, data) => {
+export const updateAccount = async (dispatch, data) => {
   const id = data.id;
   const putData = {
     id: data.id,
@@ -111,7 +111,7 @@ export const updateAccount = (dispatch, data) => {
     secondName: data.secondName,
     lastName: data.lastName,
   };
-  return axios
+  return await axios
     .put(`${baseUrl}/${id}`, putData)
     .then((response) => {
       return axios
@@ -129,8 +129,8 @@ export const updateAccount = (dispatch, data) => {
 };
 
 export const deleteAccount = (id) => {
-  return (dispatch) => {
-    return axios
+  return async (dispatch) => {
+    return await axios
       .delete(`${baseUrl}/${id}`)
       .then(() => {
         dispatch(deleteAccountSuccess(id));
@@ -167,12 +167,12 @@ const fetchAllAccountsLoading = (isLoading) => {
 export const fetchAllAccounts = () => {
   let isLoading = true;
 
-  return (dispatch) => {
+  return async (dispatch) => {
     if (isLoading) {
       dispatch(fetchAllAccountsLoading(isLoading));
     }
 
-    return axios
+    return await axios
       .get(baseUrl)
       .then((response) => {
         isLoading = false;
