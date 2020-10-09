@@ -14,7 +14,6 @@ namespace Dacha.Models
         [Required]
         [MaxLength(10)]
         public string Login { get; set; }
-        [JsonIgnore]
         [MaxLength(16)]
         public string Password { get; set; }
         [Required]

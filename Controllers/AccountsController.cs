@@ -39,9 +39,9 @@ namespace Dacha.Controllers
 
         [Authorize(Roles = "moder,admin")]
         [HttpPost]
-        public async Task<ActionResult<Account>> Post(Account account)
+        public async Task<ActionResult<Account>> Post(AccountDTO accountDTO)
         {
-            var role = await db.Roles.FindAsync(account.RoleId);
+            var role = await db.Roles.FindAsync(accountDTO.RoleId);
 
             if(role == null)
             {
@@ -52,7 +52,23 @@ namespace Dacha.Controllers
             {
                 return Forbid();
             }
-            
+
+            if(accountDTO.Password == null)
+            {
+                return BadRequest();
+            }
+
+            var account = new Account
+            {
+                Login = accountDTO.Login,
+                Password = accountDTO.Password,
+                Name = accountDTO.Name,
+                MiddleName = accountDTO.MiddleName,
+                LastName = accountDTO.LastName,
+                Place = accountDTO.Place,
+                RoleId = accountDTO.RoleId
+            };
+
             await db.Accounts.AddAsync(account);
             await db.SaveChangesAsync();
             account = await db.Accounts.FirstOrDefaultAsync(x => x.Login == account.Login && x.Password == account.Password && x.Place == account.Place);
