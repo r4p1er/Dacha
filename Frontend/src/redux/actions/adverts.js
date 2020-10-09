@@ -19,7 +19,7 @@ export const createAdvert = (advert) => {
       body: advert.body,
       contact: advert.contact,
       expDate: advert.expDate,
-      profileId: advert.profileId,
+      accountId: advert.accountId,
     };
 
     return (dispatch) => {

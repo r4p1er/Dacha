@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import UpdateAdvert from "./UpdateAdvert";
 
-const AdCard = ({ title, body, contact, place, id, onDelete, expDate, profileId }) => {
+const AdCard = ({ title, body, contact, place, id, onDelete, expDate, accountId }) => {
   const [showAdvertUpdate, setshowAdvertUpadate] = useState(false);
 
   const handleCloseAdvertUpadate = () => setshowAdvertUpadate(false);
@@ -84,7 +84,7 @@ const AdCard = ({ title, body, contact, place, id, onDelete, expDate, profileId 
             title={title}
             body={body}
             contact={contact}
-            profileId={profileId}
+            accountId={accountId}
             handleCloseAdvertUpadate={handleCloseAdvertUpadate}
           />
         </Modal.Body>

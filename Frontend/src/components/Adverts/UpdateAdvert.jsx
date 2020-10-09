@@ -14,7 +14,7 @@ class UpdateAdvert extends Component {
       body: this.props.body,
       contact: this.props.contact,
       expDate: "",
-      profileId: this.props.profileId,
+      accountId: this.props.accountId,
     };
   }
 
@@ -40,7 +40,7 @@ class UpdateAdvert extends Component {
       body: "",
       contact: "",
       expDate: "",
-      profileId: "",
+      accountId: "",
     });
   };
 

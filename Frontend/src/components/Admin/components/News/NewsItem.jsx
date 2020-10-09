@@ -21,9 +21,9 @@ const NewsItem = ({
     <>
       <tr>
         <td>{index + 1}</td>
-        <td>{title}</td>
-        <td>{body}</td>
-        <td>{newsDate}</td>
+        <td className="table-news-title">{title}</td>
+        <td className="table-news-body">{body}</td>
+        <td className="table-news-date">{newsDate}</td>
         <td>
           <span onClick={() => {handleShowNewsUpadate()}}>Изменить</span>
         </td>
