@@ -79,7 +79,6 @@ class CreateAccount extends Component {
       name,
       middleName,
       place,
-      roleId,
     } = this.state;
 
     return (

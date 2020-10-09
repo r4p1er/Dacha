@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, ButtonGroup, Container, Modal, Row } from "react-bootstrap";
+import { Button, ButtonGroup, Container, Modal } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import CreateAdvert from "./CreateAdvert";
 
