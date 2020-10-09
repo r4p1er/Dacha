@@ -34,7 +34,7 @@ function Header(props) {
 
   return (
     <>
-      <Navbar inline="true" collapseOnSelect expand="lg">
+      <Navbar inline="true" collapseOnSelect expand="xl">
         <Link className="mr-5 navbar-brand" to="/">
           <Image
             src={logo}
