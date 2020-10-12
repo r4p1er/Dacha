@@ -15,13 +15,13 @@ const NewsCard = ({ title, body, date }) => {
   }
 
   const headingAvailable = (
-    <span className="home_post_text">{urlify(body)}</span>
+    <p className="home_post_text">{urlify(body)}</p>
   );
 
   return (
-    <div>
+    <div className="news-card">
       <h5>{title}</h5>
-      <p>{headingAvailable}</p>
+      {headingAvailable}
       <span>{newsDate}</span>
     </div>
   );
