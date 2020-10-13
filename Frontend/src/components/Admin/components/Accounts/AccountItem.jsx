@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Image, Modal } from "react-bootstrap";
+import deleteIcon from "../../../../additions/deleteIcon.png";
+import editIcon from "../../../../additions/editIcon.png";
+import UpdateAccount from "./UpdateAccount";
 
 const AccountItem = ({
   id,
+  login,
   index,
   lastName,
   middleName,
@@ -11,9 +15,11 @@ const AccountItem = ({
   roleId,
   onDelete,
 }) => {
+  const [showAccountUpdate, setshowAccountUpadate] = useState(false);
+  const handleCloseAccountUpadate = () => setshowAccountUpadate(false);
+  const handleShowAccountUpadate = () => setshowAccountUpadate(true);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
   const handleClose = () => setShowDeleteModal(false);
   const handleShow = () => setShowDeleteModal(true);
 
@@ -27,10 +33,18 @@ const AccountItem = ({
         <td>{place}</td>
         <td>{roleId}</td>
         <td>
-          <span onClick={handleShow}>Удалить</span>
+          <Image
+            onClick={handleShow}
+            src={deleteIcon}
+            className="cursor-pointer"
+          />
         </td>
         <td>
-          {/* <span onClick={() => {onDelete(id)}}>Изменить</span> */}
+          <Image
+            onClick={handleShowAccountUpadate}
+            src={editIcon}
+            className="cursor-pointer"
+          />
         </td>
       </tr>
       <Modal show={showDeleteModal} onHide={handleClose}>
@@ -38,7 +52,31 @@ const AccountItem = ({
           <Modal.Title>Вы действительно хотите удалить</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <Button onClick={() => {onDelete(id)}} variant="outline-danger">Удалить</Button>
+          <Button
+            onClick={() => {
+              onDelete(id);
+            }}
+            variant="outline-danger"
+          >
+            Удалить
+          </Button>
+        </Modal.Body>
+      </Modal>
+      <Modal size="xl" show={showAccountUpdate} onHide={handleCloseAccountUpadate}>
+        <Modal.Header closeButton>
+          <Modal.Title>Редактирование аккаунта</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <UpdateAccount
+            id={id}
+            login={login}
+            lastName={lastName}
+            name={name}
+            middleName={middleName}
+            place={place}
+            roleId={roleId}
+            handleCloseAccountUpadate={handleCloseAccountUpadate}
+          />
         </Modal.Body>
       </Modal>
     </>
