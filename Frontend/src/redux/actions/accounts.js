@@ -96,9 +96,11 @@ export const updateAccountSuccess = (account) => {
     type: EDIT_ACCOUNT,
     payload: {
       id: account.id,
-      firstName: account.firstName,
-      secondName: account.secondName,
+      name: account.name,
+      middleName: account.middleName,
       lastName: account.lastName,
+      place: account.place,
+      roleId: account.roleId,
     },
   };
 };
@@ -107,9 +109,13 @@ export const updateAccount = async (dispatch, data) => {
   const id = data.id;
   const putData = {
     id: data.id,
-    firstName: data.firstName,
-    secondName: data.secondName,
+    login: data.login,
+    password: data.password,
     lastName: data.lastName,
+    name: data.name,
+    middleName: data.middleName,
+    place: data.place,
+    roleId: data.roleId,
   };
   return await axios
     .put(`${baseUrl}/${id}`, putData)

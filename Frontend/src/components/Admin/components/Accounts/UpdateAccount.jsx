@@ -20,7 +20,6 @@ class UpdateAccount extends Component {
     };
   }
 
-  
   onSubmit = (event) => {
     event.preventDefault();
 
@@ -54,9 +53,8 @@ class UpdateAccount extends Component {
         place: +place,
         roleId: +roleId,
       };
-      console.log(submitData);
-      
       this.props.createAccount(submitData);
+      this.props.handleCloseAccountUpadate();
     } else {
       const submitData = {
         id: id,
@@ -67,8 +65,8 @@ class UpdateAccount extends Component {
         place: +place,
         roleId: +roleId,
       };
-      console.log(submitData);
       this.props.createAccount(submitData);
+      this.props.handleCloseAccountUpadate();
     }
 
     this.setState({
@@ -94,6 +92,7 @@ class UpdateAccount extends Component {
   };
   render() {
     const { login, password, lastName, name, middleName, place } = this.state;
+    const role = this.props.auth.user.role;
     return (
       <>
         <Form onSubmit={this.onSubmit} className="create-acc-form">
@@ -118,8 +117,12 @@ class UpdateAccount extends Component {
                   defaultValue={this.state.roleId}
                 >
                   <option value={1}>Пользователь</option>
-                  <option value={2}>Модератор</option>
-                  <option value={3}>Админ</option>
+                  {role === "admin" ? (
+                    <>
+                      <option value={2}>Модератор</option>
+                      <option value={3}>Админ</option>
+                    </>
+                  ) : null}
                 </Form.Control>
               </Form.Group>
             </Col>
@@ -187,6 +190,7 @@ class UpdateAccount extends Component {
 
 const mapStateToProps = (state) => ({
   alert: state.app.alert,
+  auth: state.auth,
 });
 
 const mapDispatchToProps = {

@@ -38,7 +38,7 @@ class CreateAccount extends Component {
       middleName: middleName,
       place: +place,
       roleId: +roleId,
-    }
+    };
 
     if (
       login === "" ||
@@ -72,15 +72,8 @@ class CreateAccount extends Component {
     }));
   };
   render() {
-    const {
-      login,
-      password,
-      lastName,
-      name,
-      middleName,
-      place,
-    } = this.state;
-
+    const { login, password, lastName, name, middleName, place } = this.state;
+    const role = this.props.auth.user.role;
     return (
       <>
         <Form onSubmit={this.onSubmit} className="create-acc-form">
@@ -105,8 +98,12 @@ class CreateAccount extends Component {
                   as="select"
                 >
                   <option value={1}>Пользователь</option>
-                  <option value={2}>Модератор</option>
-                  <option value={3}>Админ</option>
+                  {role === "admin" ? (
+                    <>
+                      <option value={2}>Модератор</option>
+                      <option value={3}>Админ</option>
+                    </>
+                  ) : null}
                 </Form.Control>
               </Form.Group>
             </Col>
@@ -179,6 +176,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state) => ({
   alert: state.app.alert,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateAccount);
