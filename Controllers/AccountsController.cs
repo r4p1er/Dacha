@@ -53,7 +53,7 @@ namespace Dacha.Controllers
                 return Forbid();
             }
 
-            if(accountDTO.Password == null)
+            if(string.IsNullOrWhiteSpace(accountDTO.Login) || string.IsNullOrWhiteSpace(accountDTO.Password))
             {
                 return BadRequest();
             }
@@ -102,6 +102,11 @@ namespace Dacha.Controllers
                 return Forbid();
             }
 
+            if (string.IsNullOrWhiteSpace(accountDTO.Login))
+            {
+                return BadRequest();
+            }
+
             var account = await db.Accounts.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
             account.Login = accountDTO.Login;
             account.Name = accountDTO.Name;
@@ -109,7 +114,7 @@ namespace Dacha.Controllers
             account.LastName = accountDTO.LastName;
             account.Place = accountDTO.Place;
             account.RoleId = accountDTO.RoleId;
-            if (accountDTO.Password != null) account.Password = accountDTO.Password;
+            if (!string.IsNullOrWhiteSpace(accountDTO.Password)) account.Password = accountDTO.Password;
 
             try
             {
