@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button, Col, Modal, Row } from "react-bootstrap";
+import { Button, Col, Image, Modal, Row } from "react-bootstrap";
+import deleteIcon from "../../../../additions/deleteIcon.png";
 
 const AdvertItem = ({ id, onDelete, index, place, title, body, contact }) => {
 
@@ -15,12 +16,12 @@ const AdvertItem = ({ id, onDelete, index, place, title, body, contact }) => {
     <>
       <tr>
         <td onClick={handleShowFullAd}>{index + 1}</td>
-        <td onClick={handleShowFullAd} className="table-ad-place">{place}</td>
-        <td onClick={handleShowFullAd} className="table-ad-title">{title}</td>
-        <td onClick={handleShowFullAd} className="table-ad-body">{body}</td>
-        <td onClick={handleShowFullAd} className="table-ad-contact">{contact}</td>
+        <td onClick={handleShowFullAd} className="table-ad-place cursor-pointer">{place}</td>
+        <td onClick={handleShowFullAd} className="table-ad-title cursor-pointer">{title}</td>
+        <td onClick={handleShowFullAd} className="table-ad-body cursor-pointer">{body}</td>
+        <td onClick={handleShowFullAd} className="table-ad-contact cursor-pointer">{contact}</td>
         <td>
-          <span onClick={handleShow}>Удалить</span>
+          <Image onClick={handleShow} src={deleteIcon} className="cursor-pointer"/>
         </td>
       </tr>
       <Modal show={showDeleteModal} onHide={handleClose}>

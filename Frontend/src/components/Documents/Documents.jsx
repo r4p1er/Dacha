@@ -41,17 +41,24 @@ const Documents = () => {
                   sm={6}
                   xs={12}
                   key={doc.id}
-                  onClick={() => {
-                    onDownload(doc.id, doc.name);
-                  }}
                 >
                   <div className="doc-item d-flex flex-column align-items-center">
                     <Image
-                      className="mr-2"
+                      className="cursor-pointer"
                       width="32"
                       src={fileExtentionRead(doc.name)}
+                      onClick={() => {
+                        onDownload(doc.id, doc.name);
+                      }}
                     />
-                    <span className="doc-name">{doc.name}</span>
+                    <span
+                      className="cursor-pointer"
+                      onClick={() => {
+                        onDownload(doc.id, doc.name);
+                      }}
+                    >
+                      {doc.name}
+                    </span>
                   </div>
                 </Col>
               ))

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Image, Modal } from "react-bootstrap";
 import UpdateNews from "./UpdateNews";
+import deleteIcon from "../../../../additions/deleteIcon.png";
+import editIcon from "../../../../additions/editIcon.png";
 
 const NewsItem = ({
   id,
@@ -29,14 +31,14 @@ const NewsItem = ({
     <>
       <tr>
         <td onClick={handleShowFullNews}>{index + 1}</td>
-        <td onClick={handleShowFullNews} className="table-news-title">{title}</td>
-        <td onClick={handleShowFullNews} className="table-news-body">{body}</td>
-        <td onClick={handleShowFullNews} className="table-news-date">{newsDate}</td>
+        <td onClick={handleShowFullNews} className="table-news-title cursor-pointer">{title}</td>
+        <td onClick={handleShowFullNews} className="table-news-body cursor-pointer">{body}</td>
+        <td onClick={handleShowFullNews} className="table-news-date cursor-pointer">{newsDate}</td>
         <td>
-          <span onClick={() => {handleShowNewsUpadate()}}>Изменить</span>
+          <Image onClick={() => {handleShowNewsUpadate()}} src={editIcon} className="cursor-pointer"/>
         </td>
         <td>
-          <span onClick={handleShow}>Удалить</span>
+          <Image onClick={handleShow} src={deleteIcon} className="cursor-pointer"/>
         </td>
       </tr>
       <Modal show={showDeleteModal} onHide={handleClose}>
@@ -47,7 +49,7 @@ const NewsItem = ({
             <Button onClick={() => {onDelete(id)}} variant="outline-danger">Удалить</Button>
         </Modal.Body>
       </Modal>
-      <Modal show={showNewsUpdate} onHide={handleCloseNewsUpadate}>
+      <Modal size="lg" show={showNewsUpdate} onHide={handleCloseNewsUpadate}>
         <Modal.Header closeButton>
           <Modal.Title>Редактирование новости</Modal.Title>
         </Modal.Header>
