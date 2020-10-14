@@ -1,0 +1,22 @@
+.create-acc-form {
+    padding: 1rem;
+    border: .2rem solid #ececec;
+    border-radius: 8px 8px 8px 8px;
+    margin: 15px 0;
+}
+
+.table-ad-title,
+.table-ad-body,
+.table-ad-contact, 
+.table-news-title, 
+.table-news-body, 
+.table-news-date {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+}
+
+.table-ad-contact {
+    max-width: 150px;
+}

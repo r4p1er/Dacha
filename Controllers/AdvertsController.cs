@@ -1,0 +1,153 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Dacha.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace Dacha.Controllers
+{
+    [Route("api/posts")]
+    [ApiController]
+    public class AdvertsController : ControllerBase
+    {
+        ApplicationContext db;
+        public AdvertsController(ApplicationContext context)
+        {
+            db = context;
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<AdvertGet>>> Get()
+        {
+            var adverts = await db.Adverts.Where(x => x.ExpDate <= DateTime.Now).ToListAsync();
+
+            db.Adverts.RemoveRange(adverts);
+            await db.SaveChangesAsync();
+
+            var selectedAdverts = await db.Adverts.Include(x => x.Account).Select(x => new AdvertGet(x)).ToListAsync();
+
+            return selectedAdverts;
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AdvertGet>> Get(int id)
+        {
+            var advert = await db.Adverts.Include(x => x.Account).FirstOrDefaultAsync(x => x.Id == id);
+
+            if(advert == null)
+            {
+                return NotFound();
+            }
+
+            if(advert.ExpDate <= DateTime.Now)
+            {
+                db.Adverts.Remove(advert);
+                await db.SaveChangesAsync();
+                return NotFound();
+            }
+
+            return new AdvertGet(advert);
+        }
+
+        [Authorize]
+        [HttpGet("current")]
+        public async Task<ActionResult<IEnumerable<AdvertGet>>> GetCurrent()
+        {
+            int accountId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var adverts = await db.Adverts.Where(x => x.ExpDate <= DateTime.Now).ToListAsync();
+            db.Adverts.RemoveRange(adverts);
+            await db.SaveChangesAsync();
+
+            var selectedAdverts = await db.Adverts.Include(x => x.Account)
+                                                  .Where(x => x.AccountId == accountId)
+                                                  .Select(x => new AdvertGet(x))
+                                                  .ToListAsync();
+
+            return selectedAdverts;
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult<Advert>> Post(Advert advert)
+        {
+            var userAccountId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            advert.Id = default;
+            advert.AccountId = userAccountId;
+            await db.Adverts.AddAsync(advert);
+            await db.SaveChangesAsync();
+            advert = await db.Adverts.FirstOrDefaultAsync(x => x.Title == advert.Title && x.Body == advert.Body
+                                                                                       && x.Contact == advert.Contact 
+                                                                                       && x.ExpDate == advert.ExpDate 
+                                                                                       && x.AccountId == advert.AccountId);
+
+            return CreatedAtAction(nameof(Get), new { id = advert.Id }, advert);
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, Advert advert)
+        {
+            if(id != advert.Id)
+            {
+                return BadRequest();
+            }
+
+            if(advert.AccountId != int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            {
+                return Forbid();
+            }
+
+            try
+            {
+                db.Adverts.Update(advert);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if((await ExistsAsync(id)) == false)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<AdvertGet>> Delete(int id)
+        {
+            var advert = await db.Adverts.Include(x => x.Account).FirstOrDefaultAsync(x => x.Id == id);
+
+            if(advert == null)
+            {
+                return NotFound();
+            }
+
+            if(User.IsInRole("user") && advert.AccountId != int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            {
+                return Forbid();
+            }
+
+            db.Adverts.Remove(advert);
+            await db.SaveChangesAsync();
+
+            return new AdvertGet(advert);
+        }
+
+        private async Task<bool> ExistsAsync(int id) => await db.Adverts.AnyAsync(e => e.Id == id);
+    }
+}
