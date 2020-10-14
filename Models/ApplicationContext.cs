@@ -29,11 +29,11 @@ namespace Dacha.Models
             {
                 Id = 1,
                 Login = "admin",
-                Password = "semiconductor",
+                Password = "admin",
                 Name = "Rapier",
                 MiddleName = "M1xa4kala",
                 LastName = "Neef4",
-                Place = 0,
+                Place = 228,
                 RoleId = 3
             });
         }
