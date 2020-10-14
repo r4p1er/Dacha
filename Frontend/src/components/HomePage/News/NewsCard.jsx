@@ -19,10 +19,10 @@ const NewsCard = ({ title, body, date }) => {
   );
 
   return (
-    <div className="news-card">
+    <div className="news-card d-flex flex-column">
       <h5>{title}</h5>
       {headingAvailable}
-      <span>{newsDate}</span>
+      <span className="align-self-end">{newsDate}</span>
     </div>
   );
 };

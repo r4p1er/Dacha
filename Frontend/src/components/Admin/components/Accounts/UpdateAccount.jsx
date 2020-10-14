@@ -95,7 +95,7 @@ class UpdateAccount extends Component {
     const role = this.props.auth.user.role;
     return (
       <>
-        <Form onSubmit={this.onSubmit} className="create-acc-form">
+        <Form onSubmit={this.onSubmit} className="create-acc-form text-center">
           {this.props.alert && <AlertMessage text={this.props.alert} />}
           <Form.Row>
             <Col>
@@ -180,7 +180,7 @@ class UpdateAccount extends Component {
           </Form.Row>
 
           <Button variant="primary" type="submit">
-            Создать аккаунт
+            Изменить аккаунт
           </Button>
         </Form>
       </>
