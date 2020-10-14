@@ -10,8 +10,6 @@ services:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "YwolAaP6dBLM"
       MSSQL_PID: Express
-    ports:
-      - "1433:1433"
     volumes:
       - dachasql:/var/opt/mssql
     restart: always
