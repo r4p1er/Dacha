@@ -19,6 +19,8 @@ function Header(props) {
   const role = props.auth.user.role;
   const isAdmin = role === "admin" || role === "moder" ? true : false;
 
+  const [expanded, setExpanded] = useState(false);
+
   const [showExit, setshowExit] = useState(false);
   const [showAdsCreate, setshowAdsCreate] = useState(false);
 
@@ -34,8 +36,17 @@ function Header(props) {
 
   return (
     <>
-      <Navbar inline="true" collapseOnSelect expand="xl">
-        <Link className="mr-5 navbar-brand" to="/">
+      <Navbar
+        inline="true"
+        collapseOnSelect="true"
+        expanded={expanded}
+        expand="xl"
+      >
+        <Link
+          onClick={() => setExpanded(false)}
+          className="mr-5 navbar-brand"
+          to="/"
+        >
           <Image
             src={logo}
             width="200"
@@ -43,19 +54,22 @@ function Header(props) {
             className="d-inline-block align-top"
           />
         </Link>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle
+          onClick={() => setExpanded(expanded ? false : "expanded")}
+          aria-controls="responsive-navbar-nav"
+        />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto text-center">
-            <NavItem>
+            <NavItem onClick={() => setExpanded(false)}>
               <Link to="/">Главная</Link>
             </NavItem>
-            <NavItem>
+            <NavItem onClick={() => setExpanded(false)}>
               <NavLink to="/adverts">Объявления</NavLink>
             </NavItem>
-            <NavItem>
+            <NavItem onClick={() => setExpanded(false)}>
               <NavLink to="/documents">Документы</NavLink>
             </NavItem>
-            <NavItem>
+            <NavItem onClick={() => setExpanded(false)}>
               <NavLink to="/vote">Голосование</NavLink>
             </NavItem>
           </Nav>
@@ -65,16 +79,24 @@ function Header(props) {
             title={`Участок № ${props.auth.user.name}`}
             id="nav-dropdown"
           >
-            <Link className="dropdown-item" to="/adverts/current_adverts">
+            <NavDropdown.Item
+              as={Link}
+              to="/adverts/current_adverts"
+              onClick={() => setExpanded(false)}
+            >
               Мои объявления
-            </Link>
+            </NavDropdown.Item>
             <NavDropdown.Item onClick={handleShowAdsCreate}>
               Создать объявление
             </NavDropdown.Item>
             {isAdmin ? (
-              <Link className="dropdown-item" to="/admin/news">
+              <NavDropdown.Item
+                as={Link}
+                to="/admin/news"
+                onClick={() => setExpanded(false)}
+              >
                 Комната админа
-              </Link>
+              </NavDropdown.Item>
             ) : null}
             <NavDropdown.Divider />
             <Form className="text-right dropdown-item">
