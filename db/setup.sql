@@ -1,17 +1,12 @@
 ALTER LOGIN sa ENABLE ;
 GO
-IF DB_ID(N'DachaDb') IS NULL
-	BEGIN;
-		CREATE DATABASE DachaDb;
-		GO
-		USE DachaDb;
-		GO
-		CREATE LOGIN Dacha WITH PASSWORD=N'aSQ3jAa5SGt5';
-		GO
-		CREATE USER DachaUser FOR LOGIN Dacha;
-		GO
-		ALTER ROLE db_owner ADD MEMBER DachaUser;
-		GO
-	END;
-ELSE
-	PRINT N'DachaDb already exists';
+CREATE DATABASE DachaDb;
+GO
+USE DachaDb;
+GO
+CREATE LOGIN Dacha WITH PASSWORD='aSQ3jAa5SGt5';
+GO
+CREATE USER DachaUser FOR LOGIN Dacha;
+GO
+ALTER ROLE db_owner ADD MEMBER DachaUser;
+GO

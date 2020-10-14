@@ -27,5 +27,5 @@ services:
     depends_on:
       - api
     ports:
-      - "1337:80"
+      - "80:80"
     restart: always
