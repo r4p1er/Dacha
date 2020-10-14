@@ -1,38 +1,50 @@
 import React, { useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllAdverts } from "../../../../redux/actions/adverts";
+import {
+  fetchAllAdverts,
+  deleteAdvert,
+} from "../../../../redux/actions/adverts";
 import AdvertItem from "./AdvertItem";
 
 const News = () => {
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllAdverts());
-  }, [])
+  }, [dispatch]);
   const adverts = useSelector((state) => state.adverts.adverts);
+  const onDelete = (id) => dispatch(deleteAdvert(id));
   return (
     <>
-      <h2>Объявления</h2>
-        <Table size="sm" striped bordered hover>
-          <thead>
+      <Table size="sm" responsive striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Участок</th>
+            <th>Заголовок</th>
+            <th>Объявление</th>
+            <th>Контакты</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {!adverts.length ? (
             <tr>
-              <th>#</th>
-              <th>Участок</th>
-              <th>Заголовок</th>
-              <th>Объявление</th>
-              <th>Контакты</th>
+              <td>Объявления отсутствуют</td>
             </tr>
-          </thead>
-          <tbody>
-            {!adverts.length ? (
-              <tr>
-                <td>Объявления отсутствуют</td>
-              </tr>
-            ) : (
-              adverts.map((ad, index) => <AdvertItem key={ad.id} index={index} {...ad} />)
-            )}
-          </tbody>
-        </Table>
+          ) : (
+            adverts.map((ad, index) => (
+              <AdvertItem
+                key={ad.id}
+                index={index}
+                onDelete={onDelete}
+                {...ad}
+              />
+            ))
+          )}
+        </tbody>
+      </Table>
     </>
   );
 };

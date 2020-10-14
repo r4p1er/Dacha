@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import advertsReducer from "./adverts";
 import newsReducer from "./news";
-import {profilesReducer} from "./profiles";
+import accountsReducer from "./accounts";
 import {docsReducer} from "./documets";
 import {auth} from "./auth";
 import { appReducer } from "./alertMessages";
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   docs: docsReducer,
   auth,
   app: appReducer,
-  profiles: profilesReducer
+  accounts: accountsReducer
 });
 
 

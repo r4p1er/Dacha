@@ -1,14 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button, Col, Image, Modal, Row } from "react-bootstrap";
+import deleteIcon from "../../../../additions/deleteIcon.png";
 
-const AdvertItem = ({ id, index, place, title, body, contact }) => {
+const AdvertItem = ({ id, onDelete, index, place, title, body, contact }) => {
+
+  const [showFullAd, setshowFullAd] = useState(false);
+  const handleCloseFullAd = () => setshowFullAd(false);
+  const handleShowFullAd = () => setshowFullAd(true);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const handleClose = () => setShowDeleteModal(false);
+  const handleShow = () => setShowDeleteModal(true);
+
   return (
-    <tr>
-      <td>{index+1}</td>
-      <td>{place}</td>
-      <td>{title}</td>
-      <td>{body}</td>
-      <td>{contact}</td>
-    </tr>
+    <>
+      <tr>
+        <td onClick={handleShowFullAd}>{index + 1}</td>
+        <td onClick={handleShowFullAd} className="table-ad-place cursor-pointer">{place}</td>
+        <td onClick={handleShowFullAd} className="table-ad-title cursor-pointer">{title}</td>
+        <td onClick={handleShowFullAd} className="table-ad-body cursor-pointer">{body}</td>
+        <td onClick={handleShowFullAd} className="table-ad-contact cursor-pointer">{contact}</td>
+        <td>
+          <Image onClick={handleShow} src={deleteIcon} className="cursor-pointer"/>
+        </td>
+      </tr>
+      <Modal show={showDeleteModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Вы действительно хотите удалить</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Button
+            onClick={() => {
+              onDelete(id);
+            }}
+            variant="outline-danger"
+          >
+            Удалить
+          </Button>
+        </Modal.Body>
+      </Modal>
+      <Modal show={showFullAd} onHide={handleCloseFullAd} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{body}</p>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-start">
+          <Row className="w-100">
+            <Col col="true">
+              <span className="mr-2">Контакты:</span>
+              <span>{contact}</span>
+            </Col>
+            <Col col="true">
+              <span>Участок №</span>
+              <span>{place}</span>
+            </Col>
+          </Row>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 

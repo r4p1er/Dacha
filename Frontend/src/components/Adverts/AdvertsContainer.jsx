@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, ButtonGroup, Container, Modal, Row } from "react-bootstrap";
+import { Button, ButtonGroup, Container, Modal } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import CreateAdvert from "./CreateAdvert";
 
@@ -22,12 +22,12 @@ const AdvertsContainer = () => {
           <Modal.Title>Создание объявления</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CreateAdvert handleCloseAdsCreate={handleCloseAdsCreate}/>
+          <CreateAdvert handleCloseAdsCreate={handleCloseAdsCreate} />
         </Modal.Body>
       </Modal>
-      <Row>
+      <Container fluid className="text-center">
         <Outlet />
-      </Row>
+      </Container>
     </Container>
   );
 };

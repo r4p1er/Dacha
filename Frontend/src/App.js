@@ -1,16 +1,10 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Image } from "react-bootstrap";
+import loader from "./additions/LoaderGif.gif"
 import "./app.scss";
 import {
-  AdminAds,
-  AdminDocs,
-  AdminNews,
-  AdminProfiles,
-  AdminVote,
-} from "./components/Admin/components/index";
-import {
-  Admin,
   Adverts,
   AdvertsContainer,
   CurrentAdverts,
@@ -21,6 +15,13 @@ import {
   NotFound,
   Vote,
 } from "./components/index";
+
+const Admin = lazy(() => import ("./components/Admin/AdminContainer"));
+const AdminAds = lazy(() => import ("./components/Admin/components/Adverts/Adverts"));
+const AdminDocs = lazy(() => import ("./components/Admin/components/Documents/Documents"));
+const AdminNews = lazy(() => import ("./components/Admin/components/News/News"));
+const AdminAccounts = lazy(() => import ("./components/Admin/components/Accounts/Accounts"));
+const AdminVote = lazy(() => import ("./components/Admin/components/Vote/Vote"));
 
 function App(props) {
   const authState = useSelector((state) => state.auth);
@@ -47,6 +48,7 @@ function App(props) {
           <Header />
         ) : null
       ) : null}
+      <Suspense fallback={<Image alt="ЗАГРУЗКА..." width="400px" src={loader}/>}>
       <Routes>
         <Route
           path="/signin"
@@ -72,12 +74,13 @@ function App(props) {
             <Route path="/adverts" element={<AdminAds />} />
             <Route path="/documents" element={<AdminDocs />} />
             <Route path="/vote" element={<AdminVote />} />
-            <Route path="/profiles" element={<AdminProfiles />} />
+            <Route path="/accounts" element={<AdminAccounts />} />
           </Route>
         </Route>
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/*" element={<NotFoundRedirect />} />
       </Routes>
+      </Suspense>
     </>
   );
 }

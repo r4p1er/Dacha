@@ -1,70 +1,70 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDocuments } from "../../redux/actions/documents";
-import fileDownload from "js-file-download";
-import { Button, Container, Form, FormControl } from "react-bootstrap";
+import {
+  downloadDocument,
+  fetchAllDocuments,
+} from "../../redux/actions/documents";
+import fileExtentionRead from "../../utils/fileExtentionReader";
+import FullPageLoader from "../Loader/Loader";
+import { Col, Container, Image, Row } from "react-bootstrap";
 
 const Documents = () => {
   const dispatch = useDispatch();
-  const documents = useSelector((state) => state.docs.items);
   useEffect(() => {
-    dispatch(getDocuments());
-  }, []);
+    dispatch(fetchAllDocuments());
+  }, [dispatch]);
+  const documentsState = useSelector((state) => state.docs);
+  const loading = documentsState.isLoading;
 
-  const token = localStorage.jwtToken;
-  const AuthStr = "Bearer ".concat(token);
-  const [file, setFile] = useState();
-  const [fileName, setFileName] = useState();
-
-  const saveFile = (event) => {
-    setFile(event.target.files[0]);
-    setFileName(event.target.files[0].name);
+  const onDownload = (id, name) => {
+    return dispatch(downloadDocument(id, name));
   };
 
-  const uploadFile = async (event) => {
-    const formData = new FormData();
-    formData.append("formFile", file);
-    formData.append("fileName", fileName);
-    try {
-      const res = await axios.post(
-        "http://localhost:5000/api/documents",
-        formData
-      );
-      console.log(res);
-    } catch (ex) {
-      console.log(ex);
-    }
-  };
   return (
     <>
-      <Container>
-        <h1>Documents Page</h1>
-        <Form encType="multipart/form-data">
-          <FormControl type="file" onChange={saveFile} />
-          <Button variant="primary" onClick={uploadFile}>
-            Загрузить документ
-          </Button>
-        </Form>
-        {documents.map((doc) => (
-          <Button
-            key={doc.id}
-            variant="primary"
-            onClick={() => {
-              axios
-                .get(`http://localhost:5000/api/documents/${doc.id}`, {
-                  responseType: "blob",
-                  headers: { Authorization: AuthStr },
-                })
-                .then((response) => {
-                  console.log(response);
-                  fileDownload(response.data, `${doc.name}`);
-                });
-            }}
-          >
-            {doc.name}
-          </Button>
-        ))}
+      <Container className="text-center">
+        <h1>Документы</h1>
+        {loading ? (
+          <FullPageLoader />
+        ) : (
+          <Row>
+            {!documentsState.documents.length ? (
+              <h3>Документы отсутствуют</h3>
+            ) : (
+              documentsState.documents.map((doc) => (
+                <Col
+                  className="doc-item-container my-2"
+                  col="true"
+                  xl={3}
+                  lg={3}
+                  md={4}
+                  sm={6}
+                  xs={12}
+                  key={doc.id}
+                >
+                  <div className="doc-item d-flex flex-column align-items-center">
+                    <Image
+                      className="cursor-pointer"
+                      width="32"
+                      src={fileExtentionRead(doc.name)}
+                      onClick={() => {
+                        onDownload(doc.id, doc.name);
+                      }}
+                    />
+                    <span
+                      className="cursor-pointer"
+                      onClick={() => {
+                        onDownload(doc.id, doc.name);
+                      }}
+                    >
+                      {doc.name}
+                    </span>
+                  </div>
+                </Col>
+              ))
+            )}
+          </Row>
+        )}
       </Container>
     </>
   );
