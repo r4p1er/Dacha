@@ -22,6 +22,8 @@ services:
     restart: always
   client:
     build: ./Frontend/.
+    environment:
+      API_ADDR: api
     depends_on:
       - api
     ports:
