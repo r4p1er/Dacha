@@ -30,9 +30,9 @@ namespace Dacha.Models
                 Id = 1,
                 Login = "admin",
                 Password = "semiconductor",
-                Name = "Rapier",
-                MiddleName = "M1xa4kala",
-                LastName = "Neef4",
+                Name = "admin",
+                MiddleName = "admin",
+                LastName = "admin",
                 Place = 0,
                 RoleId = 3
             });
