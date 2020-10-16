@@ -17,6 +17,8 @@ services:
     build: .
     depends_on:
       - db
+    ports:
+      - "5000:80"  
     restart: always
   client:
     build: ./Frontend/.
