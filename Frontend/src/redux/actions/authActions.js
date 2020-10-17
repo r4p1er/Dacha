@@ -20,10 +20,9 @@ export function logout() {
 }
 
 export function login(data) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      await axios.post("http://localhost:5000/api/token", data)
-      .then((response) => {
+      await axios.post("http://pokrovskie-dachi.ru/api/token", data).then((response) => {
         const token = response.data.access_token;
         localStorage.setItem("jwtToken", token);
         setAuthorizationToken(token);
