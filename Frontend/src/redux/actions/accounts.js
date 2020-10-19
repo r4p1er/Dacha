@@ -9,7 +9,7 @@ import {
   FETCH_ACCOUNTS_LOADING,
 } from "./actionTypes";
 
-const baseUrl = "http://pokrovskie-dachi.ru/api/accounts";
+const baseUrl = `http://${window.location.hostname}:5000/api/accounts`;
 
 export const createAccount = (account) => {
   if (account.id) {

@@ -9,7 +9,7 @@ import {
   FETCH_NEWS_LOADING,
 } from "./actionTypes";
 
-const baseUrl = "http://pokrovskie-dachi.ru/api/news";
+const baseUrl = `http://${window.location.hostname}:5000/api/news`;
 
 export const createNews = (news) => {
   if (news.id) {

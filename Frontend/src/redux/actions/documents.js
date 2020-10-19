@@ -8,7 +8,7 @@ import {
   DOWNLOAD_DOCUMENT,
 } from "./actionTypes";
 
-const baseUrl = "http://pokrovskie-dachi.ru/api/documents";
+const baseUrl = `http://${window.location.hostname}:5000/api/documents`;
 
 export const addDocument = (document) => {
   const data = document;
