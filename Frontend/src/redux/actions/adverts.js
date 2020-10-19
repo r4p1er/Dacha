@@ -1,5 +1,6 @@
 import axios from "axios";
 import { showAlert } from "./AlertMessages";
+import apiUrl from "../../utils/api";
 import {
   ADD_ADVERT,
   ADD_ADVERT_LOADING,
@@ -9,7 +10,7 @@ import {
   FETCH_ADVERTS_LOADING,
 } from "./actionTypes";
 
-const baseUrl = "http://localhost:5000/api/posts";
+const baseUrl = `${apiUrl}/posts`;
 
 export const createAdvert = (advert) => {
   if (advert.id) {

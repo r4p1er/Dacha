@@ -1,6 +1,7 @@
 import axios from "axios";
 import fileDownload from "js-file-download";
 import { showAlert } from "./AlertMessages";
+import apiUrl from "../../utils/api";
 import {
   DELETE_DOCUMENT,
   FETCH_DOCUMENTS,
@@ -8,7 +9,7 @@ import {
   DOWNLOAD_DOCUMENT,
 } from "./actionTypes";
 
-const baseUrl = "http://localhost:5000/api/documents";
+const baseUrl = `${apiUrl}/documents`;
 
 export const addDocument = (document) => {
   const data = document;
@@ -113,7 +114,7 @@ export const downloadDocument = (id, name) => {
   return async (dispatch) => {
     dispatch(documentDownloadSuccess());
     await axios
-      .get(`http://localhost:5000/api/documents/${id}`, {
+      .get(`${baseUrl}/${id}`, {
         responseType: "blob",
         headers: { Authorization: AuthStr },
       })

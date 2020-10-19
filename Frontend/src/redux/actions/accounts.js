@@ -1,5 +1,6 @@
 import axios from "axios";
 import { showAlert } from "./AlertMessages";
+import apiUrl from "../../utils/api";
 import {
   ADD_ACCOUNT,
   ADD_ACCOUNT_LOADING,
@@ -9,7 +10,7 @@ import {
   FETCH_ACCOUNTS_LOADING,
 } from "./actionTypes";
 
-const baseUrl = "http://localhost:5000/api/accounts";
+const baseUrl = `${apiUrl}/accounts`;
 
 export const createAccount = (account) => {
   if (account.id) {
