@@ -9,7 +9,7 @@ import {
   FETCH_NEWS_LOADING,
 } from "./actionTypes";
 
-const baseUrl = "http://localhost:5000/api/news";
+const baseUrl = `http://${window.location.hostname}:5000/api/news`;
 
 export const createNews = (news) => {
   if (news.id) {
@@ -99,7 +99,7 @@ export const updateNews = async (dispatch, data) => {
     title: data.title,
     body: data.body,
     date: data.date,
-  }
+  };
   return await axios
     .put(`${baseUrl}/${id}`, putData)
     .then((response) => {

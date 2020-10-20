@@ -9,7 +9,7 @@ import {
   FETCH_ADVERTS_LOADING,
 } from "./actionTypes";
 
-const baseUrl = "http://localhost:5000/api/posts";
+const baseUrl = `http://${window.location.hostname}:5000/api/posts`;
 
 export const createAdvert = (advert) => {
   if (advert.id) {
