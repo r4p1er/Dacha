@@ -21,7 +21,7 @@ export function logout() {
 }
 
 export function login(data) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       await axios.post(`${apiUrl}/token`, data)
       .then((response) => {

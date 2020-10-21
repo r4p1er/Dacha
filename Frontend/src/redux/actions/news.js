@@ -100,7 +100,7 @@ export const updateNews = async (dispatch, data) => {
     title: data.title,
     body: data.body,
     date: data.date,
-  }
+  };
   return await axios
     .put(`${baseUrl}/${id}`, putData)
     .then((response) => {
