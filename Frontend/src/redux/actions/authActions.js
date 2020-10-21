@@ -3,7 +3,7 @@ import { SET_CURRENT_USER } from "./actionTypes";
 import jwt from "jsonwebtoken";
 import { showAlert } from "./AlertMessages";
 import axios from "axios";
-import apiUrl from "../../utils/api";
+import {apiUrl} from "../../utils/api";
 
 export function setCurrentUser(user) {
   return {

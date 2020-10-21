@@ -1,6 +1,6 @@
 import axios from "axios";
 import { showAlert } from "./AlertMessages";
-import apiUrl from "../../utils/api";
+import {apiUrl} from "../../utils/api";
 import {
   ADD_NEWS,
   ADD_NEWS_LOADING,

@@ -1,7 +1,7 @@
 import axios from "axios";
 import fileDownload from "js-file-download";
 import { showAlert } from "./AlertMessages";
-import apiUrl from "../../utils/api";
+import {apiUrl} from "../../utils/api";
 import {
   DELETE_DOCUMENT,
   FETCH_DOCUMENTS,
