@@ -17,13 +17,12 @@ services:
     build: .
     depends_on:
       - db
-    ports:
-      - "5000:80"
     restart: always
   client:
     build: ./Frontend/.
     depends_on:
       - api
-    ports:
-      - "80:80"
+    ports: 
+      - 80:80
+      - 5000:5000
     restart: always

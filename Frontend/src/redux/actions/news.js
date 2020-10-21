@@ -1,6 +1,6 @@
 import axios from "axios";
 import { showAlert } from "./AlertMessages";
-import apiUrl from "../../utils/api";
+import {apiUrl} from "../../utils/api";
 import {
   ADD_NEWS,
   ADD_NEWS_LOADING,
@@ -100,7 +100,7 @@ export const updateNews = async (dispatch, data) => {
     title: data.title,
     body: data.body,
     date: data.date,
-  }
+  };
   return await axios
     .put(`${baseUrl}/${id}`, putData)
     .then((response) => {

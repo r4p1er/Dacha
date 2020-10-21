@@ -18,11 +18,18 @@ namespace Dacha
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
+            Environment = env;
         }
 
+        public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -48,14 +55,20 @@ namespace Dacha
                         };
                     });
 
-            var server = Configuration["DBServer"] ?? "db";
-            var port = Configuration["DBPort"] ?? "1433";
-            var user = Configuration["DBUser"] ?? "Dacha";
-            var password = Configuration["DBPassword"] ?? "aSQ3jAa5SGt5";
-            var database = Configuration["Database"] ?? "DachaDb";
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+
+            if(Environment.IsProduction())
+            {
+                var server = Configuration["DBServer"];
+                var port = Configuration["DBPort"];
+                var user = Configuration["DBUser"];
+                var password = Configuration["DBPassword"];
+                var database = Configuration["Database"];
+                connection = $"Server={server},{port};Database={database};User={user};Password={password};";
+            }
 
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer($"Server={server},{port};Database={database};User={user};Password={password};"));
+                options.UseSqlServer(connection));
 
             services.AddControllers();
             services.AddCors();
