@@ -28,7 +28,6 @@ function Header(props) {
   const handleShowExit = () => setshowExit(true);
   const handleCloseAdsCreate = () => setshowAdsCreate(false);
   const handleShowAdsCreate = () => setshowAdsCreate(true);
-
   function logout(e) {
     e.preventDefault();
     props.logout();
@@ -40,7 +39,7 @@ function Header(props) {
         inline="true"
         collapseOnSelect="true"
         expanded={expanded}
-        expand="xl"
+        expand="lg"
       >
         <Link
           onClick={() => setExpanded(false)}
@@ -73,38 +72,45 @@ function Header(props) {
               <NavLink to="/vote">Голосование</NavLink>
             </NavItem>
           </Nav>
-          <NavDropdown
-            className="text-right"
-            alignRight
-            title={`Участок № ${props.auth.user.name}`}
-            id="nav-dropdown"
-          >
-            <NavDropdown.Item
-              as={Link}
-              to="/adverts/current_adverts"
-              onClick={() => setExpanded(false)}
+          <span className="text-center">
+            <NavDropdown
+              className=""
+              alignRight
+              title={`Участок № ${props.auth.user.name}`}
+              id="nav-dropdown"
             >
-              Мои объявления
-            </NavDropdown.Item>
-            <NavDropdown.Item onClick={handleShowAdsCreate}>
-              Создать объявление
-            </NavDropdown.Item>
-            {isAdmin ? (
               <NavDropdown.Item
                 as={Link}
-                to="/admin/news"
+                to="/adverts/current_adverts"
                 onClick={() => setExpanded(false)}
               >
-                Комната админа
+                Мои объявления
               </NavDropdown.Item>
-            ) : null}
-            <NavDropdown.Divider />
-            <Form className="text-right dropdown-item">
-              <Button variant="outline-danger" onClick={handleShowExit}>
+              <NavDropdown.Item onClick={handleShowAdsCreate}>
+                Создать объявление
+              </NavDropdown.Item>
+              {isAdmin ? (
+                <NavDropdown.Item
+                  as={Link}
+                  to="/admin/news"
+                  onClick={() => setExpanded(false)}
+                >
+                  Комната админа
+                </NavDropdown.Item>
+              ) : null}
+              <NavDropdown.Divider className="d-none d-lg-block d-xl-block"/>
+              <Form className="text-right dropdown-item d-none d-lg-block d-xl-block">
+                <Button variant="outline-danger" onClick={handleShowExit}>
+                  Выход
+                </Button>
+              </Form>
+            </NavDropdown>
+            <Form className="text-right d-lg-none d-xl-none">
+              <Button variant="danger" onClick={handleShowExit}>
                 Выход
               </Button>
             </Form>
-          </NavDropdown>
+          </span>
         </Navbar.Collapse>
       </Navbar>
       <Modal show={showAdsCreate} onHide={handleCloseAdsCreate}>
