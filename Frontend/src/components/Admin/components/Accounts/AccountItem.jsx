@@ -23,6 +23,19 @@ const AccountItem = ({
   const handleClose = () => setShowDeleteModal(false);
   const handleShow = () => setShowDeleteModal(true);
 
+  const role = (roleId) => {
+    switch(roleId) {
+      case 1:
+        return "Пользователь";
+      case 2:
+        return "Модератор";
+      case 3:
+        return "Админ";
+      default:
+        return "Пользователь";
+    }
+  }
+
   return (
     <>
       <tr>
@@ -31,18 +44,18 @@ const AccountItem = ({
         <td>{name}</td>
         <td>{middleName}</td>
         <td>{place}</td>
-        <td>{roleId}</td>
+        <td>{role(roleId)}</td>
         <td>
           <Image
-            onClick={handleShow}
-            src={deleteIcon}
+            onClick={handleShowAccountUpadate}
+            src={editIcon}
             className="cursor-pointer"
           />
         </td>
         <td>
           <Image
-            onClick={handleShowAccountUpadate}
-            src={editIcon}
+            onClick={handleShow}
+            src={deleteIcon}
             className="cursor-pointer"
           />
         </td>
