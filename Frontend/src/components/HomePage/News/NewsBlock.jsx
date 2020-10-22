@@ -49,7 +49,7 @@ const NewsBlock = () => {
       {newsState.news.length > 3 ? (
         <>
           <Button
-            variant="outline-info"
+            variant="info"
             className="ml-auto"
             onClick={handleShow}
           >
