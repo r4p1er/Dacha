@@ -27,12 +27,14 @@ class UpdateAdvert extends Component {
     let tzoffset = new Date().getTimezoneOffset() * 60000;
     const date = new Date(Date.now() - tzoffset);
     date.setMonth(date.getMonth() + 1);
-    this.state.expDate = date.toISOString();
+    let newState = Object.assign({}, this.state);
+    newState.expDate = date.toISOString();
+    this.setState(newState);
 
     if (title === "" || body === "" || contact === "") {
       return this.props.showAlert("Заполните форму");
     }
-    this.props.createAdvert(this.state);
+    this.props.createAdvert(newState);
     this.props.handleCloseAdvertUpadate();
     this.setState({
       id: "",
