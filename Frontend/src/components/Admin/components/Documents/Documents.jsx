@@ -54,20 +54,20 @@ const Documents = () => {
           </Button>
         </Form>
         <h2>Документы</h2>
-        <Row>
-          {!documents.length ? (
-            <h3>Документы отсутствуют</h3>
-          ) : (
-            documents.map((doc) => (
+        {!documents.length ? (
+          <h3>Документы отсутствуют</h3>
+        ) : (
+          <Row>
+            {documents.map((doc) => (
               <DocumentItem
                 key={doc.id}
                 onDelete={onDelete}
                 onDownload={onDownload}
                 {...doc}
               />
-            ))
-          )}
-        </Row>
+            ))}
+          </Row>
+        )}
       </Container>
     </>
   );
