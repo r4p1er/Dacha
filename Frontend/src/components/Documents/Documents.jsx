@@ -61,7 +61,6 @@ const Documents = () => {
                 </div>
               </Col>
             ))}
-            )}
           </Row>
         )}
       </Container>
