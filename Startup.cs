@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Dacha.Middlewares;
 using Dacha.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -55,6 +56,11 @@ namespace Dacha
                         };
                     });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Authenticated", policy => policy.RequireAuthenticatedUser());
+            });
+
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
             if(Environment.IsProduction())
@@ -92,6 +98,9 @@ namespace Dacha
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseProtectFolder(new ProtectFolderOptions { Path = "/StaticFiles", PolicyName = "Authenticated" });
+            app.UseStaticFiles(new StaticFileOptions { RequestPath = "/StaticFiles" });
 
             app.UseEndpoints(endpoints =>
             {
