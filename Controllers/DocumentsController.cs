@@ -43,7 +43,7 @@ namespace Dacha.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<ActionResult> Get(int id)
+        public async Task<ActionResult<Document>> Get(int id)
         {
             var document = await db.Documents.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -52,11 +52,7 @@ namespace Dacha.Controllers
                 return NotFound();
             }
 
-            string path = Path.Combine(appEnvironment.WebRootPath, document.Name);
-
-            var fs = new FileStream(path, FileMode.Open);
-
-            return File(fs, "application/octet-stream", document.Name);
+            return document;
         }
 
         [Authorize(Roles = "moder,admin")]
