@@ -113,7 +113,7 @@ export const downloadDocument = (id, name) => {
   return async (dispatch) => {
     dispatch(documentDownloadSuccess());
     await axios
-      .get(`${baseUrl}/${id}`, {
+      .get(`http://${window.location.hostname}:5000/StaticFiles/${name}`, {
         responseType: "blob",
         headers: { Authorization: AuthStr },
       })

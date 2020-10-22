@@ -52,7 +52,7 @@ function App(props) {
     <div
       style={{
         backgroundImage: "url(" + background + ")",
-        "min-height": "100vh",
+        minHeight: "100vh",
       }}
     >
       {showHeader(useLocation().pathname) ? (
