@@ -48,11 +48,7 @@ const NewsBlock = () => {
       </Col>
       {newsState.news.length > 3 ? (
         <>
-          <Button
-            variant="info"
-            className="ml-auto"
-            onClick={handleShow}
-          >
+          <Button variant="info" className="ml-auto" onClick={handleShow}>
             Показать все новости
           </Button>
           <Modal size="lg" show={showAllNews} onHide={handleClose}>
@@ -60,21 +56,20 @@ const NewsBlock = () => {
               <Modal.Title>Новости</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {newsState.news
-                .map((someNews) => (
-                  <div key={someNews.id}>
-                    <div className="news-card d-flex flex-column">
-                      <h5>{someNews.title}</h5>
-                      <p className="home_post_text">{urlify(someNews.body)}</p>
-                      <span className="align-self-end">
-                        {new Date(someNews.date).getHours()}:
-                        {new Date(someNews.date).getMinutes()}{" "}
-                        {new Date(someNews.date).toLocaleDateString()}г
-                      </span>
-                    </div>
-                    <hr />
+              {newsState.news.map((someNews) => (
+                <div key={someNews.id}>
+                  <div className="news-card d-flex flex-column">
+                    <h5>{someNews.title}</h5>
+                    <p className="home_post_text">{urlify(someNews.body)}</p>
+                    <span className="align-self-end">
+                      {new Date(someNews.date).toLocaleDateString()},{" "}
+                      {new Date(someNews.date).getHours()}:
+                      {new Date(someNews.date).getMinutes()}
+                    </span>
                   </div>
-                ))}
+                  <hr />
+                </div>
+              ))}
             </Modal.Body>
           </Modal>
         </>
