@@ -1,5 +1,6 @@
 import axios from "axios";
 import { showAlert } from "./AlertMessages";
+import {apiUrl} from "../../utils/api";
 import {
   ADD_NEWS,
   ADD_NEWS_LOADING,
@@ -9,7 +10,7 @@ import {
   FETCH_NEWS_LOADING,
 } from "./actionTypes";
 
-const baseUrl = `http://${window.location.hostname}:5000/api/news`;
+const baseUrl = `${apiUrl}/news`;
 
 export const createNews = (news) => {
   if (news.id) {

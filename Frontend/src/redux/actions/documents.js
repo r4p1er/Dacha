@@ -1,6 +1,6 @@
 import axios from "axios";
-import fileDownload from "js-file-download";
 import { showAlert } from "./AlertMessages";
+import { apiUrl } from "../../utils/api";
 import {
   DELETE_DOCUMENT,
   FETCH_DOCUMENTS,
@@ -8,7 +8,7 @@ import {
   DOWNLOAD_DOCUMENT,
 } from "./actionTypes";
 
-const baseUrl = `http://${window.location.hostname}:5000/api/documents`;
+const baseUrl = `${apiUrl}/documents`;
 
 export const addDocument = (document) => {
   const data = document;
@@ -113,12 +113,32 @@ export const downloadDocument = (id, name) => {
   return async (dispatch) => {
     dispatch(documentDownloadSuccess());
     await axios
-      .get(`http://localhost:5000/api/documents/${id}`, {
+      .get(`http://${window.location.hostname}:5000/StaticFiles/${name}`, {
         responseType: "blob",
         headers: { Authorization: AuthStr },
       })
       .then((response) => {
-        fileDownload(response.data, `${name}`);
+        if (name.substring(name.lastIndexOf(".") + 1, name.length) === "pdf") {
+          const url = window.URL.createObjectURL(
+            new Blob([response.data], { type: "application/pdf" })
+          );
+          const link = document.createElement("a");
+          link.style = "display: none";
+          document.body.appendChild(link);
+          link.href = url;
+          link.setAttribute("target", "_blank");
+          link.click();
+        } else {
+          const url = window.URL.createObjectURL(
+            new Blob([response.data], { type: "application/octet-stream" })
+          );
+          const link = document.createElement("a");
+          link.style = "display: none";
+          document.body.appendChild(link);
+          link.href = url;
+          link.setAttribute("download", `${name}`);
+          link.click();
+        }
       });
   };
 };

@@ -25,8 +25,8 @@ const AdvertsContainer = () => {
           <CreateAdvert handleCloseAdsCreate={handleCloseAdsCreate} />
         </Modal.Body>
       </Modal>
-      <Container fluid className="text-center">
-        <Outlet />
+      <Container fluid>
+        <Outlet/>
       </Container>
     </Container>
   );

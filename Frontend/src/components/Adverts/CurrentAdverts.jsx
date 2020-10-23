@@ -18,17 +18,15 @@ const CurrentAdverts = () => {
 
   return (
     <>
-      {loading ? (
+      {!advertsState.adverts.length ? (
+        <h3>У вас нет объявлений</h3>
+      ) : loading ? (
         <FullPageLoader />
       ) : (
         <Row className="text-center">
-          {!advertsState.adverts.length ? (
-            <h3>У вас нет объявлений</h3>
-          ) : (
-            advertsState.adverts
-              .reverse()
-              .map((ad) => <AdCard key={ad.id} onDelete={onDelete} {...ad} />)
-          )}
+          {advertsState.adverts.reverse().map((ad) => (
+            <AdCard key={ad.id} onDelete={onDelete} {...ad} />
+          ))}
         </Row>
       )}
     </>

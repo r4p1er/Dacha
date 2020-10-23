@@ -25,12 +25,14 @@ class CreateAdvert extends Component {
     let tzoffset = new Date().getTimezoneOffset() * 60000;
     const date = new Date(Date.now() - tzoffset);
     date.setMonth(date.getMonth() + 1);
-    this.state.expDate = date.toISOString();
+    let newState = Object.assign({}, this.state);
+    newState.expDate = date.toISOString();
+    this.setState(newState);
 
     if (title === "" || body === "" || contact === "") {
       return this.props.isValid("Заполните форму");
     }
-    this.props.onAdd(this.state);
+    this.props.onAdd(newState);
     this.props.handleCloseAdsCreate();
     this.setState({
       title: "",

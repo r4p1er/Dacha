@@ -3,8 +3,8 @@ import { Container } from "react-bootstrap";
 const Vote = () => {
   return (
     <>
-      <Container>
-        <h1>Vote Page</h1>
+      <Container className="text-center">
+        <h1>Страница голосования в разработке</h1>
       </Container>
     </>
   );
