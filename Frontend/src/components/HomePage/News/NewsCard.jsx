@@ -30,7 +30,7 @@ const NewsCard = ({ title, body, date }) => {
           {newsDateHour}:{newsDateMinute} {newsDate}г
         </span>
       </div>
-        <hr/>
+        <hr color="#666666"/>
     </>
   );
 };
