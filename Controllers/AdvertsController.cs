@@ -23,21 +23,21 @@ namespace Dacha.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AdvertGet>>> Get()
+        public async Task<ActionResult<IEnumerable<AdvertDTO>>> Get()
         {
             var adverts = await db.Adverts.Where(x => x.ExpDate <= DateTime.Now).ToListAsync();
 
             db.Adverts.RemoveRange(adverts);
             await db.SaveChangesAsync();
 
-            var selectedAdverts = await db.Adverts.Include(x => x.Account).Select(x => new AdvertGet(x)).ToListAsync();
+            var selectedAdverts = await db.Adverts.Include(x => x.Account).Select(x => new AdvertDTO(x)).ToListAsync();
 
             return selectedAdverts;
         }
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<ActionResult<AdvertGet>> Get(int id)
+        public async Task<ActionResult<AdvertDTO>> Get(int id)
         {
             var advert = await db.Adverts.Include(x => x.Account).FirstOrDefaultAsync(x => x.Id == id);
 
@@ -53,12 +53,12 @@ namespace Dacha.Controllers
                 return NotFound();
             }
 
-            return new AdvertGet(advert);
+            return new AdvertDTO(advert);
         }
 
         [Authorize]
         [HttpGet("current")]
-        public async Task<ActionResult<IEnumerable<AdvertGet>>> GetCurrent()
+        public async Task<ActionResult<IEnumerable<AdvertDTO>>> GetCurrent()
         {
             int accountId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
@@ -68,7 +68,7 @@ namespace Dacha.Controllers
 
             var selectedAdverts = await db.Adverts.Include(x => x.Account)
                                                   .Where(x => x.AccountId == accountId)
-                                                  .Select(x => new AdvertGet(x))
+                                                  .Select(x => new AdvertDTO(x))
                                                   .ToListAsync();
 
             return selectedAdverts;
@@ -128,7 +128,7 @@ namespace Dacha.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<ActionResult<AdvertGet>> Delete(int id)
+        public async Task<ActionResult<AdvertDTO>> Delete(int id)
         {
             var advert = await db.Adverts.Include(x => x.Account).FirstOrDefaultAsync(x => x.Id == id);
 
@@ -145,7 +145,7 @@ namespace Dacha.Controllers
             db.Adverts.Remove(advert);
             await db.SaveChangesAsync();
 
-            return new AdvertGet(advert);
+            return new AdvertDTO(advert);
         }
 
         private async Task<bool> ExistsAsync(int id) => await db.Adverts.AnyAsync(e => e.Id == id);
