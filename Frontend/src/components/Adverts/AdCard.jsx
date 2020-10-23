@@ -41,7 +41,7 @@ const AdCard = ({
               <Card.Title>{title}</Card.Title>
             </Col>
             <Col col="true" xl={4} lg={4} md={4} sm={4} xs={4}>
-              <span className="text-muted">Участок {place}</span> <br />
+              <span className="text-muted">Участок №{place}</span> <br />
               <span>
                 {formatedDate}, {formatedDateHour}:{formatedDateMinutes}
               </span>
