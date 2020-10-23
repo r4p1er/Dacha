@@ -14,17 +14,15 @@ const Adverts = () => {
   const loading = advertState.isLoading;
   return (
     <>
-      {loading ? (
+      {!advertState.adverts.length ? (
+        <h3>Объявления отсутствуют</h3>
+      ) : loading ? (
         <FullPageLoader />
       ) : (
-        <Row className="text-center">
-          {!advertState.adverts.length ? (
-            <h3>Объявления отсутствуют</h3>
-          ) : (
-            advertState.adverts
-              .reverse()
-              .map((ad) => <AdCard key={ad.id} {...ad} />)
-          )}
+        <Row>
+          {advertState.adverts.reverse().map((ad) => (
+            <AdCard key={ad.id} {...ad} />
+          ))}
         </Row>
       )}
     </>

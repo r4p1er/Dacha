@@ -1,7 +1,6 @@
 import axios from "axios";
-import fileDownload from "js-file-download";
 import { showAlert } from "./AlertMessages";
-import {apiUrl} from "../../utils/api";
+import { apiUrl } from "../../utils/api";
 import {
   DELETE_DOCUMENT,
   FETCH_DOCUMENTS,
@@ -114,12 +113,32 @@ export const downloadDocument = (id, name) => {
   return async (dispatch) => {
     dispatch(documentDownloadSuccess());
     await axios
-      .get(`${baseUrl}/${id}`, {
+      .get(`http://${window.location.hostname}:5000/StaticFiles/${name}`, {
         responseType: "blob",
         headers: { Authorization: AuthStr },
       })
       .then((response) => {
-        fileDownload(response.data, `${name}`);
+        if (name.substring(name.lastIndexOf(".") + 1, name.length) === "pdf") {
+          const url = window.URL.createObjectURL(
+            new Blob([response.data], { type: "application/pdf" })
+          );
+          const link = document.createElement("a");
+          link.style = "display: none";
+          document.body.appendChild(link);
+          link.href = url;
+          link.setAttribute("target", "_blank");
+          link.click();
+        } else {
+          const url = window.URL.createObjectURL(
+            new Blob([response.data], { type: "application/octet-stream" })
+          );
+          const link = document.createElement("a");
+          link.style = "display: none";
+          document.body.appendChild(link);
+          link.href = url;
+          link.setAttribute("download", `${name}`);
+          link.click();
+        }
       });
   };
 };

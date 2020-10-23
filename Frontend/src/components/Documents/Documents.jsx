@@ -24,45 +24,43 @@ const Documents = () => {
     <>
       <Container className="text-center">
         <h1>Документы</h1>
-        {loading ? (
+        {!documentsState.documents.length ? (
+          <h3>Документы отсутствуют</h3>
+        ) : loading ? (
           <FullPageLoader />
         ) : (
           <Row>
-            {!documentsState.documents.length ? (
-              <h3>Документы отсутствуют</h3>
-            ) : (
-              documentsState.documents.map((doc) => (
-                <Col
-                  className="doc-item-container my-2"
-                  col="true"
-                  xl={3}
-                  lg={3}
-                  md={4}
-                  sm={6}
-                  xs={12}
-                  key={doc.id}
-                >
-                  <div className="doc-item d-flex flex-column align-items-center">
-                    <Image
-                      className="cursor-pointer"
-                      width="32"
-                      src={fileExtentionRead(doc.name)}
-                      onClick={() => {
-                        onDownload(doc.id, doc.name);
-                      }}
-                    />
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => {
-                        onDownload(doc.id, doc.name);
-                      }}
-                    >
-                      {doc.name}
-                    </span>
-                  </div>
-                </Col>
-              ))
-            )}
+            {documentsState.documents.map((doc) => (
+              <Col
+                className="doc-item-container my-2"
+                col="true"
+                xl={3}
+                lg={3}
+                md={4}
+                sm={6}
+                xs={12}
+                key={doc.id}
+              >
+                <div className="doc-item d-flex flex-column align-items-center">
+                  <Image
+                    className="cursor-pointer"
+                    width="32"
+                    src={fileExtentionRead(doc.name)}
+                    onClick={() => {
+                      onDownload(doc.id, doc.name);
+                    }}
+                  />
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => {
+                      onDownload(doc.id, doc.name);
+                    }}
+                  >
+                    {doc.name}
+                  </span>
+                </div>
+              </Col>
+            ))}
           </Row>
         )}
       </Container>
