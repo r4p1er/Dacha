@@ -26,6 +26,12 @@ const AdCard = ({
   const handleClose = () => setShowDeleteModal(false);
   const handleShow = () => setShowDeleteModal(true);
 
+  const advertDate = new Date(expDate);
+  advertDate.setMonth(advertDate.getMonth() - 1);
+
+  const formatedDate = advertDate.toLocaleDateString();
+  const formatedDateHour = advertDate.getHours();
+  const formatedDateMinutes = advertDate.getMinutes();
   return (
     <Col col="true" xl={3} lg={4} md={6} sm={6} xs={12}>
       <Card>
@@ -35,7 +41,10 @@ const AdCard = ({
               <Card.Title>{title}</Card.Title>
             </Col>
             <Col col="true" xl={4} lg={4} md={4} sm={4} xs={4}>
-              <span className="text-muted">Участок {place}</span>
+              <span className="text-muted">Участок {place}</span> <br />
+              <span>
+                {formatedDate}, {formatedDateHour}:{formatedDateMinutes}
+              </span>
             </Col>
           </Row>
         </Card.Header>
