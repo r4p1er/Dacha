@@ -27,10 +27,10 @@ const NewsCard = ({ title, body, date }) => {
         <h5>{title}</h5>
         {headingAvailable}
         <span className="align-self-end">
-          {newsDateHour}:{newsDateMinute} {newsDate}г
+        {newsDate}, {newsDateHour}:{newsDateMinute}
         </span>
       </div>
-        <hr/>
+        <hr color="#666666"/>
     </>
   );
 };

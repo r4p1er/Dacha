@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dacha.Models
 {
-    public class AdvertGet
+    public class AdvertDTO
     {
         public int Id { get; set; }
         [Required]
@@ -20,8 +20,10 @@ namespace Dacha.Models
         public string Contact { get; set; }
         public int AccountId { get; set; }
         public int? Place { get; set; }
+        [Required]
+        public DateTime ExpDate { get; set; }
 
-        public AdvertGet(Advert advert)
+        public AdvertDTO(Advert advert)
         {
             Id = advert.Id;
             Title = advert.Title;
@@ -29,6 +31,7 @@ namespace Dacha.Models
             Contact = advert.Contact;
             AccountId = advert.AccountId;
             Place = advert.Account?.Place;
+            ExpDate = advert.ExpDate;
         }
     }
 }
