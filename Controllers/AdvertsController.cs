@@ -25,7 +25,7 @@ namespace Dacha.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AdvertDTO>>> Get()
         {
-            var adverts = await db.Adverts.Where(x => x.ExpDate <= DateTime.Now).ToListAsync();
+            var adverts = await db.Adverts.Where(x => x.Date.AddDays(30) <= DateTime.Now).ToListAsync();
 
             db.Adverts.RemoveRange(adverts);
             await db.SaveChangesAsync();
@@ -46,7 +46,7 @@ namespace Dacha.Controllers
                 return NotFound();
             }
 
-            if(advert.ExpDate <= DateTime.Now)
+            if(advert.Date.AddDays(30) <= DateTime.Now)
             {
                 db.Adverts.Remove(advert);
                 await db.SaveChangesAsync();
@@ -62,7 +62,7 @@ namespace Dacha.Controllers
         {
             int accountId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            var adverts = await db.Adverts.Where(x => x.ExpDate <= DateTime.Now).ToListAsync();
+            var adverts = await db.Adverts.Where(x => x.Date.AddDays(30) <= DateTime.Now).ToListAsync();
             db.Adverts.RemoveRange(adverts);
             await db.SaveChangesAsync();
 
@@ -82,11 +82,13 @@ namespace Dacha.Controllers
 
             advert.Id = default;
             advert.AccountId = userAccountId;
+            advert.Date = DateTime.Now;
+            
             await db.Adverts.AddAsync(advert);
             await db.SaveChangesAsync();
             advert = await db.Adverts.FirstOrDefaultAsync(x => x.Title == advert.Title && x.Body == advert.Body
                                                                                        && x.Contact == advert.Contact 
-                                                                                       && x.ExpDate == advert.ExpDate 
+                                                                                       && x.Date == advert.Date 
                                                                                        && x.AccountId == advert.AccountId);
 
             return CreatedAtAction(nameof(Get), new { id = advert.Id }, advert);
@@ -108,6 +110,7 @@ namespace Dacha.Controllers
 
             try
             {
+                advert.Date = DateTime.Now;
                 db.Adverts.Update(advert);
                 await db.SaveChangesAsync();
             }
