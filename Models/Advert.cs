@@ -20,7 +20,7 @@ namespace Dacha.Models
         [MaxLength(100)]
         public string Contact { get; set; }
         [Required]
-        public DateTime ExpDate { get; set; }
+        public DateTime Date { get; set; }
 
         public int AccountId { get; set; }
         [JsonIgnore]
