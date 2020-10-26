@@ -19,8 +19,7 @@ namespace Dacha.Models
         [MaxLength(100)]
         public string Contact { get; set; }
         public int AccountId { get; set; }
-        public int? Place { get; set; }
-        [Required]
+        public int Place { get; set; }
         public DateTime ExpDate { get; set; }
 
         public AdvertDTO(Advert advert)
@@ -30,7 +29,7 @@ namespace Dacha.Models
             Body = advert.Body;
             Contact = advert.Contact;
             AccountId = advert.AccountId;
-            Place = advert.Account?.Place;
+            Place = advert.Account.Place;
             ExpDate = advert.ExpDate;
         }
     }

@@ -46,6 +46,7 @@ namespace Dacha.Controllers
         public async Task<ActionResult<News>> Post(News news)
         {
             news.Id = default;
+            news.Date = DateTime.Now;
 
             await db.News.AddAsync(news);
             await db.SaveChangesAsync();
@@ -66,6 +67,7 @@ namespace Dacha.Controllers
 
             try
             {
+                news.Date = DateTime.Now;
                 db.News.Update(news);
                 await db.SaveChangesAsync();
             }

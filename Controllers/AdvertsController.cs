@@ -82,6 +82,7 @@ namespace Dacha.Controllers
 
             advert.Id = default;
             advert.AccountId = userAccountId;
+            advert.ExpDate = DateTime.Now.AddDays(30);
             await db.Adverts.AddAsync(advert);
             await db.SaveChangesAsync();
             advert = await db.Adverts.FirstOrDefaultAsync(x => x.Title == advert.Title && x.Body == advert.Body
@@ -108,6 +109,7 @@ namespace Dacha.Controllers
 
             try
             {
+                advert.ExpDate = DateTime.Now.AddDays(30);
                 db.Adverts.Update(advert);
                 await db.SaveChangesAsync();
             }
