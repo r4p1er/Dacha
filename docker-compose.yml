@@ -5,7 +5,7 @@ volumes:
 
 services:
   db:
-    build: ./db/.
+    build: ./Database/.
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "YwolAaP6dBLM"
@@ -14,7 +14,7 @@ services:
       - dachasql:/var/opt/mssql
     restart: always
   api:
-    build: .
+    build: ./Backend/.
     depends_on:
       - db
     restart: always
@@ -22,7 +22,10 @@ services:
     build: ./Frontend/.
     depends_on:
       - api
-    ports: 
+    restart: always
+  nginx:
+    build: ./Nginx/.
+    ports:
       - 80:80
       - 5000:5000
     restart: always
