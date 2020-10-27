@@ -89,9 +89,13 @@ const AdCard = ({
               <span className="mr-2">Контакты:</span>
               <span>{contact}</span>
             </Col>
-            <Col col="true">
+            <Col col="true" className="advert_date">
               <span>Участок №</span>
               <span>{place}</span>
+            </Col>
+            <Col col="true">
+              <span>Дата: </span>
+              <span>{formatedDate}, {formatedDateHour}:{formatedDateMinutes}</span>
             </Col>
           </Row>
         </Modal.Footer>

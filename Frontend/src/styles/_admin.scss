@@ -1,22 +1,30 @@
 .create-acc-form {
-    padding: 1rem;
-    border: .2rem solid #ececec;
-    border-radius: 8px 8px 8px 8px;
-    margin: 15px 0;
+  padding: 1rem;
+  border: 0.2rem solid #ececec;
+  border-radius: 8px 8px 8px 8px;
+  margin: 15px 0;
+}
+
+.admin_table {
+  background-color: #fdfdfd;
 }
 
 .table-ad-title,
 .table-ad-body,
-.table-ad-contact, 
-.table-news-title, 
-.table-news-body, 
+.table-ad-contact,
+.table-news-title,
+.table-news-body,
 .table-news-date {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 400px;
+}
+.table-news-date,
+.table-ad-contact {
+  width: 170px;
 }
 
 .table-ad-contact {
-    max-width: 150px;
+  max-width: 150px;
 }
