@@ -16,4 +16,6 @@ COPY entrypoint.sh ./entrypoint.sh
 RUN dos2unix ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
 
+RUN timedatectl set-timezone Europe/Moscow
+
 ENTRYPOINT ["./entrypoint.sh"]
