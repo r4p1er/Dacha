@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import dateFormater from "../../../../utils/dateFormater";
 import { Button, Col, Image, Modal, Row } from "react-bootstrap";
 import deleteIcon from "../../../../additions/deleteIcon.png";
 
@@ -19,13 +20,6 @@ const AdvertItem = ({
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const handleClose = () => setShowDeleteModal(false);
   const handleShow = () => setShowDeleteModal(true);
-
-  const advertDate = new Date(date);
-
-  const formatedDate = advertDate.toLocaleDateString();
-  const formatedDateHour = advertDate.getHours();
-  const formatedDateMinutes = advertDate.getMinutes();
-
   return (
     <>
       <tr>
@@ -55,7 +49,7 @@ const AdvertItem = ({
           onClick={handleShowFullAd}
           className="table-ad-contact cursor-pointer"
         >
-          {formatedDate}, {formatedDateHour}:{formatedDateMinutes}
+          {dateFormater(date)}
         </td>
         <td>
           <Image
@@ -96,6 +90,10 @@ const AdvertItem = ({
             <Col col="true">
               <span>Участок №</span>
               <span>{place}</span>
+            </Col>
+            <Col col="true">
+              <span>Дата: </span>
+              <span>{dateFormater(date)}</span>
             </Col>
           </Row>
         </Modal.Footer>

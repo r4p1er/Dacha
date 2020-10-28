@@ -3,6 +3,7 @@ import { Button, Card, Col, Image, Modal, Row } from "react-bootstrap";
 import deleteIcon from "../../additions/deleteIcon.png";
 import editIcon from "../../additions/editIcon.png";
 import UpdateAdvert from "./UpdateAdvert";
+import dateFormater from "../../utils/dateFormater";
 
 const AdCard = ({
   title,
@@ -25,12 +26,6 @@ const AdCard = ({
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const handleClose = () => setShowDeleteModal(false);
   const handleShow = () => setShowDeleteModal(true);
-
-  const advertDate = new Date(date);
-
-  const formatedDate = advertDate.toLocaleDateString();
-  const formatedDateHour = advertDate.getHours();
-  const formatedDateMinutes = advertDate.getMinutes();
   return (
     <Col col="true" xl={3} lg={4} md={6} sm={6} xs={12}>
       <Card>
@@ -41,9 +36,7 @@ const AdCard = ({
             </Col>
             <Col col="true" xl={4} lg={4} md={4} sm={4} xs={4}>
               <span className="text-muted">Участок №{place}</span> <br />
-              <span>
-                {formatedDate}, {formatedDateHour}:{formatedDateMinutes}
-              </span>
+              <span>{dateFormater(date)}</span>
             </Col>
           </Row>
         </Card.Header>
@@ -94,7 +87,7 @@ const AdCard = ({
             </Col>
             <Col col="true">
               <span>Дата: </span>
-              <span>{formatedDate}, {formatedDateHour}:{formatedDateMinutes}</span>
+              <span>{dateFormater(date)}</span>
             </Col>
           </Row>
         </Modal.Footer>
