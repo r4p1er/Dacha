@@ -18,7 +18,6 @@ export const createNews = (news) => {
       id: news.id,
       title: news.title,
       body: news.body,
-      date: news.date,
     };
 
     return (dispatch) => {
@@ -28,7 +27,6 @@ export const createNews = (news) => {
     const data = {
       title: news.title,
       body: news.body,
-      date: news.date,
     };
     let isLoading = true;
 
@@ -99,7 +97,6 @@ export const updateNews = async (dispatch, data) => {
     id: data.id,
     title: data.title,
     body: data.body,
-    date: data.date,
   };
   return await axios
     .put(`${baseUrl}/${id}`, putData)

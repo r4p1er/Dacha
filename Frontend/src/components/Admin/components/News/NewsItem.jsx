@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Image, Modal } from "react-bootstrap";
 import UpdateNews from "./UpdateNews";
+import dateFormater from "../../../../utils/dateFormater";
 import deleteIcon from "../../../../additions/deleteIcon.png";
 import editIcon from "../../../../additions/editIcon.png";
 
@@ -12,9 +13,6 @@ const NewsItem = ({
   date,
   onDelete,
 }) => {
-
-  const newsDate = new Date(date).toLocaleString();
-
   const [showFullNews, setshowFullNews] = useState(false);
   const handleCloseFullNews = () => setshowFullNews(false);
   const handleShowFullNews = () => setshowFullNews(true);
@@ -33,7 +31,7 @@ const NewsItem = ({
         <td onClick={handleShowFullNews}>{index + 1}</td>
         <td onClick={handleShowFullNews} className="table-news-title cursor-pointer">{title}</td>
         <td onClick={handleShowFullNews} className="table-news-body cursor-pointer">{body}</td>
-        <td onClick={handleShowFullNews} className="table-news-date cursor-pointer">{newsDate}</td>
+        <td onClick={handleShowFullNews} className="table-news-date cursor-pointer">{dateFormater(date)}</td>
         <td>
           <Image onClick={() => {handleShowNewsUpadate()}} src={editIcon} className="cursor-pointer"/>
         </td>
@@ -65,7 +63,7 @@ const NewsItem = ({
           <p>{body}</p>
         </Modal.Body>
         <Modal.Footer className="justify-content-start">
-          {newsDate}
+          <span>Дата: {dateFormater(date)}</span>
         </Modal.Footer>
       </Modal>
     </>

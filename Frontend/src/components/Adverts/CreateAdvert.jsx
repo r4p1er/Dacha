@@ -12,7 +12,6 @@ class CreateAdvert extends Component {
       title: "",
       body: "",
       contact: "",
-      expDate: "",
     };
   }
 
@@ -22,23 +21,16 @@ class CreateAdvert extends Component {
     const title = this.state.title;
     const body = this.state.body;
     const contact = this.state.contact;
-    let tzoffset = new Date().getTimezoneOffset() * 60000;
-    const date = new Date(Date.now() - tzoffset);
-    date.setMonth(date.getMonth() + 1);
-    let newState = Object.assign({}, this.state);
-    newState.expDate = date.toISOString();
-    this.setState(newState);
 
     if (title === "" || body === "" || contact === "") {
       return this.props.isValid("Заполните форму");
     }
-    this.props.onAdd(newState);
+    this.props.onAdd(this.state);
     this.props.handleCloseAdsCreate();
     this.setState({
       title: "",
       body: "",
       contact: "",
-      expDate: "",
     });
   };
 

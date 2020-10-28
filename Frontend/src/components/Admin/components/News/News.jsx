@@ -22,7 +22,7 @@ const News = () => {
   return (
     <>
       <Button className="mb-4" onClick={handleShowNewsCreate}>Добавить новость</Button>
-      <Table size="sm" responsive striped bordered hover>
+      <Table className="admin_table" size="sm" responsive striped bordered hover>
         <thead>
           <tr>
             <th>#</th>

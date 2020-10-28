@@ -1,9 +1,18 @@
 import React, { useState } from "react";
+import dateFormater from "../../../../utils/dateFormater";
 import { Button, Col, Image, Modal, Row } from "react-bootstrap";
 import deleteIcon from "../../../../additions/deleteIcon.png";
 
-const AdvertItem = ({ id, onDelete, index, place, title, body, contact }) => {
-
+const AdvertItem = ({
+  id,
+  onDelete,
+  index,
+  place,
+  title,
+  body,
+  contact,
+  date,
+}) => {
   const [showFullAd, setshowFullAd] = useState(false);
   const handleCloseFullAd = () => setshowFullAd(false);
   const handleShowFullAd = () => setshowFullAd(true);
@@ -11,17 +20,43 @@ const AdvertItem = ({ id, onDelete, index, place, title, body, contact }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const handleClose = () => setShowDeleteModal(false);
   const handleShow = () => setShowDeleteModal(true);
-
   return (
     <>
       <tr>
         <td onClick={handleShowFullAd}>{index + 1}</td>
-        <td onClick={handleShowFullAd} className="table-ad-place cursor-pointer">{place}</td>
-        <td onClick={handleShowFullAd} className="table-ad-title cursor-pointer">{title}</td>
-        <td onClick={handleShowFullAd} className="table-ad-body cursor-pointer">{body}</td>
-        <td onClick={handleShowFullAd} className="table-ad-contact cursor-pointer">{contact}</td>
+        <td
+          onClick={handleShowFullAd}
+          className="table-ad-place cursor-pointer"
+        >
+          {place}
+        </td>
+        <td
+          onClick={handleShowFullAd}
+          className="table-ad-title cursor-pointer"
+        >
+          {title}
+        </td>
+        <td onClick={handleShowFullAd} className="table-ad-body cursor-pointer">
+          {body}
+        </td>
+        <td
+          onClick={handleShowFullAd}
+          className="table-ad-contact cursor-pointer"
+        >
+          {contact}
+        </td>
+        <td
+          onClick={handleShowFullAd}
+          className="table-ad-contact cursor-pointer"
+        >
+          {dateFormater(date)}
+        </td>
         <td>
-          <Image onClick={handleShow} src={deleteIcon} className="cursor-pointer"/>
+          <Image
+            onClick={handleShow}
+            src={deleteIcon}
+            className="cursor-pointer"
+          />
         </td>
       </tr>
       <Modal show={showDeleteModal} onHide={handleClose}>
@@ -55,6 +90,10 @@ const AdvertItem = ({ id, onDelete, index, place, title, body, contact }) => {
             <Col col="true">
               <span>Участок №</span>
               <span>{place}</span>
+            </Col>
+            <Col col="true">
+              <span>Дата: </span>
+              <span>{dateFormater(date)}</span>
             </Col>
           </Row>
         </Modal.Footer>

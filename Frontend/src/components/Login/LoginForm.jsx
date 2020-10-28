@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions/authActions";
 import { Form, Button, Container, Image } from "react-bootstrap";
 import logo from "./../../additions/logo_dark.png";
-// import style from "./loginPage.module.css";
 import { AlertMessage } from "../Alerts/Alert";
 import { useNavigate } from "react-router-dom";
 
