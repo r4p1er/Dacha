@@ -18,7 +18,7 @@ const Accounts = () => {
   return (
     <>
       <CreateAccount />
-      <Table size="sm" responsive striped bordered hover>
+      <Table className="admin_table" size="sm" bordered responsive striped hover>
         <thead>
           <tr>
             <th>#</th>

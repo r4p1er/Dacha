@@ -17,7 +17,7 @@ const News = () => {
   const onDelete = (id) => dispatch(deleteAdvert(id));
   return (
     <>
-      <Table size="sm" responsive striped bordered hover>
+      <Table className="admin_table" size="sm" responsive striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
@@ -25,6 +25,7 @@ const News = () => {
             <th>Заголовок</th>
             <th>Объявление</th>
             <th>Контакты</th>
+            <th>Дата</th>
             <th></th>
           </tr>
         </thead>

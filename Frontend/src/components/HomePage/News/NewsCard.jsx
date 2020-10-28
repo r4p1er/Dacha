@@ -1,10 +1,7 @@
 import React from "react";
+import dateFormater from "../../../utils/dateFormater";
 
 const NewsCard = ({ title, body, date }) => {
-  const newsDate = new Date(date).toLocaleDateString();
-  const newsDateHour = new Date(date).getHours();
-  const newsDateMinute = new Date(date).getMinutes();
-
   function urlify(text) {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.split(urlRegex).map((part, index) => {
@@ -26,11 +23,9 @@ const NewsCard = ({ title, body, date }) => {
       <div className="news-card d-flex flex-column">
         <h5>{title}</h5>
         {headingAvailable}
-        <span className="align-self-end">
-        {newsDate}, {newsDateHour}:{newsDateMinute}
-        </span>
+        <span className="align-self-end">{dateFormater(date)}</span>
       </div>
-        <hr color="#666666"/>
+      <hr color="#666666" />
     </>
   );
 };
