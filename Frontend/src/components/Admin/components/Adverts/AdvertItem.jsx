@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import { Button, Col, Image, Modal, Row } from "react-bootstrap";
 import deleteIcon from "../../../../additions/deleteIcon.png";
 
-const AdvertItem = ({ id, onDelete, index, place, title, body, contact, expDate }) => {
-
+const AdvertItem = ({
+  id,
+  onDelete,
+  index,
+  place,
+  title,
+  body,
+  contact,
+  date,
+}) => {
   const [showFullAd, setshowFullAd] = useState(false);
   const handleCloseFullAd = () => setshowFullAd(false);
   const handleShowFullAd = () => setshowFullAd(true);
@@ -12,8 +20,7 @@ const AdvertItem = ({ id, onDelete, index, place, title, body, contact, expDate 
   const handleClose = () => setShowDeleteModal(false);
   const handleShow = () => setShowDeleteModal(true);
 
-  const advertDate = new Date(expDate);
-  advertDate.setMonth(advertDate.getMonth() - 1);
+  const advertDate = new Date(date);
 
   const formatedDate = advertDate.toLocaleDateString();
   const formatedDateHour = advertDate.getHours();
@@ -23,13 +30,39 @@ const AdvertItem = ({ id, onDelete, index, place, title, body, contact, expDate 
     <>
       <tr>
         <td onClick={handleShowFullAd}>{index + 1}</td>
-        <td onClick={handleShowFullAd} className="table-ad-place cursor-pointer">{place}</td>
-        <td onClick={handleShowFullAd} className="table-ad-title cursor-pointer">{title}</td>
-        <td onClick={handleShowFullAd} className="table-ad-body cursor-pointer">{body}</td>
-        <td onClick={handleShowFullAd} className="table-ad-contact cursor-pointer">{contact}</td>
-        <td onClick={handleShowFullAd} className="table-ad-contact cursor-pointer">{formatedDate}, {formatedDateHour}:{formatedDateMinutes}</td>
+        <td
+          onClick={handleShowFullAd}
+          className="table-ad-place cursor-pointer"
+        >
+          {place}
+        </td>
+        <td
+          onClick={handleShowFullAd}
+          className="table-ad-title cursor-pointer"
+        >
+          {title}
+        </td>
+        <td onClick={handleShowFullAd} className="table-ad-body cursor-pointer">
+          {body}
+        </td>
+        <td
+          onClick={handleShowFullAd}
+          className="table-ad-contact cursor-pointer"
+        >
+          {contact}
+        </td>
+        <td
+          onClick={handleShowFullAd}
+          className="table-ad-contact cursor-pointer"
+        >
+          {formatedDate}, {formatedDateHour}:{formatedDateMinutes}
+        </td>
         <td>
-          <Image onClick={handleShow} src={deleteIcon} className="cursor-pointer"/>
+          <Image
+            onClick={handleShow}
+            src={deleteIcon}
+            className="cursor-pointer"
+          />
         </td>
       </tr>
       <Modal show={showDeleteModal} onHide={handleClose}>

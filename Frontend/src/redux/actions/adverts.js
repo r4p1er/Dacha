@@ -19,7 +19,6 @@ export const createAdvert = (advert) => {
       title: advert.title,
       body: advert.body,
       contact: advert.contact,
-      expDate: advert.expDate,
       accountId: advert.accountId,
     };
 
@@ -31,7 +30,6 @@ export const createAdvert = (advert) => {
       title: advert.title,
       body: advert.body,
       contact: advert.contact,
-      expDate: advert.expDate,
     };
     let isLoading = true;
 
@@ -72,7 +70,7 @@ export const createAdvertSuccess = (advert) => {
       title: advert.title,
       body: advert.body,
       contact: advert.contact,
-      expDate: advert.expDate,
+      date: advert.date,
       place: advert.place,
     },
   };
@@ -93,7 +91,7 @@ export const updateAdvertSuccess = (advert) => {
       title: advert.title,
       body: advert.body,
       contact: advert.contact,
-      expDate: advert.expDate,
+      date: advert.date,
       place: advert.place,
     },
   };

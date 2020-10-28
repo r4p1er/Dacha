@@ -13,7 +13,6 @@ class UpdateAdvert extends Component {
       title: this.props.title,
       body: this.props.body,
       contact: this.props.contact,
-      expDate: "",
       accountId: this.props.accountId,
     };
   }
@@ -24,24 +23,17 @@ class UpdateAdvert extends Component {
     const title = this.state.title;
     const body = this.state.body;
     const contact = this.state.contact;
-    let tzoffset = new Date().getTimezoneOffset() * 60000;
-    const date = new Date(Date.now() - tzoffset);
-    date.setMonth(date.getMonth() + 1);
-    let newState = Object.assign({}, this.state);
-    newState.expDate = date.toISOString();
-    this.setState(newState);
 
     if (title === "" || body === "" || contact === "") {
       return this.props.showAlert("Заполните форму");
     }
-    this.props.createAdvert(newState);
+    this.props.createAdvert(this.state);
     this.props.handleCloseAdvertUpadate();
     this.setState({
       id: "",
       title: "",
       body: "",
       contact: "",
-      expDate: "",
       accountId: "",
     });
   };

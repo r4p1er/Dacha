@@ -11,7 +11,7 @@ const AdCard = ({
   place,
   id,
   onDelete,
-  expDate,
+  date,
   accountId,
 }) => {
   const [showAdvertUpdate, setshowAdvertUpadate] = useState(false);
@@ -26,8 +26,7 @@ const AdCard = ({
   const handleClose = () => setShowDeleteModal(false);
   const handleShow = () => setShowDeleteModal(true);
 
-  const advertDate = new Date(expDate);
-  advertDate.setMonth(advertDate.getMonth() - 1);
+  const advertDate = new Date(date);
 
   const formatedDate = advertDate.toLocaleDateString();
   const formatedDateHour = advertDate.getHours();
