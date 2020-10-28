@@ -39,7 +39,7 @@ function Header(props) {
         inline="true"
         collapseOnSelect="true"
         expanded={expanded}
-        expand="lg"
+        expand="xl"
       >
         <Link
           onClick={() => setExpanded(false)}
