@@ -34,10 +34,6 @@ const AdCard = ({
             <Col col="true" xl={8} lg={8} md={8} sm={8} xs={8}>
               <Card.Title>{title}</Card.Title>
             </Col>
-            <Col col="true" xl={4} lg={4} md={4} sm={4} xs={4}>
-              <span className="text-muted">Участок №{place}</span> <br />
-              <span>{dateFormater(date)}</span>
-            </Col>
           </Row>
         </Card.Header>
         <Card.Body>
@@ -67,6 +63,12 @@ const AdCard = ({
             </>
           )}
         </div>
+        <Card.Footer>
+          <div>
+            <span className="text-muted mr-4">Участок №{place}</span>
+            <span>{dateFormater(date)}</span>
+          </div>
+        </Card.Footer>
       </Card>
       <Modal show={showFullAd} onHide={handleCloseFullAd} size="lg">
         <Modal.Header closeButton>
