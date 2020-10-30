@@ -4,6 +4,7 @@ import UpdateNews from "./UpdateNews";
 import dateFormater from "../../../../utils/dateFormater";
 import deleteIcon from "../../../../additions/deleteIcon.png";
 import editIcon from "../../../../additions/editIcon.png";
+import { urlify } from "../../../../utils/urlify";
 
 const NewsItem = ({
   id,
@@ -30,7 +31,7 @@ const NewsItem = ({
       <tr>
         <td onClick={handleShowFullNews}>{index + 1}</td>
         <td onClick={handleShowFullNews} className="table-news-title cursor-pointer">{title}</td>
-        <td onClick={handleShowFullNews} className="table-news-body cursor-pointer">{body}</td>
+        <td onClick={handleShowFullNews} className="table-news-body cursor-pointer">{urlify(body)}</td>
         <td onClick={handleShowFullNews} className="table-news-date cursor-pointer">{dateFormater(date)}</td>
         <td>
           <Image onClick={() => {handleShowNewsUpadate()}} src={editIcon} className="cursor-pointer"/>

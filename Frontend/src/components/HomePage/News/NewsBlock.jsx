@@ -4,6 +4,7 @@ import { fetchAllNews } from "../../../redux/actions/news";
 import { Button, Col, Modal } from "react-bootstrap";
 import NewsCard from "./NewsCard";
 import FullPageLoader from "../../Loader/Loader";
+import { urlify } from "../../../utils/urlify";
 
 const NewsBlock = React.memo(() => {
   const dispatch = useDispatch();
@@ -12,20 +13,6 @@ const NewsBlock = React.memo(() => {
   }, [dispatch]);
   const newsState = useSelector((state) => state.news);
   const loading = newsState.isLoading;
-
-  function urlify(text) {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return text.split(urlRegex).map((part, index) => {
-      if (part.match(urlRegex)) {
-        return (
-          <a key={index} href={part} rel="noopener noreferrer" target="_blank">
-            {part}
-          </a>
-        );
-      }
-      return part;
-    });
-  }
   const [showAllNews, setShowAllNews] = useState(false);
   const handleClose = () => setShowAllNews(false);
   const handleShow = () => setShowAllNews(true);
