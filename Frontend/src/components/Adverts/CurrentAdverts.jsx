@@ -24,7 +24,7 @@ const CurrentAdverts = () => {
         <FullPageLoader />
       ) : (
         <Row className="text-center">
-          {advertsState.adverts.reverse().map((ad) => (
+          {[...advertsState.adverts].reverse().map((ad) => (
             <AdCard key={ad.id} onDelete={onDelete} {...ad} />
           ))}
         </Row>

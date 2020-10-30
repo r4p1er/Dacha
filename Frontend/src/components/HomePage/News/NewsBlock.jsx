@@ -26,7 +26,7 @@ const NewsBlock = React.memo(() => {
         ) : !newsState.news.length ? (
           <h3>Новости отсутствуют</h3>
         ) : (
-          newsState.news
+          [...newsState.news]
             .slice(-3)
             .reverse()
             .map((someNews) => <NewsCard key={someNews.id} {...someNews} />)

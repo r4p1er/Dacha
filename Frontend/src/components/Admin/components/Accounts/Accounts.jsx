@@ -37,7 +37,7 @@ const Accounts = () => {
               <td>Профили отсутствуют</td>
             </tr>
           ) : (
-            accounts
+            [...accounts]
               .reverse()
               .map((account, index) => (
                 <AccountItem
