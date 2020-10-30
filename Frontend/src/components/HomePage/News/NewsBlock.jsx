@@ -5,7 +5,7 @@ import { Button, Col, Modal } from "react-bootstrap";
 import NewsCard from "./NewsCard";
 import FullPageLoader from "../../Loader/Loader";
 
-const NewsBlock = () => {
+const NewsBlock = React.memo(() => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllNews());
@@ -26,7 +26,6 @@ const NewsBlock = () => {
       return part;
     });
   }
-
   const [showAllNews, setShowAllNews] = useState(false);
   const handleClose = () => setShowAllNews(false);
   const handleShow = () => setShowAllNews(true);
@@ -76,6 +75,6 @@ const NewsBlock = () => {
       ) : null}
     </>
   );
-};
+});
 
 export default NewsBlock;

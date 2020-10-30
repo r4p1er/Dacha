@@ -4,7 +4,7 @@ import About from "./About";
 import NewsBlock from "./News/NewsBlock";
 import GMap from "./GMap";
 
-const HomeContainer = () => {
+const HomeContainer = React.memo(() => {
   return (
       <Container className="home_container">
         <Row>
@@ -16,6 +16,6 @@ const HomeContainer = () => {
         </Row>
       </Container>
   );
-};
+});
 
 export default HomeContainer;

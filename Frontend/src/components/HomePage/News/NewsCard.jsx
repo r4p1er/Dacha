@@ -1,7 +1,7 @@
 import React from "react";
 import dateFormater from "../../../utils/dateFormater";
 
-const NewsCard = ({ title, body, date }) => {
+const NewsCard = React.memo(({ title, body, date }) => {
   function urlify(text) {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.split(urlRegex).map((part, index) => {
@@ -28,6 +28,6 @@ const NewsCard = ({ title, body, date }) => {
       <hr color="#666666" />
     </>
   );
-};
+});
 
 export default NewsCard;

@@ -5,7 +5,7 @@ import editIcon from "../../additions/editIcon.png";
 import UpdateAdvert from "./UpdateAdvert";
 import dateFormater from "../../utils/dateFormater";
 
-const AdCard = ({
+const AdCard = React.memo(({
   title,
   body,
   contact,
@@ -126,5 +126,5 @@ const AdCard = ({
       </Modal>
     </Col>
   );
-};
+});
 export default AdCard;
