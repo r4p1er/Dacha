@@ -8,7 +8,7 @@ import fileExtentionRead from "../../utils/fileExtentionReader";
 import FullPageLoader from "../Loader/Loader";
 import { Col, Container, Image, Row } from "react-bootstrap";
 
-const Documents = () => {
+const Documents = React.memo(() => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllDocuments());
@@ -19,7 +19,6 @@ const Documents = () => {
   const onDownload = (id, name) => {
     return dispatch(downloadDocument(id, name));
   };
-
   return (
     <>
       <Container className="text-center">
@@ -66,6 +65,6 @@ const Documents = () => {
       </Container>
     </>
   );
-};
+});
 
 export default Documents;

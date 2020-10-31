@@ -15,7 +15,7 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../additions/logo_dark.png";
 
-function Header(props) {
+const Header = React.memo((props) => {
   const role = props.auth.user.role;
   const isAdmin = role === "admin" || role === "moder" ? true : false;
 
@@ -138,7 +138,7 @@ function Header(props) {
       </Modal>
     </>
   );
-}
+})
 
 function mapStateToProps(state) {
   return {

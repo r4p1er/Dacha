@@ -86,7 +86,7 @@ class CreateAccount extends Component {
                   value={login}
                   onChange={this.onChange}
                   name="login"
-                  placeholder="Введите логин"
+                  placeholder="Логин"
                 />
               </Form.Group>
 
@@ -115,7 +115,7 @@ class CreateAccount extends Component {
                   onChange={this.onChange}
                   name="password"
                   type="password"
-                  placeholder="Введите пароль"
+                  placeholder="Пароль"
                 />
               </Form.Group>
               <Form.Group controlId="place">
@@ -124,6 +124,7 @@ class CreateAccount extends Component {
                   value={place}
                   onChange={this.onChange}
                   name="place"
+                  placeholder="Номер участка"
                 />
               </Form.Group>
             </Col>
@@ -135,7 +136,7 @@ class CreateAccount extends Component {
                 value={lastName}
                 onChange={this.onChange}
                 name="lastName"
-                placeholder="Введите фамилию"
+                placeholder="Фамилию"
               />
             </Form.Group>
 
@@ -145,7 +146,7 @@ class CreateAccount extends Component {
                 value={name}
                 onChange={this.onChange}
                 name="name"
-                placeholder="Введите имя"
+                placeholder="Имя"
               />
             </Form.Group>
 
@@ -155,7 +156,7 @@ class CreateAccount extends Component {
                 value={middleName}
                 onChange={this.onChange}
                 name="middleName"
-                placeholder="Введите отчество"
+                placeholder="Отчество"
               />
             </Form.Group>
           </Form.Row>

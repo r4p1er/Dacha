@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { showAlert } from "../../redux/actions/AlertMessages";
 import { createAdvert } from "../../redux/actions/adverts";
 import { AlertMessage } from "../Alerts/Alert";
 
-class CreateAdvert extends Component {
+class CreateAdvert extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
