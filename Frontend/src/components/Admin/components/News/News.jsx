@@ -39,7 +39,7 @@ const News = () => {
               <td>Новости отсутствуют</td>
             </tr>
           ) : (
-            news
+            [...news]
               .reverse()
               .map((aNews, index) => (
                 <NewsItem

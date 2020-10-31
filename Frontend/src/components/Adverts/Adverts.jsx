@@ -20,7 +20,7 @@ const Adverts = () => {
         <FullPageLoader />
       ) : (
         <Row>
-          {advertState.adverts.reverse().map((ad) => (
+          {[...advertState.adverts].reverse().map((ad) => (
             <AdCard key={ad.id} {...ad} />
           ))}
         </Row>

@@ -3,6 +3,7 @@
   border: 0.2rem solid #ececec;
   border-radius: 8px 8px 8px 8px;
   margin: 15px 0;
+  background-color: #ffffffb6;
 }
 
 .admin_table {
@@ -27,4 +28,15 @@
 
 .table-ad-contact {
   max-width: 150px;
+}
+
+.file-upload-form {
+  .choice-file-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
 }

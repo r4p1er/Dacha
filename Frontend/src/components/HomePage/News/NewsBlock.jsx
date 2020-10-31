@@ -4,29 +4,16 @@ import { fetchAllNews } from "../../../redux/actions/news";
 import { Button, Col, Modal } from "react-bootstrap";
 import NewsCard from "./NewsCard";
 import FullPageLoader from "../../Loader/Loader";
+import { urlify } from "../../../utils/urlify";
+import dateFormater from "../../../utils/dateFormater";
 
-const NewsBlock = () => {
+const NewsBlock = React.memo(() => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllNews());
   }, [dispatch]);
   const newsState = useSelector((state) => state.news);
   const loading = newsState.isLoading;
-
-  function urlify(text) {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return text.split(urlRegex).map((part, index) => {
-      if (part.match(urlRegex)) {
-        return (
-          <a key={index} href={part} rel="noopener noreferrer" target="_blank">
-            {part}
-          </a>
-        );
-      }
-      return part;
-    });
-  }
-
   const [showAllNews, setShowAllNews] = useState(false);
   const handleClose = () => setShowAllNews(false);
   const handleShow = () => setShowAllNews(true);
@@ -40,7 +27,7 @@ const NewsBlock = () => {
         ) : !newsState.news.length ? (
           <h3>Новости отсутствуют</h3>
         ) : (
-          newsState.news
+          [...newsState.news]
             .slice(-3)
             .reverse()
             .map((someNews) => <NewsCard key={someNews.id} {...someNews} />)
@@ -56,16 +43,12 @@ const NewsBlock = () => {
               <Modal.Title>Новости</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {newsState.news.map((someNews) => (
+              {[...newsState.news].reverse().map((someNews) => (
                 <div key={someNews.id}>
                   <div className="news-card d-flex flex-column">
                     <h5>{someNews.title}</h5>
                     <p className="home_post_text">{urlify(someNews.body)}</p>
-                    <span className="align-self-end">
-                      {new Date(someNews.date).toLocaleDateString()},{" "}
-                      {new Date(someNews.date).getHours()}:
-                      {new Date(someNews.date).getMinutes()}
-                    </span>
+                    <span className="align-self-end">{dateFormater(someNews.date)}</span>
                   </div>
                   <hr />
                 </div>
@@ -76,6 +59,6 @@ const NewsBlock = () => {
       ) : null}
     </>
   );
-};
+});
 
 export default NewsBlock;
