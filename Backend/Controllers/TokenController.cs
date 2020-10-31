@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Dacha.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Dacha.Controllers
@@ -17,9 +19,11 @@ namespace Dacha.Controllers
     public class TokenController : ControllerBase
     {
         ApplicationContext db;
-        public TokenController(ApplicationContext context)
+        IConfiguration Configuration;
+        public TokenController(ApplicationContext context, IConfiguration configuration)
         {
             db = context;
+            Configuration = configuration;
         }
 
         [HttpPost]
@@ -33,12 +37,12 @@ namespace Dacha.Controllers
 
             var now = DateTime.Now;
             var jwt = new JwtSecurityToken(
-                issuer: AuthOptions.ISSUER,
-                audience: AuthOptions.AUDIENCE,
+                issuer: Configuration["AuthOptions:ISSUER"],
+                audience: Configuration["AuthOptions:AUDIENCE"],
                 notBefore: now,
                 claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                expires: now.Add(TimeSpan.FromMinutes(double.Parse(Configuration["AuthOptions:LIFETIME"]))),
+                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["AuthOptions:KEY"])), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             var response = new

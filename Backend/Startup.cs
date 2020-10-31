@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Dacha.Middlewares;
 using Dacha.Models;
@@ -44,14 +45,14 @@ namespace Dacha
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateIssuer = true,
-                            ValidIssuer = AuthOptions.ISSUER,
+                            ValidIssuer = Configuration["AuthOptions:ISSUER"],
 
                             ValidateAudience = true,
-                            ValidAudience = AuthOptions.AUDIENCE,
+                            ValidAudience = Configuration["AuthOptions:AUDIENCE"],
 
                             ValidateLifetime = true,
 
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["AuthOptions:KEY"])),
                             ValidateIssuerSigningKey = true
                         };
                     });
