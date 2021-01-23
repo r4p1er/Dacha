@@ -1,11 +1,20 @@
 import Login from "./Login/LoginForm";
 import NotFound from "./NotFound/NotFound";
 import Header from "./Header/Header";
+import NewsContainer from "./News/NewsContainer";
+import SideBar from "./SideBar/SideBar";
+import UserMenuContainer from "./UserMenu/UserMenuContainer";
 import Home from "./HomePage/HomeContainer";
 import AdvertsContainer from "./Adverts/AdvertsContainer";
 import Adverts from "./Adverts/Adverts";
 import CurrentAdverts from "./Adverts/CurrentAdverts";
 import Documents from "./Documents/Documents";
 import Vote from "./Vote/Vote";
+import AdminContainer from "./Admin/AdminContainer";
+import AdminNews from "./Admin/components/News/News";
+import AdminAds from "./Admin/components/Adverts/Adverts";
+import AdminDocs from "./Admin/components/Documents/Documents";
+import AdminVote from "./Admin/components/Vote/Vote";
+import AdminAccounts from "./Admin/components/Accounts/Accounts";
 
-export {Header, Home, Adverts, Documents, Vote, Login, NotFound, CurrentAdverts, AdvertsContainer};
+export {Header, SideBar, UserMenuContainer, Home, NewsContainer, Adverts, Documents, Vote, Login, NotFound, CurrentAdverts, AdvertsContainer, AdminContainer, AdminNews, AdminAds, AdminDocs, AdminVote, AdminAccounts};

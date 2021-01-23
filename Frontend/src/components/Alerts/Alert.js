@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert } from "react-bootstrap";
 
-export const AlertMessage = React.memo(({ text }) => {
-  return <Alert variant="warning">{text}</Alert>;
-});
+export const AlertMessage = ({ text }) => {
+  return <Alert variant="warning" className="text-center">{text}</Alert>;
+};

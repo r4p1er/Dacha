@@ -1,103 +1,19 @@
 import axios from "axios";
-import { showAlert } from "./AlertMessages";
 import { apiUrl } from "../../utils/api";
 import {
   DELETE_DOCUMENT,
   FETCH_DOCUMENTS,
-  FETCH_DOCUMENTS_LOADING,
   DOWNLOAD_DOCUMENT,
+  DOCUMENTS_LOADING,
 } from "./actionTypes";
 
 const baseUrl = `${apiUrl}/documents`;
+const downloadUrl = `http://${window.location.hostname}:5000/StaticFiles`;
 
-export const addDocument = (document) => {
-  const data = document;
-  let isLoading = true;
-
-  return async (dispatch) => {
-    if (isLoading) {
-      dispatch(fetchAllDocumentsLoading(isLoading));
-    }
-
-    return await axios
-      .post(baseUrl, data)
-      .then((response) => {
-        return axios
-          .get(`${baseUrl}`)
-          .then((response) => {
-            isLoading = false;
-            dispatch(fetchAllDocumentsLoading(isLoading));
-            dispatch(fetchDocumentsSuccess(response.data));
-          })
-          .catch((error) => {
-            isLoading = false;
-            dispatch(fetchAllDocumentsLoading(isLoading));
-            dispatch(showAlert("Упс, что-то пошло не так"));
-          });
-      })
-      .catch((error) => {
-        dispatch(showAlert("Упс, что-то пошло не так"));
-      });
-  };
-};
-
-export const deleteDocument = (id) => {
-  return async (dispatch) => {
-    return await axios
-      .delete(`${baseUrl}/${id}`)
-      .then(() => {
-        dispatch(deleteDocumentSuccess(id));
-      })
-      .catch((error) => {
-        dispatch(showAlert("Упс, что-то пошло не так"));
-      });
-  };
-};
-
-export const deleteDocumentSuccess = (id) => {
+const documentsLoading = (isLoading) => {
   return {
-    type: DELETE_DOCUMENT,
-    payload: {
-      id: id,
-    },
-  };
-};
-
-export const fetchDocumentsSuccess = (documents) => {
-  return {
-    type: FETCH_DOCUMENTS,
-    payload: documents,
-  };
-};
-
-const fetchAllDocumentsLoading = (isLoading) => {
-  return {
-    type: FETCH_DOCUMENTS_LOADING,
+    type: DOCUMENTS_LOADING,
     payload: isLoading,
-  };
-};
-
-export const fetchAllDocuments = () => {
-  let isLoading = true;
-
-  return async (dispatch) => {
-    if (isLoading) {
-      dispatch(fetchAllDocumentsLoading(isLoading));
-    }
-
-    return await axios
-      .get(baseUrl)
-      .then((response) => {
-        isLoading = false;
-        dispatch(fetchAllDocumentsLoading(isLoading));
-        const data = response.data;
-        dispatch(fetchDocumentsSuccess(data));
-      })
-      .catch((error) => {
-        isLoading = false;
-        dispatch(fetchAllDocumentsLoading(isLoading));
-        dispatch(showAlert("Упс, что-то пошло не так"));
-      });
   };
 };
 
@@ -107,13 +23,81 @@ const documentDownloadSuccess = () => {
   };
 };
 
+const deleteDocumentSuccess = (id) => {
+  return {
+    type: DELETE_DOCUMENT,
+    payload: {
+      id: id,
+    },
+  };
+};
+
+const fetchDocumentsSuccess = (documents) => {
+  return {
+    type: FETCH_DOCUMENTS,
+    payload: documents,
+  };
+};
+
+export const addDocument = (document) => {
+  const data = document;
+  let isLoading = true;
+
+  return async (dispatch) => {
+    if (isLoading) {
+      dispatch(documentsLoading(isLoading));
+    }
+
+    return await axios
+    .post(baseUrl, data)
+    .then((response) => {
+      return axios
+      .get(`${baseUrl}`)
+      .then((response) => {
+        isLoading = false;
+        dispatch(documentsLoading(isLoading));
+        dispatch(fetchDocumentsSuccess(response.data));
+      });
+    });
+  };
+};
+
+export const deleteDocument = (id) => {
+  return async (dispatch) => {
+    return await axios
+    .delete(`${baseUrl}/${id}`)
+    .then(() => {
+      dispatch(deleteDocumentSuccess(id));
+    });
+  };
+};
+
+export const fetchAllDocuments = () => {
+  let isLoading = true;
+
+  return async (dispatch) => {
+    if (isLoading) {
+      dispatch(documentsLoading(isLoading));
+    }
+
+    return await axios
+    .get(baseUrl)
+    .then((response) => {
+      isLoading = false;
+      dispatch(documentsLoading(isLoading));
+      const data = response.data;
+      dispatch(fetchDocumentsSuccess(data));
+    });
+  };
+};
+
 export const downloadDocument = (id, name) => {
   const token = localStorage.jwtToken;
   const AuthStr = "Bearer ".concat(token);
   return async (dispatch) => {
     dispatch(documentDownloadSuccess());
     await axios
-      .get(`http://${window.location.hostname}:5000/StaticFiles/${name}`, {
+      .get(`${downloadUrl}/${name}`, {
         responseType: "blob",
         headers: { Authorization: AuthStr },
       })

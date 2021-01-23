@@ -1,10 +1,9 @@
 import {
-  ADD_ADVERT_LOADING,
   ADD_ADVERT,
   EDIT_ADVERT,
   DELETE_ADVERT,
   FETCH_ADVERTS,
-  FETCH_ADVERTS_LOADING
+  ADVERTS_LOADING
 } from "../actions/actionTypes"
 
 const initialState = {
@@ -15,9 +14,7 @@ const initialState = {
 const advertsReducer = (state = initialState, action) => {    
   switch(action.type) {
       case ADD_ADVERT:            
-          return { ...state, adverts: [ ...state.adverts, action.payload ]}; 
-      case ADD_ADVERT_LOADING:
-          return { ...state, isLoading: action.payload }         
+          return { ...state, adverts: [ ...state.adverts, action.payload ]};       
       case EDIT_ADVERT:            
           const updatedAdverts = state.adverts.filter(advert => advert.id !== action.payload.id);    
           return { ...state, adverts: [...updatedAdverts, action.payload ]};   
@@ -26,7 +23,7 @@ const advertsReducer = (state = initialState, action) => {
           return { ...state, adverts: filteredAdverts };
       case FETCH_ADVERTS:  
           return { ...state, adverts: action.payload }
-      case FETCH_ADVERTS_LOADING:
+      case ADVERTS_LOADING:
           return { ...state, isLoading: action.payload }
       default:
           return state;

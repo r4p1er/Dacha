@@ -1,6 +1,6 @@
 import {
   FETCH_DOCUMENTS,
-  FETCH_DOCUMENTS_LOADING,
+  DOCUMENTS_LOADING,
   DELETE_DOCUMENT,
   DOWNLOAD_DOCUMENT,
 } from "../actions/actionTypes";
@@ -13,8 +13,6 @@ export function docsReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_DOCUMENTS:
       return { ...state, documents: action.payload };
-    case FETCH_DOCUMENTS_LOADING:
-      return { ...state, isLoading: action.payload };
     case DOWNLOAD_DOCUMENT:
       return state;
     case DELETE_DOCUMENT:
@@ -22,6 +20,8 @@ export function docsReducer(state = initialState, action) {
         (document) => document.id !== action.payload.id
       );
       return { ...state, documents: filteredDocuments };
+    case DOCUMENTS_LOADING:
+      return { ...state, isLoading: action.payload };
     default:
       return state;
   }

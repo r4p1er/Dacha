@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   docs: docsReducer,
   auth,
   app: appReducer,
-  accounts: accountsReducer
+  accounts: accountsReducer,
 });
 
 

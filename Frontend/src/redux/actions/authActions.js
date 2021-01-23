@@ -1,9 +1,9 @@
 import setAuthorizationToken from "../../utils/setAuthToken";
 import { SET_CURRENT_USER } from "./actionTypes";
 import jwt from "jsonwebtoken";
-import { showAlert } from "./AlertMessages";
+import { showAlert, hideAlert } from "./alertMessages";
 import axios from "axios";
-import {apiUrl} from "../../utils/api";
+import { apiUrl } from "../../utils/api";
 
 export function setCurrentUser(user) {
   return {
@@ -23,13 +23,16 @@ export function logout() {
 export function login(data) {
   return async (dispatch) => {
     try {
-      await axios.post(`${apiUrl}/token`, data)
+      await axios
+      .post(`${apiUrl}/token`, data)
       .then((response) => {
         const token = response.data.access_token;
         localStorage.setItem("jwtToken", token);
         setAuthorizationToken(token);
         dispatch(setCurrentUser(jwt.decode(token)));
+        dispatch(hideAlert());
       });
+      window.location.href = "/"
     } catch (error) {
       if (error.response.status === 400) {
         dispatch(showAlert("Неверный логин или пароль"));

@@ -1,12 +1,12 @@
-import React, { Suspense, lazy } from "react";
+import React from "react";
 import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Image } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import background from "./additions/background.png";
-import loader from "./additions/LoaderGif.gif";
 import "./app.scss";
 import {
   Adverts,
+  NewsContainer,
   AdvertsContainer,
   CurrentAdverts,
   Documents,
@@ -14,38 +14,26 @@ import {
   Home,
   Login,
   NotFound,
+  SideBar,
   Vote,
+  UserMenuContainer,
+  AdminContainer,
+  AdminNews,
+  AdminAds,
+  AdminDocs,
+  AdminVote,
+  AdminAccounts,
 } from "./components/index";
 
-const Admin = lazy(() => import("./components/Admin/AdminContainer"));
-const AdminAds = lazy(() =>
-  import("./components/Admin/components/Adverts/Adverts")
-);
-const AdminDocs = lazy(() =>
-  import("./components/Admin/components/Documents/Documents")
-);
-const AdminNews = lazy(() => import("./components/Admin/components/News/News"));
-const AdminAccounts = lazy(() =>
-  import("./components/Admin/components/Accounts/Accounts")
-);
-const AdminVote = lazy(() => import("./components/Admin/components/Vote/Vote"));
-
-function App(props) {
+function App() {
   const authState = useSelector((state) => state.auth);
   const role = authState.user.role;
-  const { isAuthenticated } = authState;
+  const isAuthenticated = authState.isAuthenticated;
   const NotFoundRedirect = () => <Navigate to="/not-found" />;
-  const showHeader = (location) => {
-    return !(
-      location === "/not-found" ||
-      location === "/signin" ||
-      location === "/loading"
-    );
+  const showOnNotFound = (location) => {
+    return !(location === "/not-found");
   };
   const PrivateRoute = () => {
-    if (!isAuthenticated) {
-      return <Navigate to="/signin" />;
-    }
     return <Outlet />;
   };
   return (
@@ -55,46 +43,99 @@ function App(props) {
         minHeight: "100vh",
       }}
     >
-      {showHeader(useLocation().pathname) ? (
-        isAuthenticated ? (
-          <Header />
-        ) : null
+      {showOnNotFound(useLocation().pathname) ? (
+        <Header auth={authState} />
       ) : null}
-      <Suspense
-        fallback={<Image alt="ЗАГРУЗКА..." width="400px" src={loader} />}
-      >
-        <Routes>
-          <Route
-            path="/signin"
-            element={isAuthenticated ? <NotFound /> : <Login />}
-          />
-          <Route path="/" element={<PrivateRoute />}>
-            <Route exact path="/" element={<Home />} />
-
-            <Route path="/adverts" element={<AdvertsContainer />}>
-              <Route path="/" element={<Adverts />} />
-              <Route path="/current_adverts" element={<CurrentAdverts />} />
-            </Route>
-
-            <Route path="/documents" element={<Documents />} />
-
-            <Route path="/vote" element={<Vote />} />
-
-            <Route
-              path="/admin"
-              element={role === "admin" || role === "moder" ? <Admin /> : null}
+      <Container fluid className="main-container">
+        <Row>
+          {showOnNotFound(useLocation().pathname) ? (
+            <Col
+              className="side-bar-container d-none d-xl-flex order-xl-1"
+              col="true"
+              xl={2}
+              lg={6}
+              md={6}
+              sm={12}
+              xs={12}
             >
-              <Route path="/news" element={<AdminNews />} />
-              <Route path="/adverts" element={<AdminAds />} />
-              <Route path="/documents" element={<AdminDocs />} />
-              <Route path="/vote" element={<AdminVote />} />
-              <Route path="/accounts" element={<AdminAccounts />} />
-            </Route>
-          </Route>
-          <Route path="/not-found" element={<NotFound />} />
-          <Route path="/*" element={<NotFoundRedirect />} />
-        </Routes>
-      </Suspense>
+              {isAuthenticated ? <SideBar /> : null}
+            </Col>
+          ) : null}
+
+          <Routes>
+            <Col
+              className="center-container order-xl-2"
+              col="true"
+              xl={8}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
+            >
+              <Route path="/" element={<PrivateRoute />}>
+                <Route exact path="/" element={<Home />} />
+
+                <Route
+                  path="/signin"
+                  element={<Login isAuth={isAuthenticated} />}
+                />
+                <Route
+                  path="/news"
+                  element={<NewsContainer isAuth={isAuthenticated} />}
+                />
+
+                <Route
+                  path="/adverts"
+                  element={<AdvertsContainer isAuth={isAuthenticated} />}
+                >
+                  <Route path="/" element={<Adverts />} />
+                  <Route path="/current_adverts" element={<CurrentAdverts />} />
+                </Route>
+
+                <Route
+                  path="/documents"
+                  element={<Documents isAuth={isAuthenticated} />}
+                />
+
+                <Route
+                  path="/vote"
+                  element={<Vote isAuth={isAuthenticated} />}
+                />
+
+                <Route
+                  path="/admin"
+                  element={
+                    role === "admin" || role === "moder" ? (
+                      <AdminContainer />
+                    ) : null
+                  }
+                >
+                  <Route path="/news" element={<AdminNews />} />
+                  <Route path="/adverts" element={<AdminAds />} />
+                  <Route path="/documents" element={<AdminDocs />} />
+                  <Route path="/vote" element={<AdminVote />} />
+                  <Route path="/accounts" element={<AdminAccounts />} />
+                </Route>
+              </Route>
+            </Col>
+            <Route path="/not-found" element={<NotFound />} />
+            <Route path="/*" element={<NotFoundRedirect />} />
+          </Routes>
+          {showOnNotFound(useLocation().pathname) ? (
+            <Col
+              className="user-menu-container d-none d-xl-flex order-xl-3"
+              col="true"
+              xl={2}
+              lg={6}
+              md={6}
+              sm={12}
+              xs={12}
+            >
+              {isAuthenticated ? <UserMenuContainer /> : null}
+            </Col>
+          ) : null}
+        </Row>
+      </Container>
     </div>
   );
 }
