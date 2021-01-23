@@ -7,7 +7,7 @@ import {
   addDocument,
   deleteDocument,
 } from "../../../../redux/actions/documents";
-import { showAlert } from "../../../../redux/actions/AlertMessages";
+import { hideAlert, showAlert } from "../../../../redux/actions/alertMessages";
 import { Button, Container, Form, Row } from "react-bootstrap";
 import { AlertMessage } from "../../../Alerts/Alert";
 
@@ -15,6 +15,7 @@ const Documents = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllDocuments());
+    dispatch(hideAlert());
   }, [dispatch]);
   const documents = useSelector((state) => state.docs.documents);
   const alert = useSelector((state) => state.app.alert);
@@ -49,7 +50,7 @@ const Documents = () => {
       setFile(undefined);
       setFileName(undefined);
     } else {
-      dispatch(showAlert("Выберите файл"))
+      dispatch(showAlert("Выберите файл"));
     }
   };
   return (

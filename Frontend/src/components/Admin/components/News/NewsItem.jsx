@@ -48,7 +48,7 @@ const NewsItem = ({
             <Button onClick={() => {onDelete(id)}} variant="outline-danger">Удалить</Button>
         </Modal.Body>
       </Modal>
-      <Modal size="lg" show={showNewsUpdate} onHide={handleCloseNewsUpadate}>
+      <Modal size="xl" show={showNewsUpdate} onHide={handleCloseNewsUpadate}>
         <Modal.Header closeButton>
           <Modal.Title>Редактирование новости</Modal.Title>
         </Modal.Header>

@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Form, Button, Col } from "react-bootstrap";
-import { showAlert } from "../../../../redux/actions/AlertMessages";
+import { showAlert, hideAlert } from "../../../../redux/actions/alertMessages";
 import { createAccount } from "../../../../redux/actions/accounts";
 import { AlertMessage } from "../../../Alerts/Alert";
 
-class UpdateAccount extends Component {
+class UpdateAccount extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,6 +18,10 @@ class UpdateAccount extends Component {
       place: this.props.place,
       roleId: this.props.roleId,
     };
+  }
+
+  componentDidMount() {
+    this.props.onAlertHide();
   }
 
   onSubmit = (event) => {
@@ -39,7 +43,7 @@ class UpdateAccount extends Component {
       middleName === "" ||
       place === ""
     ) {
-      return this.props.showAlert("Заполните форму");
+      return this.props.isValid("Заполните все поля формы");
     }
 
     if (password) {
@@ -53,7 +57,7 @@ class UpdateAccount extends Component {
         place: +place,
         roleId: +roleId,
       };
-      this.props.createAccount(submitData);
+      this.props.onCreate(submitData);
       this.props.handleCloseAccountUpadate();
     } else {
       const submitData = {
@@ -65,7 +69,7 @@ class UpdateAccount extends Component {
         place: +place,
         roleId: +roleId,
       };
-      this.props.createAccount(submitData);
+      this.props.onCreate(submitData);
       this.props.handleCloseAccountUpadate();
     }
 
@@ -193,9 +197,12 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-const mapDispatchToProps = {
-  showAlert,
-  createAccount,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAlertHide: () => dispatch(hideAlert()),
+    isValid: (message) => dispatch(showAlert(message)),
+    onCreate: (account) => dispatch(createAccount(account)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateAccount);

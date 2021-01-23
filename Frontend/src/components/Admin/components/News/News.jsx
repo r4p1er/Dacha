@@ -18,41 +18,45 @@ const News = () => {
 
   const handleCloseNewsCreate = () => setshowNewsCreate(false);
   const handleShowNewsCreate = () => setshowNewsCreate(true);
-
   return (
     <>
-      <Button className="mb-4" onClick={handleShowNewsCreate}>Добавить новость</Button>
-      <Table className="admin_table" size="sm" responsive striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Заголовок</th>
-            <th>Новость</th>
-            <th>Дата</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {!news.length ? (
+      <Button className="mb-4" onClick={handleShowNewsCreate}>
+        Добавить новость
+      </Button>
+      {!news.length ? (
+        <h3>Новости отсутствуют</h3>
+      ) : (
+        <Table
+          className="admin-table"
+          size="sm"
+          responsive
+          striped
+          bordered
+          hover
+        >
+          <thead>
             <tr>
-              <td>Новости отсутствуют</td>
+              <th>#</th>
+              <th>Заголовок</th>
+              <th>Новость</th>
+              <th>Дата</th>
+              <th></th>
+              <th></th>
             </tr>
-          ) : (
-            [...news]
-              .reverse()
-              .map((aNews, index) => (
-                <NewsItem
-                  key={aNews.id}
-                  onDelete={onDelete}
-                  index={index}
-                  {...aNews}
-                />
-              ))
-          )}
-        </tbody>
-      </Table>
-      <Modal show={showNewsCreate} onHide={handleCloseNewsCreate}>
+          </thead>
+          <tbody>
+            {[...news].reverse().map((aNews, index) => (
+              <NewsItem
+                key={aNews.id}
+                onDelete={onDelete}
+                index={index}
+                {...aNews}
+              />
+            ))}
+          </tbody>
+        </Table>
+      )}
+      <Modal size="xl" show={showNewsCreate} onHide={handleCloseNewsCreate}>
         <Modal.Header closeButton>
           <Modal.Title>Создание новости</Modal.Title>
         </Modal.Header>

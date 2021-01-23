@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
-import { showAlert } from "../../../../redux/actions/AlertMessages";
+import { showAlert, hideAlert } from "../../../../redux/actions/alertMessages";
 import { createNews } from "../../../../redux/actions/news";
 import { AlertMessage } from "../../../Alerts/Alert";
 
-class CreateNews extends Component {
+class CreateNews extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +13,10 @@ class CreateNews extends Component {
       body: "",
       date: "",
     };
+  }
+
+  componentDidMount() {
+    this.props.onHideAlert();
   }
 
   onSubmit = (event) => {
@@ -26,9 +30,9 @@ class CreateNews extends Component {
     this.setState(newState);
 
     if (title === "" || body === "") {
-      return this.props.showAlert("Заполните форму");
+      return this.props.isValid("Заполните форму");
     }
-    this.props.createNews(newState);
+    this.props.onCreateNews(newState);
     this.props.handleCloseNewsCreate();
     this.setState({
       title: "",
@@ -85,9 +89,12 @@ class CreateNews extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  showAlert,
-  createNews,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onHideAlert: () => dispatch(hideAlert()),
+    isValid: (message) => dispatch(showAlert(message)),
+    onCreateNews: (news) => dispatch(createNews(news)),
+  }
 };
 
 const mapStateToProps = (state) => ({

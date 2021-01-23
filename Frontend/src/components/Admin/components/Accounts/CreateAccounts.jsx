@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Form, Button, Col } from "react-bootstrap";
-import { showAlert } from "../../../../redux/actions/AlertMessages";
+import { hideAlert, showAlert } from "../../../../redux/actions/alertMessages";
 import { createAccount } from "../../../../redux/actions/accounts";
 import { AlertMessage } from "../../../Alerts/Alert";
 
-class CreateAccount extends Component {
+class CreateAccount extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,6 +17,10 @@ class CreateAccount extends Component {
       place: "",
       roleId: 1,
     };
+  }
+
+  componentDidMount() {
+    this.props.onAlertHide();
   }
 
   onSubmit = (event) => {
@@ -48,9 +52,9 @@ class CreateAccount extends Component {
       middleName === "" ||
       place === ""
     ) {
-      return this.props.showAlert("Заполните форму");
+      return this.props.isValid("Заполните все поля формы");
     }
-    this.props.createAccount(submitData);
+    this.props.onCreate(submitData);
     this.setState({
       login: "",
       password: "",
@@ -170,9 +174,12 @@ class CreateAccount extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  showAlert,
-  createAccount,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAlertHide: () => dispatch(hideAlert()),
+    isValid: (message) => dispatch(showAlert(message)),
+    onCreate: (account) => dispatch(createAccount(account)),
+  };
 };
 
 const mapStateToProps = (state) => ({

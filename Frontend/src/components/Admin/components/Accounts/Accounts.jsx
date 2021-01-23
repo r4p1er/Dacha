@@ -18,7 +18,7 @@ const Accounts = () => {
   return (
     <>
       <CreateAccount />
-      <Table className="admin_table" size="sm" bordered responsive striped hover>
+      <Table className="admin-table" size="sm" bordered responsive striped hover>
         <thead>
           <tr>
             <th>#</th>
@@ -34,7 +34,7 @@ const Accounts = () => {
         <tbody>
           {!accounts.length ? (
             <tr>
-              <td>Профили отсутствуют</td>
+              <td>Аккаунты отсутствуют</td>
             </tr>
           ) : (
             [...accounts]

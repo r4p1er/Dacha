@@ -74,7 +74,7 @@ const AdvertItem = ({
           </Button>
         </Modal.Body>
       </Modal>
-      <Modal show={showFullAd} onHide={handleCloseFullAd} size="lg">
+      <Modal size="xl" show={showFullAd} onHide={handleCloseFullAd}>
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
