@@ -3,22 +3,43 @@ import { Col } from "react-bootstrap";
 
 const About = () => {
   return (
-    <Col xl={6} lg={6} md={12} sm={12} xs={12}>
-      <h2>О нас</h2>
+    <Col className="about-block" xl={6} lg={6} md={12} sm={12} xs={12}>
+      <h3 className="heading">О нашем СНТ</h3>
+      <h5 className="pl-2">Добро пожаловать на сайт СНТ «ПОКРОВСКИЕ ДАЧИ»</h5>
       <p>
-        lorLabore esse aliqua aute ad. Ullamco Lorem irure adipisicing nostrud
-        Lorem. Occaecat nulla nostrud deserunt quis voluptate. Id veniam
-        reprehenderit aute exercitation adipisicing cillum velit irure officia
-        dolor excepteur amet qui minim. Laboris aliqua incididunt minim officia
-        nisi pariatur ipsum enim ea mollit nostrud fugiat non. Magna sit
-        excepteur pariatur sit consectetur cupidatat officia officia laborum
-        Lorem enim esse. Tempor proident excepteur nostrud voluptate adipisicing
-        tempor anim reprehenderit irure mollit occaecat laboris. Cillum fugiat
-        id culpa sint quis dolore laboris quis ea id anim velit nostrud.
-        Proident magna ullamco sint reprehenderit ullamco. Id commodo minim
-        labore ex anim ipsum. Velit voluptate consequat proident quis enim
-        adipisicing incididunt culpa eiusmod elit in dolor.
+        Здесь Вы сможете найти информацию о жизни и деятельности Товарищества:
+        новости, объявления, документы садоводства и другое.
       </p>
+      <p>
+        Земельный участок Садоводства расположен в 56 км от Москвы и 5-ти
+        километрах от г. Наро-Фоминск, граничит с лесным массивом и рекой Нара.
+      </p>
+      <p>
+        <strong>Полное наименование:</strong>&nbsp; Садоводческое Некоммерческое
+        Товарищество «Покровские дачи»
+      </p>
+      <p>
+        <strong>Сокращенное наименование:</strong>&nbsp; СНТ «Покровские дачи».
+      </p>
+      <p>
+        <strong>Вид садоводства:</strong>&nbsp; Садоводческое некоммерческое
+        товарищество собственников недвижимости.
+      </p>
+      <ul>
+        <li>Количество въездов: 2, через Ерюхино и через Слизнёво</li>
+        <li>Подъездные дороги: Грунтовые/асфальтовые</li>
+        <li>Внутренние дороги: Грунтовые/асфальтовая крошка</li>
+        <li>Электроснабжение: Есть</li>
+        <li>Водоснабжение: Нет</li>
+        <li>Газификации: Нет</li>
+        <li>
+          Социальная инфраструктура: Прод. магазина нет, в пределах досягаемости
+          вся инфраструктура п. Атепцево
+        </li>
+        <li>
+          Сообщение: ж/д пл. “Нара”, далее — автобусное до п. Слизнево, такси
+        </li>
+      </ul>
     </Col>
   );
 };

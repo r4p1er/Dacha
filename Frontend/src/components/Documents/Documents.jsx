@@ -6,9 +6,9 @@ import {
 } from "../../redux/actions/documents";
 import fileExtentionRead from "../../utils/fileExtentionReader";
 import FullPageLoader from "../Loader/Loader";
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Image, Row } from "react-bootstrap";
 
-const Documents = React.memo(() => {
+const Documents = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllDocuments());
@@ -20,11 +20,15 @@ const Documents = React.memo(() => {
     return dispatch(downloadDocument(id, name));
   };
   return (
-    <>
-      <Container className="text-center">
-        <h1>Документы</h1>
-        {!documentsState.documents.length ? (
-          <h3>Документы отсутствуют</h3>
+    <Row>
+      <Col>
+        <h3 className="heading">Документы</h3>
+        {!props.isAuth ? (
+          <h3 className="text-center">
+            Выполните вход для просмотра документов
+          </h3>
+        ) : !documentsState.documents.length ? (
+          <h3 className="text-center">Документы отсутствуют</h3>
         ) : loading ? (
           <FullPageLoader />
         ) : (
@@ -62,9 +66,9 @@ const Documents = React.memo(() => {
             ))}
           </Row>
         )}
-      </Container>
-    </>
+      </Col>
+    </Row>
   );
-});
+};
 
 export default Documents;

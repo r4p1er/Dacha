@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
-import { showAlert } from "../../redux/actions/AlertMessages";
+import { showAlert, hideAlert } from "../../redux/actions/alertMessages";
 import { createAdvert } from "../../redux/actions/adverts";
 import { AlertMessage } from "../Alerts/Alert";
 
@@ -13,6 +13,10 @@ class CreateAdvert extends PureComponent {
       body: "",
       contact: "",
     };
+  }
+
+  componentDidMount() {
+    this.props.onAlertHide();
   }
 
   onSubmit = (event) => {
@@ -98,6 +102,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onAlertHide: () => dispatch(hideAlert()),
     isValid: (message) => dispatch(showAlert(message)),
     onAdd: (advert) => dispatch(createAdvert(advert)),
   };

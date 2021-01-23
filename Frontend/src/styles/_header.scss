@@ -1,32 +1,50 @@
 .navbar {
-    background-color: #ededee;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+  background-color: #89c40b;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 
-    a,
-    .navbar-link,
-    .nav-link {
-        font-size: 1.5em;
-        color: #1b9ae0;
-        text-decoration: none;
-        margin-right: 15px;
+  .collapsed-navbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
 
-        &:hover {
-            color: #477fe0;
-            text-decoration: none;
-        }
+  .navbar-brand {
+    margin-left: calc(100vw - 98vw);
+    margin-right: 3vw;
+  }
+
+  .navbar-nav {
+    display: flex;
+    width: 100%;
+    a {
+      margin-left: calc(100vw - 97vw);
     }
-
-    .active {
-        color: #477fe0;
+  }
+  .navbar-toggler {
+    &:focus {
+      outline: 0;
+      background-color: #7caa17;
     }
+  }
 
-    .dropdown-item:active {
-        background-color: #fff;
-    }
+  a,
+  .navbar-link,
+  .nav-link {
+    font-size: 1.4em;
+    color: #fff;
+    text-decoration: none;
+    transition: linear 0.2s;
 
-    .dropdown-item:focus {
-        color: #477fe0;
+    &:hover {
+      color: #ffe69d;
+      text-decoration: none;
     }
+  }
+
+  .active {
+    color: #ffdb70;
+  }
 }

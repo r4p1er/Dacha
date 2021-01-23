@@ -1,12 +1,19 @@
 import React from "react";
-import { Container } from "react-bootstrap";
-const Vote = () => {
+import { Col, Row } from "react-bootstrap";
+const Vote = (props) => {
   return (
-    <>
-      <Container className="text-center">
-        <h1>Страница голосования в разработке</h1>
-      </Container>
-    </>
+    <Row>
+      <Col>
+        <h3 className="heading">Голосование</h3>
+        {!props.isAuth ? (
+          <h3 className="text-center">
+            Выполните вход для доступа к голосованию
+          </h3>
+        ) : (
+          <h2 className="text-center">Страница голосования в разработке</h2>
+        )}
+      </Col>
+    </Row>
   );
 };
 
