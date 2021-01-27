@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import CreateAdvert from "../Adverts/CreateAdvert";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import CreateAdvert from '../AdvertsPage/CreateAdvert'
+import { useNavigate } from 'react-router-dom'
 import {
   Navbar,
   Nav,
@@ -9,35 +9,46 @@ import {
   Modal,
   NavItem,
   Image,
-} from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
-import logo from "../../additions/logo_dark.png";
-import { useDispatch } from "react-redux";
-import { logout } from "../../redux/actions/authActions";
+} from 'react-bootstrap'
+import { Link, NavLink } from 'react-router-dom'
+import logo from '../../additions/logo_dark.png'
+import defaultPhoto from '../../additions/default_avatar.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../../redux/apiCalls/auth'
+import { fetchAllAccounts } from '../../redux/apiCalls/accounts'
 
 const Header = (props) => {
-  const dispatch = useDispatch();
-  const history = useNavigate();
-  const placeNum = props.auth.user.name;
-  const isAuthenticated = props.auth.isAuthenticated;
-  const role = props.auth.user.role;
-  const isAdmin = role === "admin" || role === "moder" ? true : false;
+  const dispatch = useDispatch()
+  const history = useNavigate()
 
-  const [expanded, setExpanded] = useState(false);
+  const userId = props.authInfo.user.id
+  const role = props.authInfo.user.role
+  const placeNum = props.authInfo.user.name
+  const isAuthenticated = props.authInfo.isAuthenticated
+  const isAdmin = role === 'admin' || role === 'moder' ? true : false
 
-  const [showExit, setshowExit] = useState(false);
-  const [showAdsCreate, setshowAdsCreate] = useState(false);
+  useEffect(() => {
+    dispatch(fetchAllAccounts(userId))
+  }, [dispatch, userId])
 
-  const handleCloseExit = () => setshowExit(false);
-  const handleShowExit = () => setshowExit(true);
-  const handleCloseAdsCreate = () => setshowAdsCreate(false);
-  const handleShowAdsCreate = () => setshowAdsCreate(true);
+  const userInfo = useSelector((state) => state.accounts)
+  console.log(userInfo);
+
+  const [expanded, setExpanded] = useState(false)
+
+  const [showExit, setshowExit] = useState(false)
+  const [showAdsCreate, setshowAdsCreate] = useState(false)
+
+  const handleCloseExit = () => setshowExit(false)
+  const handleShowExit = () => setshowExit(true)
+  const handleCloseAdsCreate = () => setshowAdsCreate(false)
+  const handleShowAdsCreate = () => setshowAdsCreate(true)
 
   function logoutSubmit(e) {
-    handleCloseExit();
-    e.preventDefault();
-    dispatch(logout());
-    history("/signin");
+    handleCloseExit()
+    e.preventDefault()
+    dispatch(logout())
+    history('/signin')
   }
 
   return (
@@ -61,7 +72,7 @@ const Header = (props) => {
           />
         </Link>
         <Navbar.Toggle
-          onClick={() => setExpanded(expanded ? false : "expanded")}
+          onClick={() => setExpanded(expanded ? false : 'expanded')}
           aria-controls="responsive-navbar-nav"
         />
         <Navbar.Collapse id="responsive-navbar-nav" className="text-center">
@@ -85,12 +96,10 @@ const Header = (props) => {
             </Nav>
             <Nav className="d-xl-none">
               <NavItem onClick={() => setExpanded(false)}>
-                <NavLink to="/adverts/current_adverts">Общий чат</NavLink>
+                <NavLink to="/chat">Общий чат</NavLink>
               </NavItem>
               <NavItem onClick={() => setExpanded(false)}>
-                <NavLink to="/adverts/current_adverts">
-                  Личные сообщения
-                </NavLink>
+                <NavLink to="/messages">Личные сообщения</NavLink>
               </NavItem>
               <NavItem onClick={() => setExpanded(false)}>
                 <NavLink to="/adverts/current_adverts">Мои объявления</NavLink>
@@ -111,14 +120,24 @@ const Header = (props) => {
           </div>
         </Navbar.Collapse>
         {isAuthenticated ? (
-          <span>
-            <div className="text-right">{`Участок № ${placeNum}`}</div>
+          <div className="user-info-block">
+            <div className="user-photo">
+              {userInfo.accounts.photo ? (
+                <Image className="ava" width="60px" />
+              ) : (
+                <Image width="60px" src={defaultPhoto} />
+              )}
+            </div>
+            <div className="user-info">
+              <span className="user-fullname">{`${userInfo.accounts.lastName} ${userInfo.accounts.name}`}</span>
+              <span className="user-place">{`Участок № ${placeNum}`}</span>
+            </div>
             <Form className="text-right">
               <Button variant="warning" onClick={handleShowExit}>
                 Выход
               </Button>
             </Form>
-          </span>
+          </div>
         ) : (
           <span>
             <Form className="text-right">
@@ -153,7 +172,7 @@ const Header = (props) => {
         </Modal.Body>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

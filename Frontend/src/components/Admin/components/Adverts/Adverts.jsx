@@ -1,19 +1,16 @@
-import React, { useEffect } from "react";
-import { Table } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchAllAdverts,
-  deleteAdvert,
-} from "../../../../redux/actions/adverts";
-import AdvertItem from "./AdvertItem";
+import React, { useEffect } from 'react'
+import { Table } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAllAdverts, deleteAd } from '../../../../redux/apiCalls/adverts'
+import AdvertItem from './AdvertItem'
 
 const News = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchAllAdverts());
-  }, [dispatch]);
-  const adverts = useSelector((state) => state.adverts.adverts);
-  const onDelete = (id) => dispatch(deleteAdvert(id));
+    dispatch(fetchAllAdverts())
+  }, [dispatch])
+  const adverts = useSelector((state) => state.adverts.adverts)
+  const onDelete = (id) => dispatch(deleteAd(id))
   return (
     <>
       {!adverts.length ? (
@@ -51,7 +48,7 @@ const News = () => {
         </Table>
       )}
     </>
-  );
-};
+  )
+}
 
-export default News;
+export default News

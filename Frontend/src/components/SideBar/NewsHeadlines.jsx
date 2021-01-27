@@ -1,15 +1,15 @@
-import { Button } from "react-bootstrap";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllNews } from "../../redux/actions/news";
-import dateFormater from "../../utils/dateFormater";
+import { Button } from 'react-bootstrap'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAllNews } from '../../redux/apiCalls/news'
+import { dateFormater } from '../../utils'
 
 const NewsHeadlines = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchAllNews());
-  }, [dispatch]);
-  const newsState = useSelector((state) => state.news);
+    dispatch(fetchAllNews())
+  }, [dispatch])
+  const newsState = useSelector((state) => state.news)
   return (
     <div className="news-headlines-container">
       <h5>Заголовки новостей</h5>
@@ -39,7 +39,7 @@ const NewsHeadlines = () => {
         ) : null}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NewsHeadlines;
+export default NewsHeadlines

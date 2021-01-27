@@ -1,5 +1,5 @@
-import React from "react";
-import { Col, Row } from "react-bootstrap";
+import React from 'react'
+import { Col, Row } from 'react-bootstrap'
 const Vote = (props) => {
   return (
     <Row>
@@ -14,7 +14,7 @@ const Vote = (props) => {
         )}
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-export default Vote;
+export default Vote

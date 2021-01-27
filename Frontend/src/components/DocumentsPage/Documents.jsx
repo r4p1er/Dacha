@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
-  downloadDocument,
+  downloadDoc,
   fetchAllDocuments,
-} from "../../redux/actions/documents";
-import fileExtentionRead from "../../utils/fileExtentionReader";
-import FullPageLoader from "../Loader/Loader";
-import { Col, Image, Row } from "react-bootstrap";
+} from '../../redux/apiCalls/documents'
+import { fileExtentionRead } from '../../utils'
+import FullPageLoader from '../Loader/Loader'
+import { Col, Image, Row } from 'react-bootstrap'
 
 const Documents = (props) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchAllDocuments());
-  }, [dispatch]);
-  const documentsState = useSelector((state) => state.docs);
-  const loading = documentsState.isLoading;
+    dispatch(fetchAllDocuments())
+  }, [dispatch])
+  const documentsState = useSelector((state) => state.documents)
+  const loading = documentsState.isLoading
 
   const onDownload = (id, name) => {
-    return dispatch(downloadDocument(id, name));
-  };
+    return dispatch(downloadDoc(id, name))
+  }
   return (
     <Row>
       <Col>
@@ -50,13 +50,13 @@ const Documents = (props) => {
                     width="32"
                     src={fileExtentionRead(doc.name)}
                     onClick={() => {
-                      onDownload(doc.id, doc.name);
+                      onDownload(doc.id, doc.name)
                     }}
                   />
                   <span
-                    className="cursor-pointer"
+                    className="cursor-pointer text-center"
                     onClick={() => {
-                      onDownload(doc.id, doc.name);
+                      onDownload(doc.id, doc.name)
                     }}
                   >
                     {doc.name}
@@ -68,7 +68,7 @@ const Documents = (props) => {
         )}
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-export default Documents;
+export default Documents

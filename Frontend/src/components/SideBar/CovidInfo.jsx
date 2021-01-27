@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import dateFormater from "../../utils/dateFormater";
+import React, { useEffect, useState } from 'react'
+import { Col, Row } from 'react-bootstrap'
+import { dateFormater } from '../../utils'
 
 const CovidInfo = () => {
-  const [stat, setStat] = useState([]);
-  const lastUpdateTime = stat.lastUpdatedAtSource;
-  const numFormater = (number) => new Intl.NumberFormat("ru-RU").format(number);
+  const [stat, setStat] = useState([])
+  const lastUpdateTime = stat.lastUpdatedAtSource
+  const numFormater = (number) => new Intl.NumberFormat('ru-RU').format(number)
   useEffect(() => {
     fetch(
-      "https://api.apify.com/v2/key-value-stores/1brJ0NLbQaJKPTWMO/records/LATEST?disableRedirect=true"
+      'https://api.apify.com/v2/key-value-stores/1brJ0NLbQaJKPTWMO/records/LATEST?disableRedirect=true'
     )
       .then((res) => res.json())
       .then((result) => {
-        setStat(result);
-      });
-  }, []);
+        setStat(result)
+      })
+  }, [])
   return (
     <div className="covid-stat-block">
       <h5>Коронавирус: статистика</h5>
@@ -40,7 +40,7 @@ const CovidInfo = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CovidInfo;
+export default CovidInfo

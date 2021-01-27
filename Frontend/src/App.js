@@ -1,9 +1,9 @@
-import React from "react";
-import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Col, Container, Row } from "react-bootstrap";
-import background from "./additions/background.png";
-import "./app.scss";
+import React from 'react'
+import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Col, Container, Row } from 'react-bootstrap'
+import background from './additions/background.png'
+import './app.scss'
 import {
   Adverts,
   NewsContainer,
@@ -23,28 +23,30 @@ import {
   AdminDocs,
   AdminVote,
   AdminAccounts,
-} from "./components/index";
+  ChatContainer,
+  MessagesContainer,
+} from './components/index'
 
 function App() {
-  const authState = useSelector((state) => state.auth);
-  const role = authState.user.role;
-  const isAuthenticated = authState.isAuthenticated;
-  const NotFoundRedirect = () => <Navigate to="/not-found" />;
+  const authState = useSelector((state) => state.auth)
+  const role = authState.user.role
+  const isAuthenticated = authState.isAuthenticated
+  const NotFoundRedirect = () => <Navigate to="/not-found" />
   const showOnNotFound = (location) => {
-    return !(location === "/not-found");
-  };
+    return !(location === '/not-found')
+  }
   const PrivateRoute = () => {
-    return <Outlet />;
-  };
+    return <Outlet />
+  }
   return (
     <div
       style={{
-        backgroundImage: "url(" + background + ")",
-        minHeight: "100vh",
+        backgroundImage: 'url(' + background + ')',
+        minHeight: '100vh',
       }}
     >
       {showOnNotFound(useLocation().pathname) ? (
-        <Header auth={authState} />
+        <Header authInfo={authState} />
       ) : null}
       <Container fluid className="main-container">
         <Row>
@@ -103,9 +105,19 @@ function App() {
                 />
 
                 <Route
+                  path="/chat"
+                  element={<ChatContainer isAuth={isAuthenticated} />}
+                />
+
+                <Route
+                  path="/messages"
+                  element={<MessagesContainer isAuth={isAuthenticated} />}
+                />
+
+                <Route
                   path="/admin"
                   element={
-                    role === "admin" || role === "moder" ? (
+                    role === 'admin' || role === 'moder' ? (
                       <AdminContainer />
                     ) : null
                   }
@@ -137,7 +149,7 @@ function App() {
         </Row>
       </Container>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

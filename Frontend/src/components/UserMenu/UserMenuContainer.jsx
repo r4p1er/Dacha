@@ -1,35 +1,39 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Button, ButtonGroup, Modal } from "react-bootstrap";
-import CreateAdvert from "../Adverts/CreateAdvert";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { Button, ButtonGroup, Modal } from 'react-bootstrap'
+import CreateAdvert from '../AdvertsPage/CreateAdvert'
+import { Link } from 'react-router-dom'
 
 const UserMenuContainer = (props) => {
-  const role = props.auth.user.role;
-  const isAdmin = role === "admin" || role === "moder" ? true : false;
+  const role = props.auth.user.role
+  const isAdmin = role === 'admin' || role === 'moder' ? true : false
 
-  const [showAdsCreate, setshowAdsCreate] = useState(false);
+  const [showAdsCreate, setshowAdsCreate] = useState(false)
 
-  const handleCloseAdsCreate = () => setshowAdsCreate(false);
-  const handleShowAdsCreate = () => setshowAdsCreate(true);
+  const handleCloseAdsCreate = () => setshowAdsCreate(false)
+  const handleShowAdsCreate = () => setshowAdsCreate(true)
 
   return (
     <>
       <div className="user-menu">
         <ButtonGroup vertical size="lg">
-          <Button>Общий чат</Button>
-          <Button>Личные сообщения</Button>
-          <Button as={Link} to="/adverts/current_adverts">Мои объявления</Button>
-          <Button onClick={handleShowAdsCreate}>Создать объявление</Button>
-          {isAdmin ? (
-          <Button
-            as={Link}
-            to="/admin/news"
-          >
-            Комната админа
+          <Button as={Link} to="/chat">
+            Общий чат
           </Button>
-        ) : null}
-
+          <Button as={Link} to="/messages">
+            Личные сообщения
+          </Button>
+          <Button as={Link} to="/adverts/current_adverts">
+            Мои объявления
+          </Button>
+          <Button onClick={handleShowAdsCreate}>Создать объявление</Button>
+          {isAdmin 
+            ? (
+              <Button as={Link} to="/admin/news">
+                Комната админа
+              </Button>
+            ) 
+            : null}
         </ButtonGroup>
       </div>
       <Modal size="xl" show={showAdsCreate} onHide={handleCloseAdsCreate}>
@@ -41,13 +45,13 @@ const UserMenuContainer = (props) => {
         </Modal.Body>
       </Modal>
     </>
-  );
-};
+  )
+}
 
 function mapStateToProps(state) {
   return {
     auth: state.auth,
-  };
+  }
 }
 
-export default connect(mapStateToProps)(UserMenuContainer);
+export default connect(mapStateToProps)(UserMenuContainer)

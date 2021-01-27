@@ -1,54 +1,54 @@
-import React, { PureComponent } from "react";
-import { connect } from "react-redux";
-import { Form, Button } from "react-bootstrap";
-import { showAlert, hideAlert } from "../../redux/actions/alertMessages";
-import { createAdvert } from "../../redux/actions/adverts";
-import { AlertMessage } from "../Alerts/Alert";
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { Form, Button } from 'react-bootstrap'
+import { showAlert, hideAlert } from '../../redux/alertMessages'
+import { createAdvert } from '../../redux/apiCalls/adverts'
+import { AlertMessage } from '../Alerts/Alert'
 
 class CreateAdvert extends PureComponent {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      title: "",
-      body: "",
-      contact: "",
-    };
+      title: '',
+      body: '',
+      contact: '',
+    }
   }
 
   componentDidMount() {
-    this.props.onAlertHide();
+    this.props.onAlertHide()
   }
 
   onSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const title = this.state.title;
-    const body = this.state.body;
-    const contact = this.state.contact;
+    const title = this.state.title
+    const body = this.state.body
+    const contact = this.state.contact
 
-    if (title === "" || body === "" || contact === "") {
-      return this.props.isValid("Заполните форму");
+    if (title === '' || body === '' || contact === '') {
+      return this.props.isValid('Заполните форму')
     }
-    this.props.onAdd(this.state);
-    this.props.handleCloseAdsCreate();
+    this.props.onAdd(this.state)
+    this.props.handleCloseAdsCreate()
     this.setState({
-      title: "",
-      body: "",
-      contact: "",
-    });
-  };
+      title: '',
+      body: '',
+      contact: '',
+    })
+  }
 
   onChange = (event) => {
-    event.persist();
+    event.persist()
     this.setState((prev) => ({
       ...prev,
       ...{
         [event.target.name]: event.target.value,
       },
-    }));
-  };
+    }))
+  }
   render() {
-    const { title, body, contact } = this.state;
+    const { title, body, contact } = this.state
     return (
       <Form onSubmit={this.onSubmit}>
         {this.props.alert && <AlertMessage text={this.props.alert} />}
@@ -66,7 +66,7 @@ class CreateAdvert extends PureComponent {
         <Form.Group>
           <Form.Label className="mb-1">Введите текст объявления</Form.Label>
           <Form.Control
-            style={{ resize: "none" }}
+            style={{ resize: 'none' }}
             placeholder="Максимум 1500 символов"
             as="textarea"
             rows="8"
@@ -92,20 +92,20 @@ class CreateAdvert extends PureComponent {
           Создать объявление
         </Button>
       </Form>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
-  alert: state.app.alert,
-});
+  alert: state.alerts.alert,
+})
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onAlertHide: () => dispatch(hideAlert()),
     isValid: (message) => dispatch(showAlert(message)),
     onAdd: (advert) => dispatch(createAdvert(advert)),
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateAdvert);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateAdvert)

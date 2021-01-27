@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import { Button, Card, Col, Image, Modal, Row } from "react-bootstrap";
-import deleteIcon from "../../additions/deleteIcon.png";
-import editIcon from "../../additions/editIcon.png";
-import UpdateAdvert from "./UpdateAdvert";
-import dateFormater from "../../utils/dateFormater";
+import React, { useState } from 'react'
+import { Button, Card, Col, Image, Modal, Row } from 'react-bootstrap'
+import deleteIcon from '../../additions/deleteIcon.png'
+import editIcon from '../../additions/editIcon.png'
+import UpdateAdvert from './UpdateAdvert'
+import { dateFormater } from '../../utils'
 
 const AdCard = React.memo(
   ({ title, body, contact, place, id, onDelete, date, accountId }) => {
-    const [showAdvertUpdate, setshowAdvertUpadate] = useState(false);
-    const handleCloseAdvertUpadate = () => setshowAdvertUpadate(false);
-    const handleShowAdvertUpadate = () => setshowAdvertUpadate(true);
+    const [showAdvertUpdate, setshowAdvertUpadate] = useState(false)
+    const handleCloseAdvertUpadate = () => setshowAdvertUpadate(false)
+    const handleShowAdvertUpadate = () => setshowAdvertUpadate(true)
 
-    const [showFullAd, setshowFullAd] = useState(false);
-    const handleCloseFullAd = () => setshowFullAd(false);
-    const handleShowFullAd = () => setshowFullAd(true);
+    const [showFullAd, setshowFullAd] = useState(false)
+    const handleCloseFullAd = () => setshowFullAd(false)
+    const handleShowFullAd = () => setshowFullAd(true)
 
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const handleClose = () => setShowDeleteModal(false);
-    const handleShow = () => setShowDeleteModal(true);
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
+    const handleClose = () => setShowDeleteModal(false)
+    const handleShow = () => setShowDeleteModal(true)
     return (
       <Col col="true" xl={4} lg={6} md={6} sm={12} xs={12}>
         <Card>
@@ -44,7 +44,7 @@ const AdCard = React.memo(
                   height="24"
                   src={editIcon}
                   onClick={() => {
-                    handleShowAdvertUpadate();
+                    handleShowAdvertUpadate()
                   }}
                 />
                 <Image height="24" src={deleteIcon} onClick={handleShow} />
@@ -82,7 +82,11 @@ const AdCard = React.memo(
             </Row>
           </Modal.Footer>
         </Modal>
-        <Modal size="xl" show={showAdvertUpdate} onHide={handleCloseAdvertUpadate}>
+        <Modal
+          size="xl"
+          show={showAdvertUpdate}
+          onHide={handleCloseAdvertUpadate}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Редактирование объявления</Modal.Title>
           </Modal.Header>
@@ -104,7 +108,8 @@ const AdCard = React.memo(
           <Modal.Body>
             <Button
               onClick={() => {
-                onDelete(id);
+                onDelete(id)
+                handleClose()
               }}
               variant="outline-danger"
             >
@@ -113,7 +118,7 @@ const AdCard = React.memo(
           </Modal.Body>
         </Modal>
       </Col>
-    );
+    )
   }
-);
-export default AdCard;
+)
+export default AdCard

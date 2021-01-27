@@ -1,6 +1,6 @@
-import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { Outlet, NavLink } from "react-router-dom";
+import React from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import { Outlet, NavLink } from 'react-router-dom'
 
 const AdminContainer = () => {
   return (
@@ -34,7 +34,7 @@ const AdminContainer = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default AdminContainer;
+export default AdminContainer

@@ -1,6 +1,6 @@
-import React from "react";
-import dateFormater from "../../utils/dateFormater";
-import { urlify } from "../../utils/urlify";
+import React from 'react'
+import { dateFormater } from '../../utils'
+import { urlify } from '../../utils'
 
 const NewsCard = React.memo(({ title, body, date }) => {
   return (
@@ -12,6 +12,6 @@ const NewsCard = React.memo(({ title, body, date }) => {
       </div>
       <hr color="#666666" />
     </>
-  );
-});
-export default NewsCard;
+  )
+})
+export default NewsCard
