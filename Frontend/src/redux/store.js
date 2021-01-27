@@ -1,12 +1,24 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
-import rootReducer from "./reducers/rootReducer";
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import thunk from 'redux-thunk'
+import adverts from './adverts'
+import news from './news'
+import accounts from './accounts'
+import documents from './documets'
+import auth from './auth'
+import alerts from './alertMessages'
 
-const composeEnhancers = (process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null) || compose;
+const rootReducer = combineReducers({
+  adverts,
+  news,
+  documents,
+  auth,
+  alerts,
+  accounts,
+})
 
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk))
-);
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: [thunk],
+})
 
-export default store;
+export default store
