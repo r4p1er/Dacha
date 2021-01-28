@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  downloadDoc,
-  fetchAllDocuments,
-} from '../../redux/apiCalls/documents'
+import { downloadDoc, fetchAllDocuments } from '../../redux/apiCalls/documents'
 import { fileExtentionRead } from '../../utils'
 import FullPageLoader from '../Loader/Loader'
-import { Col, Image, Row } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
+import DocumentCard from './DocumentCard'
 
-const Documents = (props) => {
+const Documents = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllDocuments())
@@ -21,52 +19,20 @@ const Documents = (props) => {
   }
   return (
     <Row>
-      <Col>
-        <h3 className="heading">Документы</h3>
-        {!props.isAuth ? (
-          <h3 className="text-center">
-            Выполните вход для просмотра документов
-          </h3>
-        ) : !documentsState.documents.length ? (
-          <h3 className="text-center">Документы отсутствуют</h3>
-        ) : loading ? (
-          <FullPageLoader />
-        ) : (
-          <Row>
-            {documentsState.documents.map((doc) => (
-              <Col
-                className="doc-item-container my-2"
-                col="true"
-                xl={3}
-                lg={3}
-                md={4}
-                sm={6}
-                xs={12}
-                key={doc.id}
-              >
-                <div className="doc-item d-flex flex-column align-items-center">
-                  <Image
-                    className="cursor-pointer"
-                    width="32"
-                    src={fileExtentionRead(doc.name)}
-                    onClick={() => {
-                      onDownload(doc.id, doc.name)
-                    }}
-                  />
-                  <span
-                    className="cursor-pointer text-center"
-                    onClick={() => {
-                      onDownload(doc.id, doc.name)
-                    }}
-                  >
-                    {doc.name}
-                  </span>
-                </div>
-              </Col>
-            ))}
-          </Row>
-        )}
-      </Col>
+      {!documentsState.documents.length ? (
+        <h3 className="text-center">Документы отсутствуют</h3>
+      ) : loading ? (
+        <FullPageLoader />
+      ) : (
+        documentsState.documents.map((doc) => (
+          <DocumentCard
+            key={doc.id}
+            fileExtentionRead={fileExtentionRead}
+            onDownload={onDownload}
+            {...doc}
+          />
+        ))
+      )}
     </Row>
   )
 }
