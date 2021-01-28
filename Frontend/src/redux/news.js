@@ -4,7 +4,7 @@ const newsReducer = createSlice({
   name: 'news',
   initialState: {
     news: [],
-    isLoading: false,
+    isLoading: true,
   },
   reducers: {
     addNews(state, action) {

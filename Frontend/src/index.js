@@ -2,22 +2,32 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { CookiesProvider, Cookies } from 'react-cookie'
 import store from './redux/store'
-import jwt from 'jsonwebtoken'
-import { setUser } from './redux/auth'
-import { setAuthorizationToken } from './utils'
 import App from './App'
+import { setAuthorizationToken } from './utils'
+import { setUser } from './redux/auth'
+import jwt from 'jsonwebtoken'
 
-if (localStorage.jwtToken) {
-  setAuthorizationToken(localStorage.jwtToken)
-  store.dispatch(setUser(jwt.decode(localStorage.jwtToken)))
+const cookie = new Cookies()
+
+const UserCookie = cookie.get('token')
+if (UserCookie) {
+  console.log(jwt.decode(UserCookie));
+  setAuthorizationToken(UserCookie)
+  store.dispatch(setUser(jwt.decode(UserCookie)))
+} else {
+  setAuthorizationToken('')
+  store.dispatch(setUser({}))
 }
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
+  <CookiesProvider>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </CookiesProvider>,
   document.getElementById('root')
 )

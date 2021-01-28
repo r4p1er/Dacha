@@ -4,11 +4,11 @@ import Header from './Header/Header'
 import NewsContainer from './NewsPage/NewsContainer'
 import SideBar from './SideBar/SideBar'
 import UserMenuContainer from './UserMenu/UserMenuContainer'
-import Home from './HomePage/HomeContainer'
+import HomeContainer from './HomePage/HomeContainer'
 import AdvertsContainer from './AdvertsPage/AdvertsContainer'
 import Adverts from './AdvertsPage/Adverts'
 import CurrentAdverts from './AdvertsPage/CurrentAdverts'
-import Documents from './DocumentsPage/Documents'
+import DocumentsContainer from './DocumentsPage/DocumentsContainer'
 import Vote from './VotePage/Vote'
 import AdminContainer from './Admin/AdminContainer'
 import AdminNews from './Admin/components/News/News'
@@ -23,10 +23,10 @@ export {
   Header,
   SideBar,
   UserMenuContainer,
-  Home,
+  HomeContainer,
   NewsContainer,
   Adverts,
-  Documents,
+  DocumentsContainer,
   Vote,
   Login,
   NotFound,

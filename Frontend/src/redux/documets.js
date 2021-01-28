@@ -4,7 +4,7 @@ const documentsReducer = createSlice({
   name: 'documents',
   initialState: {
     documents: [],
-    isLoading: false,
+    isLoading: true,
   },
   reducers: {
     fetchDocuments(state, action) {

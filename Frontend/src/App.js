@@ -9,9 +9,9 @@ import {
   NewsContainer,
   AdvertsContainer,
   CurrentAdverts,
-  Documents,
+  DocumentsContainer,
   Header,
-  Home,
+  HomeContainer,
   Login,
   NotFound,
   SideBar,
@@ -28,10 +28,13 @@ import {
 } from './components/index'
 
 function App() {
+
   const authState = useSelector((state) => state.auth)
   const role = authState.user.role
   const isAuthenticated = authState.isAuthenticated
+
   const NotFoundRedirect = () => <Navigate to="/not-found" />
+
   const showOnNotFound = (location) => {
     return !(location === '/not-found')
   }
@@ -75,7 +78,7 @@ function App() {
               xs={12}
             >
               <Route path="/" element={<PrivateRoute />}>
-                <Route exact path="/" element={<Home />} />
+                <Route exact path="/" element={<HomeContainer />} />
 
                 <Route
                   path="/signin"
@@ -96,7 +99,7 @@ function App() {
 
                 <Route
                   path="/documents"
-                  element={<Documents isAuth={isAuthenticated} />}
+                  element={<DocumentsContainer isAuth={isAuthenticated} />}
                 />
 
                 <Route
@@ -143,7 +146,9 @@ function App() {
               sm={12}
               xs={12}
             >
-              {isAuthenticated ? <UserMenuContainer /> : null}
+              {isAuthenticated ? (
+                <UserMenuContainer authInfo={authState} />
+              ) : null}
             </Col>
           ) : null}
         </Row>
