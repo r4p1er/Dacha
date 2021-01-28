@@ -3,11 +3,16 @@
   position: sticky;
   top: 0;
   z-index: 10;
+  justify-content: space-between;
+  align-content: center;
 
   .user-info-block {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
+    align-items: center;
+    width: calc(100% - 60px);
+    justify-content: flex-end;
 
     .user-photo {
       .ava {
@@ -19,6 +24,17 @@
       display: flex;
       flex-wrap: nowrap;
       flex-direction: column;
+      margin: 0 5px;
+      .user-fullname {
+        line-height: 90%;
+      }
+
+      .user-place {
+        vertical-align: text-top;
+        font-weight: 300;
+        line-height: 80%;
+      }
+
     }
   }
 
@@ -66,3 +82,10 @@
     color: #ffdb70;
   }
 }
+
+// @media (max-width: 1200px) {
+//   .user-info-block {
+//     width: 100%;
+//     text-align: right;
+//   }
+// }
