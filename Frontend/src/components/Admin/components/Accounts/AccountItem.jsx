@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Button, Image, Modal } from "react-bootstrap";
-import deleteIcon from "../../../../additions/deleteIcon.png";
-import editIcon from "../../../../additions/editIcon.png";
-import UpdateAccount from "./UpdateAccount";
+import React, { useState } from 'react'
+import { Button, Image, Modal } from 'react-bootstrap'
+import deleteIcon from '../../../../additions/deleteIcon.png'
+import editIcon from '../../../../additions/editIcon.png'
+import UpdateAccount from './UpdateAccount'
 
 const AccountItem = ({
   id,
@@ -15,24 +15,24 @@ const AccountItem = ({
   roleId,
   onDelete,
 }) => {
-  const [showAccountUpdate, setshowAccountUpadate] = useState(false);
-  const handleCloseAccountUpadate = () => setshowAccountUpadate(false);
-  const handleShowAccountUpadate = () => setshowAccountUpadate(true);
+  const [showAccountUpdate, setshowAccountUpadate] = useState(false)
+  const handleCloseAccountUpadate = () => setshowAccountUpadate(false)
+  const handleShowAccountUpadate = () => setshowAccountUpadate(true)
 
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const handleClose = () => setShowDeleteModal(false);
-  const handleShow = () => setShowDeleteModal(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const handleClose = () => setShowDeleteModal(false)
+  const handleShow = () => setShowDeleteModal(true)
 
   const role = (roleId) => {
-    switch(roleId) {
+    switch (roleId) {
       case 1:
-        return "Пользователь";
+        return 'Пользователь'
       case 2:
-        return "Модератор";
+        return 'Модератор'
       case 3:
-        return "Админ";
+        return 'Админ'
       default:
-        return "Пользователь";
+        return 'Пользователь'
     }
   }
 
@@ -67,7 +67,7 @@ const AccountItem = ({
         <Modal.Body>
           <Button
             onClick={() => {
-              onDelete(id);
+              onDelete(id)
             }}
             variant="outline-danger"
           >
@@ -75,7 +75,11 @@ const AccountItem = ({
           </Button>
         </Modal.Body>
       </Modal>
-      <Modal size="xl" show={showAccountUpdate} onHide={handleCloseAccountUpadate}>
+      <Modal
+        size="xl"
+        show={showAccountUpdate}
+        onHide={handleCloseAccountUpadate}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Редактирование аккаунта</Modal.Title>
         </Modal.Header>
@@ -93,7 +97,7 @@ const AccountItem = ({
         </Modal.Body>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default AccountItem;
+export default AccountItem

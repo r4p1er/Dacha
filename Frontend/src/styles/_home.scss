@@ -1,22 +1,47 @@
-.home_container {
-    .google-map {
-        width: 100%;
-        border: 0;
-        height: 350px;
-        border-radius: 3px;
-        box-shadow: 0 5px 11px rgba(0, 0, 0, 0.2);
-      }
-      h1,
-      h2 {
-        margin-bottom: 20px;
-      }
-      p {
-        font-size: 1.1rem;
-        color: #000;
-        margin: 0;
-        background-color: rgba(255, 255, 255, 0.575);
-      }
-    .news-card {
-      margin-bottom: 1rem;
+.home-container {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 10px;
+  }
+
+  p {
+    padding-left: 8px;
+    font-size: 1.1rem;
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.575);
+  }
+
+  .about-block {
+    font-size: 1.1rem;
+    p {
+      margin-bottom: 15px;
     }
+  }
+
+  .contacts-block {
+    p {
+      margin-bottom: 30px;
+    }
+  }
+
+  .map-block {
+    h3 {
+      margin: 0;
+    }
+    .yandex-map {
+      height: 700px;
+      border-width: 0px 3px 3px 3px;
+      border-style: solid;
+      border-color: #89c40b;
+    }
+    @media (max-width: 750px) {
+      .yandex-map {
+        height: 500px;
+      }
+    }
+  }
 }

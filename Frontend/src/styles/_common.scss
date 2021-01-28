@@ -7,24 +7,48 @@ body,
   min-height: 100vh;
 
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 13px;
   }
 
   ::-webkit-scrollbar-track {
     background: #ededee;
   }
   ::-webkit-scrollbar-thumb {
-    background: #17a2b8;
-    border-radius: 40px;
+    background: #ffd969;
     &:hover {
-      background: #37cbe2;
+      background: #ffc720;
     }
   }
 }
+
 .container,
 .container-fluid {
   padding: 20px;
 }
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.center-container {
+  margin: 0;
+  padding: 0;
+}
+
 .cursor-pointer {
   cursor: pointer;
+}
+
+.heading {
+  padding: 10px;
+  text-align: left;
+  background-color: #89c40b;
+  color: #fff;
+}
+
+@media (max-width: 450px) {
+  .main-container {
+    padding: 15px 0;
+  }
 }

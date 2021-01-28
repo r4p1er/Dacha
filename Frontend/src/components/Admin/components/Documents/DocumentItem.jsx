@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Button, Col, Image, Modal } from "react-bootstrap";
-import fileExtentionRead from "../../../../utils/fileExtentionReader";
-import deleteDocIcon from "../../../../additions/deleteDocument.png";
+import React, { useState } from 'react'
+import { Button, Col, Image, Modal } from 'react-bootstrap'
+import { fileExtentionRead } from '../../../../utils'
+import deleteDocIcon from '../../../../additions/deleteDocument.png'
 
 const DocumentItem = ({ id, onDelete, name, onDownload }) => {
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const handleClose = () => setShowDeleteModal(false);
-  const handleShow = () => setShowDeleteModal(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const handleClose = () => setShowDeleteModal(false)
+  const handleShow = () => setShowDeleteModal(true)
 
   return (
     <>
@@ -26,7 +26,7 @@ const DocumentItem = ({ id, onDelete, name, onDownload }) => {
               width="32"
               src={fileExtentionRead(name)}
               onClick={() => {
-                onDownload(id, name);
+                onDownload(id, name)
               }}
             />
             <Image
@@ -39,7 +39,7 @@ const DocumentItem = ({ id, onDelete, name, onDownload }) => {
           <span
             className="cursor-pointer"
             onClick={() => {
-              onDownload(id, name);
+              onDownload(id, name)
             }}
           >
             {name}
@@ -53,7 +53,7 @@ const DocumentItem = ({ id, onDelete, name, onDownload }) => {
         <Modal.Body>
           <Button
             onClick={() => {
-              onDelete(id);
+              onDelete(id)
             }}
             variant="outline-danger"
           >
@@ -62,7 +62,7 @@ const DocumentItem = ({ id, onDelete, name, onDownload }) => {
         </Modal.Body>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default DocumentItem;
+export default DocumentItem

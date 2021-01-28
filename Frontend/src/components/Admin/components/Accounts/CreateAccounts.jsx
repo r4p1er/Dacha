@@ -1,34 +1,38 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Form, Button, Col } from "react-bootstrap";
-import { showAlert } from "../../../../redux/actions/AlertMessages";
-import { createAccount } from "../../../../redux/actions/accounts";
-import { AlertMessage } from "../../../Alerts/Alert";
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { Form, Button, Col } from 'react-bootstrap'
+import { hideAlert, showAlert } from '../../../../redux/alertMessages'
+import { createAccount } from '../../../../redux/apiCalls/accounts'
+import { AlertMessage } from '../../../Alerts/Alert'
 
-class CreateAccount extends Component {
+class CreateAccount extends PureComponent {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      login: "",
-      password: "",
-      lastName: "",
-      name: "",
-      middleName: "",
-      place: "",
+      login: '',
+      password: '',
+      lastName: '',
+      name: '',
+      middleName: '',
+      place: '',
       roleId: 1,
-    };
+    }
+  }
+
+  componentDidMount() {
+    this.props.onAlertHide()
   }
 
   onSubmit = (event) => {
-    event.preventDefault();
-
-    const login = this.state.login;
-    const password = this.state.password;
-    const lastName = this.state.lastName;
-    const name = this.state.name;
-    const middleName = this.state.middleName;
-    const place = this.state.place;
-    const roleId = this.state.roleId;
+    event.preventDefault()
+    this.props.onAlertHide()
+    const login = this.state.login
+    const password = this.state.password
+    const lastName = this.state.lastName
+    const name = this.state.name
+    const middleName = this.state.middleName
+    const place = this.state.place
+    const roleId = this.state.roleId
 
     const submitData = {
       login: login,
@@ -38,42 +42,42 @@ class CreateAccount extends Component {
       middleName: middleName,
       place: +place,
       roleId: +roleId,
-    };
+    }
 
     if (
-      login === "" ||
-      password === "" ||
-      lastName === "" ||
-      name === "" ||
-      middleName === "" ||
-      place === ""
+      login === '' ||
+      password === '' ||
+      lastName === '' ||
+      name === '' ||
+      middleName === '' ||
+      place === ''
     ) {
-      return this.props.showAlert("Заполните форму");
+      return this.props.isValid('Заполните все поля формы')
     }
-    this.props.createAccount(submitData);
+    this.props.onCreate(submitData)
     this.setState({
-      login: "",
-      password: "",
-      lastName: "",
-      name: "",
-      middleName: "",
-      place: "",
+      login: '',
+      password: '',
+      lastName: '',
+      name: '',
+      middleName: '',
+      place: '',
       roleId: 1,
-    });
-  };
+    })
+  }
 
   onChange = (event) => {
-    event.persist();
+    event.persist()
     this.setState((prev) => ({
       ...prev,
       ...{
         [event.target.name]: event.target.value,
       },
-    }));
-  };
+    }))
+  }
   render() {
-    const { login, password, lastName, name, middleName, place } = this.state;
-    const role = this.props.auth.user.role;
+    const { login, password, lastName, name, middleName, place } = this.state
+    const role = this.props.auth.user.role
     return (
       <>
         <Form onSubmit={this.onSubmit} className="create-acc-form">
@@ -98,7 +102,7 @@ class CreateAccount extends Component {
                   as="select"
                 >
                   <option value={1}>Пользователь</option>
-                  {role === "admin" ? (
+                  {role === 'admin' ? (
                     <>
                       <option value={2}>Модератор</option>
                       <option value={3}>Админ</option>
@@ -166,18 +170,21 @@ class CreateAccount extends Component {
           </Button>
         </Form>
       </>
-    );
+    )
   }
 }
 
-const mapDispatchToProps = {
-  showAlert,
-  createAccount,
-};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAlertHide: () => dispatch(hideAlert()),
+    isValid: (message) => dispatch(showAlert(message)),
+    onCreate: (account) => dispatch(createAccount(account)),
+  }
+}
 
 const mapStateToProps = (state) => ({
-  alert: state.app.alert,
+  alert: state.alerts.alert,
   auth: state.auth,
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateAccount);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateAccount)

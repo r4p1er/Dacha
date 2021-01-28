@@ -1,24 +1,31 @@
-import React, { useEffect } from "react";
-import { Table } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react'
+import { Table } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import {
-  deleteAccount,
+  deleteAcc,
   fetchAllAccounts,
-} from "../../../../redux/actions/accounts";
-import AccountItem from "./AccountItem";
-import CreateAccount from "./CreateAccounts";
+} from '../../../../redux/apiCalls/accounts'
+import AccountItem from './AccountItem'
+import CreateAccount from './CreateAccounts'
 
 const Accounts = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchAllAccounts());
-  }, [dispatch]);
-  const accounts = useSelector((state) => state.accounts.accounts);
-  const onDelete = (id) => dispatch(deleteAccount(id));
+    dispatch(fetchAllAccounts())
+  }, [dispatch])
+  const accounts = useSelector((state) => state.accounts.accounts)
+  const onDelete = (id) => dispatch(deleteAcc(id))
   return (
     <>
       <CreateAccount />
-      <Table className="admin_table" size="sm" bordered responsive striped hover>
+      <Table
+        className="admin-table"
+        size="sm"
+        bordered
+        responsive
+        striped
+        hover
+      >
         <thead>
           <tr>
             <th>#</th>
@@ -34,7 +41,7 @@ const Accounts = () => {
         <tbody>
           {!accounts.length ? (
             <tr>
-              <td>Профили отсутствуют</td>
+              <td>Аккаунты отсутствуют</td>
             </tr>
           ) : (
             [...accounts]
@@ -51,7 +58,7 @@ const Accounts = () => {
         </tbody>
       </Table>
     </>
-  );
-};
+  )
+}
 
-export default Accounts;
+export default Accounts

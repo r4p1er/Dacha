@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import dateFormater from "../../../../utils/dateFormater";
-import { Button, Col, Image, Modal, Row } from "react-bootstrap";
-import deleteIcon from "../../../../additions/deleteIcon.png";
+import React, { useState } from 'react'
+import { dateFormater } from '../../../../utils'
+import { Button, Col, Image, Modal, Row } from 'react-bootstrap'
+import deleteIcon from '../../../../additions/deleteIcon.png'
 
 const AdvertItem = ({
   id,
@@ -13,13 +13,13 @@ const AdvertItem = ({
   contact,
   date,
 }) => {
-  const [showFullAd, setshowFullAd] = useState(false);
-  const handleCloseFullAd = () => setshowFullAd(false);
-  const handleShowFullAd = () => setshowFullAd(true);
+  const [showFullAd, setshowFullAd] = useState(false)
+  const handleCloseFullAd = () => setshowFullAd(false)
+  const handleShowFullAd = () => setshowFullAd(true)
 
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const handleClose = () => setShowDeleteModal(false);
-  const handleShow = () => setShowDeleteModal(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const handleClose = () => setShowDeleteModal(false)
+  const handleShow = () => setShowDeleteModal(true)
   return (
     <>
       <tr>
@@ -66,7 +66,7 @@ const AdvertItem = ({
         <Modal.Body>
           <Button
             onClick={() => {
-              onDelete(id);
+              onDelete(id)
             }}
             variant="outline-danger"
           >
@@ -74,7 +74,7 @@ const AdvertItem = ({
           </Button>
         </Modal.Body>
       </Modal>
-      <Modal show={showFullAd} onHide={handleCloseFullAd} size="lg">
+      <Modal size="xl" show={showFullAd} onHide={handleCloseFullAd}>
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
@@ -99,7 +99,7 @@ const AdvertItem = ({
         </Modal.Footer>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default AdvertItem;
+export default AdvertItem

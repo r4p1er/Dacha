@@ -1,57 +1,58 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import DocumentItem from "./DocumentItem";
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import DocumentItem from './DocumentItem'
 import {
-  downloadDocument,
+  downloadDoc,
   fetchAllDocuments,
   addDocument,
-  deleteDocument,
-} from "../../../../redux/actions/documents";
-import { showAlert } from "../../../../redux/actions/AlertMessages";
-import { Button, Container, Form, Row } from "react-bootstrap";
-import { AlertMessage } from "../../../Alerts/Alert";
+  deleteDoc,
+} from '../../../../redux/apiCalls/documents'
+import { hideAlert, showAlert } from '../../../../redux/alertMessages'
+import { Button, Container, Form, Row } from 'react-bootstrap'
+import { AlertMessage } from '../../../Alerts/Alert'
 
 const Documents = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchAllDocuments());
-  }, [dispatch]);
-  const documents = useSelector((state) => state.docs.documents);
-  const alert = useSelector((state) => state.app.alert);
+    dispatch(fetchAllDocuments())
+    dispatch(hideAlert())
+  }, [dispatch])
+  const documents = useSelector((state) => state.documents.documents)
+  const alert = useSelector((state) => state.alerts.alert)
 
-  const [file, setFile] = useState();
-  const [fileName, setFileName] = useState();
+  const [file, setFile] = useState()
+  const [fileName, setFileName] = useState()
   const saveFile = (event) => {
     if (event.target.files[0] !== undefined) {
-      setFile(event.target.files[0]);
-      setFileName(event.target.files[0].name);
-      const label = document.querySelector(".choice-file-label");
-      label.innerHTML = event.target.files[0].name;
+      setFile(event.target.files[0])
+      setFileName(event.target.files[0].name)
+      const label = document.querySelector('.choice-file-label')
+      label.innerHTML = event.target.files[0].name
     }
-  };
+  }
 
   const onDownload = (id, name) => {
-    dispatch(downloadDocument(id, name));
-  };
+    dispatch(downloadDoc(id, name))
+  }
 
   const onDelete = (id) => {
-    return dispatch(deleteDocument(id));
-  };
+    return dispatch(deleteDoc(id))
+  }
 
   const uploadFile = () => {
     if (file !== undefined) {
-      const formData = new FormData();
-      formData.append("formFile", file);
-      formData.append("fileName", fileName);
-      dispatch(addDocument(formData));
-      const label = document.querySelector(".choice-file-label");
-      label.innerHTML = "Выберите файл";
-      setFile(undefined);
-      setFileName(undefined);
+      const formData = new FormData()
+      formData.append('formFile', file)
+      formData.append('fileName', fileName)
+      dispatch(addDocument(formData))
+      const label = document.querySelector('.choice-file-label')
+      label.innerHTML = 'Выберите файл'
+      setFile(undefined)
+      setFileName(undefined)
     } else {
-      dispatch(showAlert("Выберите файл"))
+      dispatch(showAlert('Выберите файл'))
     }
-  };
+  }
   return (
     <>
       <Container className="text-center">
@@ -94,7 +95,7 @@ const Documents = () => {
         )}
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default Documents;
+export default Documents

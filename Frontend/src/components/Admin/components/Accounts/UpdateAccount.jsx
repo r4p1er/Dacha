@@ -1,45 +1,49 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Form, Button, Col } from "react-bootstrap";
-import { showAlert } from "../../../../redux/actions/AlertMessages";
-import { createAccount } from "../../../../redux/actions/accounts";
-import { AlertMessage } from "../../../Alerts/Alert";
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { Form, Button, Col } from 'react-bootstrap'
+import { showAlert, hideAlert } from '../../../../redux/alertMessages'
+import { createAccount } from '../../../../redux/apiCalls/accounts'
+import { AlertMessage } from '../../../Alerts/Alert'
 
-class UpdateAccount extends Component {
+class UpdateAccount extends PureComponent {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       id: this.props.id,
       login: this.props.login,
-      password: "",
+      password: '',
       lastName: this.props.lastName,
       name: this.props.name,
       middleName: this.props.middleName,
       place: this.props.place,
       roleId: this.props.roleId,
-    };
+    }
+  }
+
+  componentDidMount() {
+    this.props.onAlertHide()
   }
 
   onSubmit = (event) => {
-    event.preventDefault();
-
-    const id = this.state.id;
-    const login = this.state.login;
-    const password = this.state.password;
-    const lastName = this.state.lastName;
-    const name = this.state.name;
-    const middleName = this.state.middleName;
-    const place = this.state.place;
-    const roleId = this.state.roleId;
+    event.preventDefault()
+    this.props.onAlertHide()
+    const id = this.state.id
+    const login = this.state.login
+    const password = this.state.password
+    const lastName = this.state.lastName
+    const name = this.state.name
+    const middleName = this.state.middleName
+    const place = this.state.place
+    const roleId = this.state.roleId
 
     if (
-      login === "" ||
-      lastName === "" ||
-      name === "" ||
-      middleName === "" ||
-      place === ""
+      login === '' ||
+      lastName === '' ||
+      name === '' ||
+      middleName === '' ||
+      place === ''
     ) {
-      return this.props.showAlert("Заполните форму");
+      return this.props.isValid('Заполните все поля формы')
     }
 
     if (password) {
@@ -52,9 +56,9 @@ class UpdateAccount extends Component {
         middleName: middleName,
         place: +place,
         roleId: +roleId,
-      };
-      this.props.createAccount(submitData);
-      this.props.handleCloseAccountUpadate();
+      }
+      this.props.onCreate(submitData)
+      this.props.handleCloseAccountUpadate()
     } else {
       const submitData = {
         id: id,
@@ -64,35 +68,35 @@ class UpdateAccount extends Component {
         middleName: middleName,
         place: +place,
         roleId: +roleId,
-      };
-      this.props.createAccount(submitData);
-      this.props.handleCloseAccountUpadate();
+      }
+      this.props.onCreate(submitData)
+      this.props.handleCloseAccountUpadate()
     }
 
     this.setState({
-      id: "",
-      login: "",
-      password: "",
-      lastName: "",
-      name: "",
-      middleName: "",
-      place: "",
+      id: '',
+      login: '',
+      password: '',
+      lastName: '',
+      name: '',
+      middleName: '',
+      place: '',
       roleId: 1,
-    });
-  };
+    })
+  }
 
   onChange = (event) => {
-    event.persist();
+    event.persist()
     this.setState((prev) => ({
       ...prev,
       ...{
         [event.target.name]: event.target.value,
       },
-    }));
-  };
+    }))
+  }
   render() {
-    const { login, password, lastName, name, middleName, place } = this.state;
-    const role = this.props.auth.user.role;
+    const { login, password, lastName, name, middleName, place } = this.state
+    const role = this.props.auth.user.role
     return (
       <>
         <Form onSubmit={this.onSubmit} className="create-acc-form text-center">
@@ -117,7 +121,7 @@ class UpdateAccount extends Component {
                   defaultValue={this.state.roleId}
                 >
                   <option value={1}>Пользователь</option>
-                  {role === "admin" ? (
+                  {role === 'admin' ? (
                     <>
                       <option value={2}>Модератор</option>
                       <option value={3}>Админ</option>
@@ -184,18 +188,21 @@ class UpdateAccount extends Component {
           </Button>
         </Form>
       </>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
-  alert: state.app.alert,
+  alert: state.alerts.alert,
   auth: state.auth,
-});
+})
 
-const mapDispatchToProps = {
-  showAlert,
-  createAccount,
-};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAlertHide: () => dispatch(hideAlert()),
+    isValid: (message) => dispatch(showAlert(message)),
+    onCreate: (account) => dispatch(createAccount(account)),
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateAccount);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateAccount)
