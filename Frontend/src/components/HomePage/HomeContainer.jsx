@@ -1,10 +1,10 @@
-import React from "react";
-import { Row } from "react-bootstrap";
-import About from "./About";
-import YMap from "./YMap";
-import Contacts from "./Contacts";
+import React from 'react'
+import { Row } from 'react-bootstrap'
+import About from './About'
+import YMap from './YMap'
+import Contacts from './Contacts'
 
-const HomeContainer = React.memo(() => {
+const HomeContainer = () => {
   return (
     <div className="home-container">
       <Row>
@@ -15,7 +15,7 @@ const HomeContainer = React.memo(() => {
         <YMap />
       </Row>
     </div>
-  );
-});
+  )
+}
 
-export default HomeContainer;
+export default HomeContainer

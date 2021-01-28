@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import CreateAdvert from '../AdvertsPage/CreateAdvert'
-import { useNavigate } from 'react-router-dom'
 import {
   Navbar,
   Nav,
@@ -19,7 +18,6 @@ import { fetchAllAccounts } from '../../redux/apiCalls/accounts'
 
 const Header = (props) => {
   const dispatch = useDispatch()
-  const history = useNavigate()
 
   const userId = props.authInfo.user.id
   const role = props.authInfo.user.role
@@ -32,7 +30,6 @@ const Header = (props) => {
   }, [dispatch, userId])
 
   const userInfo = useSelector((state) => state.accounts)
-  console.log(userInfo);
 
   const [expanded, setExpanded] = useState(false)
 
@@ -48,7 +45,6 @@ const Header = (props) => {
     handleCloseExit()
     e.preventDefault()
     dispatch(logout())
-    history('/signin')
   }
 
   return (

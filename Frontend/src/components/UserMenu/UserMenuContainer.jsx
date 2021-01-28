@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 import { Button, ButtonGroup, Modal } from 'react-bootstrap'
 import CreateAdvert from '../AdvertsPage/CreateAdvert'
 import { Link } from 'react-router-dom'
 
 const UserMenuContainer = (props) => {
-  const role = props.auth.user.role
+
+  const role = props.authInfo.user.role
   const isAdmin = role === 'admin' || role === 'moder' ? true : false
 
   const [showAdsCreate, setshowAdsCreate] = useState(false)
@@ -48,10 +48,10 @@ const UserMenuContainer = (props) => {
   )
 }
 
-function mapStateToProps(state) {
-  return {
-    auth: state.auth,
-  }
-}
+// function mapStateToProps(state) {
+//   return {
+//     auth: state.auth,
+//   }
+// }
 
-export default connect(mapStateToProps)(UserMenuContainer)
+export default UserMenuContainer

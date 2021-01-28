@@ -1,6 +1,6 @@
-import React from "react";
-import { YMaps, Map, ZoomControl, Placemark } from "react-yandex-maps";
-import { Col } from "react-bootstrap";
+import React from 'react'
+import { YMaps, Map, ZoomControl, Placemark } from 'react-yandex-maps'
+import { Col } from 'react-bootstrap'
 
 const YMap = () => {
   return (
@@ -17,17 +17,17 @@ const YMap = () => {
             <ZoomControl />
             <Placemark
               geometry={[55.300756, 36.773081]}
-              modules={["geoObject.addon.balloon", "geoObject.addon.hint"]}
+              modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
               properties={{
                 hintContent:
-                  "Россия, Московская область, Наро-Фоминский городской округ, деревня Покровка",
+                  'Россия, Московская область, Наро-Фоминский городской округ, деревня Покровка',
               }}
             />
           </Map>
         </YMaps>
       </div>
     </Col>
-  );
-};
+  )
+}
 
-export default YMap;
+export default YMap

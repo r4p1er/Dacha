@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   Button,
   ButtonGroup,
@@ -6,15 +6,15 @@ import {
   Container,
   Modal,
   Row,
-} from "react-bootstrap";
-import { Link, Outlet } from "react-router-dom";
-import CreateAdvert from "./CreateAdvert";
+} from 'react-bootstrap'
+import { Link, Outlet } from 'react-router-dom'
+import CreateAdvert from './CreateAdvert'
 
 const AdvertsContainer = (props) => {
-  const [showAdsCreate, setshowAdsCreate] = useState(false);
+  const [showAdsCreate, setshowAdsCreate] = useState(false)
 
-  const handleCloseAdsCreate = () => setshowAdsCreate(false);
-  const handleShowAdsCreate = () => setshowAdsCreate(true);
+  const handleCloseAdsCreate = () => setshowAdsCreate(false)
+  const handleShowAdsCreate = () => setshowAdsCreate(true)
 
   return (
     <Row>
@@ -47,7 +47,7 @@ const AdvertsContainer = (props) => {
         )}
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-export default AdvertsContainer;
+export default AdvertsContainer

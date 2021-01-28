@@ -1,5 +1,5 @@
-import React from "react";
-import { Col } from "react-bootstrap";
+import React from 'react'
+import { Col } from 'react-bootstrap'
 
 const Contacts = () => {
   return (
@@ -24,7 +24,7 @@ const Contacts = () => {
         звонку.
       </p>
     </Col>
-  );
-};
+  )
+}
 
-export default Contacts;
+export default Contacts

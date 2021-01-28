@@ -1,5 +1,5 @@
-import React from "react";
-import { Col } from "react-bootstrap";
+import React from 'react'
+import { Col } from 'react-bootstrap'
 
 const About = () => {
   return (
@@ -41,7 +41,7 @@ const About = () => {
         </li>
       </ul>
     </Col>
-  );
-};
+  )
+}
 
-export default About;
+export default About
