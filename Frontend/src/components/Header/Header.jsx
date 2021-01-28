@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import CreateAdvert from '../AdvertsPage/CreateAdvert'
 import {
   Navbar,
@@ -12,24 +12,19 @@ import {
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../../additions/logo_dark.png'
 import defaultPhoto from '../../additions/default_avatar.png'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { logout } from '../../redux/apiCalls/auth'
-import { fetchAllAccounts } from '../../redux/apiCalls/accounts'
 
 const Header = (props) => {
   const dispatch = useDispatch()
+  const user = props.authInfo.user
+  const role = user.role
+  const placeNum = user.placeNum
+  const name = user.name
+  const lastName = user.lastName
 
-  const userId = props.authInfo.user.id
-  const role = props.authInfo.user.role
-  const placeNum = props.authInfo.user.name
   const isAuthenticated = props.authInfo.isAuthenticated
   const isAdmin = role === 'admin' || role === 'moder' ? true : false
-
-  useEffect(() => {
-    dispatch(fetchAllAccounts(userId))
-  }, [dispatch, userId])
-
-  const userInfo = useSelector((state) => state.accounts)
 
   const [expanded, setExpanded] = useState(false)
 
@@ -118,14 +113,14 @@ const Header = (props) => {
         {isAuthenticated ? (
           <div className="user-info-block">
             <div className="user-photo">
-              {userInfo.accounts.photo ? (
+              {user.photo ? (
                 <Image className="ava" width="60px" />
               ) : (
                 <Image width="60px" src={defaultPhoto} />
               )}
             </div>
             <div className="user-info">
-              <span className="user-fullname">{`${userInfo.accounts.lastName} ${userInfo.accounts.name}`}</span>
+              <span className="user-fullname">{`${lastName} ${name}`}</span>
               <span className="user-place">{`Участок № ${placeNum}`}</span>
             </div>
             <Form className="text-right">

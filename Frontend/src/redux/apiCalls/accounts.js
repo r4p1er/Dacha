@@ -70,7 +70,7 @@ const updateAccount = async (dispatch, data) => {
     name: data.name,
     middleName: data.middleName,
     place: data.place,
-    roleId: data.roleId,
+    roleId: data.role,
   }
   return await axios
   .put(`${baseUrl}/${id}`, putData)
@@ -108,6 +108,7 @@ export const fetchAllAccounts = (id) => {
         isLoading = false
         dispatch(loadingAccounts(isLoading))
         const data = response.data
+        console.log(data);
         dispatch(fetchAccounts(data))
       })
     } else {
