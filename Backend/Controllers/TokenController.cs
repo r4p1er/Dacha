@@ -49,14 +49,8 @@ namespace Dacha.Controllers
             var response = new
             {
                 token = encodedJwt,
-                login = identity.Name,
-                id = identity.FindFirst(ClaimTypes.NameIdentifier).Value,
-                role = account.Role.Name,
                 expires = DateTime.Now.Add(TimeSpan.FromMinutes(double.Parse(Configuration["AuthOptions:LIFETIME"]))),
-                name = account.Name,
-                last_name = account.LastName,
-                middle_name = account.MiddleName,
-                place = account.Place
+                account = account
             };
             return new JsonResult(response);
         }
