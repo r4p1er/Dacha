@@ -44,19 +44,14 @@ namespace Dacha.Controllers
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["AuthOptions:KEY"])), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            var account = await db.Accounts.FindAsync(int.Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value));
+            var account = await db.Accounts.Include(x => x.Role)
+                                           .FirstOrDefaultAsync(x => x.Id == int.Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value));
 
             var response = new
             {
                 token = encodedJwt,
-                login = identity.Name,
-                id = identity.FindFirst(ClaimTypes.NameIdentifier).Value,
-                role = account.Role.Name,
                 expires = DateTime.Now.Add(TimeSpan.FromMinutes(double.Parse(Configuration["AuthOptions:LIFETIME"]))),
-                name = account.Name,
-                last_name = account.LastName,
-                middle_name = account.MiddleName,
-                place = account.Place
+                account = account
             };
             return new JsonResult(response);
         }
