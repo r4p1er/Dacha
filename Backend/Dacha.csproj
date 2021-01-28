@@ -14,7 +14,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Files\" />
+    <Compile Remove="wwwroot\Files\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="wwwroot\Files\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="wwwroot\Files\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Files\**" />
   </ItemGroup>
 
 </Project>
