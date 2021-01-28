@@ -1,7 +1,14 @@
 import axios from 'axios'
 import { apiUrl } from '../../utils'
-import { loadingDocuments, fetchDocuments, deleteDocument, downloadDocument } from '../documets'
+import { Cookies } from 'react-cookie'
+import {
+  loadingDocuments,
+  fetchDocuments,
+  deleteDocument,
+  downloadDocument,
+} from '../documets'
 
+const cookie = new Cookies()
 const baseUrl = `${apiUrl}/documents`
 const downloadUrl = `http://${window.location.hostname}:5000/StaticFiles`
 
@@ -14,12 +21,8 @@ export const addDocument = (document) => {
       dispatch(loadingDocuments(isLoading))
     }
 
-    return await axios
-    .post(baseUrl, data)
-    .then((response) => {
-      return axios
-      .get(`${baseUrl}`)
-      .then((response) => {
+    return await axios.post(baseUrl, data).then((response) => {
+      return axios.get(`${baseUrl}`).then((response) => {
         isLoading = false
         dispatch(loadingDocuments(isLoading))
         dispatch(fetchDocuments(response.data))
@@ -30,9 +33,7 @@ export const addDocument = (document) => {
 
 export const deleteDoc = (id) => {
   return async (dispatch) => {
-    return await axios
-    .delete(`${baseUrl}/${id}`)
-    .then(() => {
+    return await axios.delete(`${baseUrl}/${id}`).then(() => {
       dispatch(deleteDocument(id))
     })
   }
@@ -46,9 +47,7 @@ export const fetchAllDocuments = () => {
       dispatch(loadingDocuments(isLoading))
     }
 
-    return await axios
-    .get(baseUrl)
-    .then((response) => {
+    return await axios.get(baseUrl).then((response) => {
       isLoading = false
       dispatch(loadingDocuments(isLoading))
       const data = response.data
@@ -58,12 +57,12 @@ export const fetchAllDocuments = () => {
 }
 
 export const downloadDoc = (id, name) => {
-  const token = localStorage.jwtToken
-  const AuthStr = 'Bearer '.concat(token)
+  const token = cookie.get('token')
+  const AuthStr = `Bearer ${token}`
   return async (dispatch) => {
     dispatch(downloadDocument())
     await axios
-      .get(`${downloadUrl}/${name}`, {
+      .get(`${downloadUrl}/${encodeURIComponent(name)}`, {
         responseType: 'blob',
         headers: { Authorization: AuthStr },
       })
