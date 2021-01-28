@@ -28,7 +28,6 @@ import {
 } from './components/index'
 
 function App() {
-
   const authState = useSelector((state) => state.auth)
   const role = authState.user.role
   const isAuthenticated = authState.isAuthenticated

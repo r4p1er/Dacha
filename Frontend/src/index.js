@@ -16,20 +16,26 @@ const userData = {
   name: cookie.get('name'),
   lastName: cookie.get('lastName'),
   middleName: cookie.get('middleName'),
-  placeNum: cookie.get('placeNum'),
+  place: cookie.get('placeNum'),
   role: cookie.get('role'),
 }
 
 const token = cookie.get('token')
-
 if (token) {
   setAuthorizationToken(token)
   store.dispatch(setUser(userData))
 } else {
   setAuthorizationToken('')
   store.dispatch(setUser({}))
+  cookie.remove('token')
+  cookie.remove('id')
+  cookie.remove('login')
+  cookie.remove('name')
+  cookie.remove('lastName')
+  cookie.remove('middleName')
+  cookie.remove('placeNum')
+  cookie.remove('role')
 }
-
 ReactDOM.render(
   <CookiesProvider>
     <Provider store={store}>

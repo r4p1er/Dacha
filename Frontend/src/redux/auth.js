@@ -11,20 +11,23 @@ const authReducer = createSlice({
       name: '',
       lastName: '',
       middleName: '',
-      placeNum: '',
-      role: '',
+      placeNum: null,
+      role: {
+        id: null,
+        name: '',
+      },
     },
   },
   reducers: {
     setUser(state, action) {
       state.isAuthenticated = !isEmpty(action.payload)
       state.user.id = action.payload.id
-      state.user.placeNum = action.payload.place
       state.user.login = action.payload.login
-      state.user.role = action.payload.role
       state.user.name = action.payload.name
-      state.user.lastName = action.payload.last_name
-      state.user.middleName = action.payload.middle_name
+      state.user.lastName = action.payload.lastName
+      state.user.middleName = action.payload.middleName
+      state.user.placeNum = action.payload.place
+      state.user.role = action.payload.role
     },
   },
 })

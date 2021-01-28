@@ -25,28 +25,27 @@ export function logout() {
 
 export function login(data) {
   return async (dispatch) => {
-    try {
-      await axios.post(`${apiUrl}/token`, data).then((response) => {
+    await axios
+      .post(`${apiUrl}/token/`, data)
+      .then((response) => {
         const token = response.data.token
-        const tokenExpDate = response.data.expires
-        cookie.set('token', token, {expires: tokenExpDate})
+        const tokenExpDate = new Date(response.data.expires)
+        cookie.set('token', token, { expires: tokenExpDate })
         const userData = response.data.account
-        cookie.set('id', response.data.id)
-        cookie.set('login', response.data.login)
-        cookie.set('name', response.data.name)
-        cookie.set('lastName', response.data.last_name)
-        cookie.set('middleName', response.data.middle_name)
-        cookie.set('placeNum', response.data.place)
-        cookie.set('role', response.data.role)
+        cookie.set('id', userData.id)
+        cookie.set('login', userData.login)
+        cookie.set('name', userData.name)
+        cookie.set('lastName', userData.lastName)
+        cookie.set('middleName', userData.middleName)
+        cookie.set('placeNum', userData.place)
+        cookie.set('role', userData.role.name)
         setAuthorizationToken(token)
         dispatch(setUser(userData))
         dispatch(hideAlert())
+        window.location.href = '/'
       })
-      window.location.href = '/'
-    } catch (error) {
-      if (error.response.status === 400) {
+      .catch((error) => {
         dispatch(showAlert('Неверный логин или пароль'))
-      }
-    }
+      })
   }
 }
