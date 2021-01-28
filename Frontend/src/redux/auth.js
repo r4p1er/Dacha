@@ -7,25 +7,24 @@ const authReducer = createSlice({
     isAuthenticated: false,
     user: {
       id: null,
+      login: '',
       name: '',
+      lastName: '',
+      middleName: '',
+      placeNum: '',
       role: '',
     },
   },
   reducers: {
     setUser(state, action) {
       state.isAuthenticated = !isEmpty(action.payload)
-      state.user.id =
-        action.payload[
-          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
-        ]
-      state.user.name =
-        action.payload[
-          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
-        ]
-      state.user.role =
-        action.payload[
-          'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
-        ]
+      state.user.id = action.payload.id
+      state.user.placeNum = action.payload.place
+      state.user.login = action.payload.login
+      state.user.role = action.payload.role
+      state.user.name = action.payload.name
+      state.user.lastName = action.payload.last_name
+      state.user.middleName = action.payload.middle_name
     },
   },
 })

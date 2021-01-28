@@ -7,15 +7,24 @@ import store from './redux/store'
 import App from './App'
 import { setAuthorizationToken } from './utils'
 import { setUser } from './redux/auth'
-import jwt from 'jsonwebtoken'
 
 const cookie = new Cookies()
 
-const UserCookie = cookie.get('token')
-if (UserCookie) {
-  console.log(jwt.decode(UserCookie));
-  setAuthorizationToken(UserCookie)
-  store.dispatch(setUser(jwt.decode(UserCookie)))
+const userData = {
+  id: cookie.get('id'),
+  login: cookie.get('login'),
+  name: cookie.get('name'),
+  lastName: cookie.get('lastName'),
+  middleName: cookie.get('middleName'),
+  placeNum: cookie.get('placeNum'),
+  role: cookie.get('role'),
+}
+
+const token = cookie.get('token')
+
+if (token) {
+  setAuthorizationToken(token)
+  store.dispatch(setUser(userData))
 } else {
   setAuthorizationToken('')
   store.dispatch(setUser({}))
