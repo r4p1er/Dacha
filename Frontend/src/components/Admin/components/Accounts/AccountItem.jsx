@@ -12,7 +12,7 @@ const AccountItem = ({
   middleName,
   name,
   place,
-  roleId,
+  role,
   onDelete,
 }) => {
   const [showAccountUpdate, setshowAccountUpadate] = useState(false)
@@ -23,18 +23,7 @@ const AccountItem = ({
   const handleClose = () => setShowDeleteModal(false)
   const handleShow = () => setShowDeleteModal(true)
 
-  const role = (roleId) => {
-    switch (roleId) {
-      case 1:
-        return 'Пользователь'
-      case 2:
-        return 'Модератор'
-      case 3:
-        return 'Админ'
-      default:
-        return 'Пользователь'
-    }
-  }
+  const roleInRus = role.name === 'admin' ? 'Админ' : role.name === 'moder' ? 'Модератор' : 'Пользователь'
 
   return (
     <>
@@ -44,7 +33,7 @@ const AccountItem = ({
         <td>{name}</td>
         <td>{middleName}</td>
         <td>{place}</td>
-        <td>{role(roleId)}</td>
+        <td>{roleInRus}</td>
         <td>
           <Image
             onClick={handleShowAccountUpadate}
@@ -91,7 +80,7 @@ const AccountItem = ({
             name={name}
             middleName={middleName}
             place={place}
-            roleId={roleId}
+            role={roleInRus}
             handleCloseAccountUpadate={handleCloseAccountUpadate}
           />
         </Modal.Body>
