@@ -25,14 +25,14 @@ namespace Dacha.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Account>>> Get()
         {
-            return await db.Accounts.ToListAsync();
+            return await db.Accounts.Include(x => x.Role).ToListAsync();
         }
 
         [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Account>> Get(int id)
         {
-            var account = await db.Accounts.FirstOrDefaultAsync(x => x.Id == id);
+            var account = await db.Accounts.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
             if (account == null) return NotFound();
             return account;
         }
@@ -71,7 +71,7 @@ namespace Dacha.Controllers
 
             await db.Accounts.AddAsync(account);
             await db.SaveChangesAsync();
-            account = await db.Accounts.FirstOrDefaultAsync(x => x.Login == account.Login && x.Password == account.Password && x.Place == account.Place);
+            account = await db.Accounts.Include(x => x.Role).FirstOrDefaultAsync(x => x.Login == account.Login && x.Password == account.Password && x.Place == account.Place);
 
             return CreatedAtAction(nameof(Get), new { id = account.Id }, account);
         }
@@ -140,7 +140,7 @@ namespace Dacha.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Account>> Delete(int id)
         {
-            var account = await db.Accounts.Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
+            var account = await db.Accounts.Include(x => x.Role).Include(x => x.Role).FirstOrDefaultAsync(x => x.Id == id);
 
             if(account == null)
             {

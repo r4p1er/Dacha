@@ -29,7 +29,7 @@ namespace Dacha.Models
             {
                 Id = 1,
                 Login = "admin",
-                Password = "semiconductor",
+                Password = "admin",
                 Name = "admin",
                 MiddleName = "admin",
                 LastName = "admin",
