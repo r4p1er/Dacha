@@ -16,7 +16,7 @@ class UpdateAccount extends PureComponent {
       name: this.props.name,
       middleName: this.props.middleName,
       place: this.props.place,
-      roleId: this.props.roleId,
+      role: this.props.role.id,
     }
   }
 
@@ -34,7 +34,7 @@ class UpdateAccount extends PureComponent {
     const name = this.state.name
     const middleName = this.state.middleName
     const place = this.state.place
-    const roleId = this.state.roleId
+    const role = this.state.role
 
     if (
       login === '' ||
@@ -55,7 +55,7 @@ class UpdateAccount extends PureComponent {
         name: name,
         middleName: middleName,
         place: +place,
-        roleId: +roleId,
+        role: +role,
       }
       this.props.onCreate(submitData)
       this.props.handleCloseAccountUpadate()
@@ -67,7 +67,7 @@ class UpdateAccount extends PureComponent {
         name: name,
         middleName: middleName,
         place: +place,
-        roleId: +roleId,
+        role: +role,
       }
       this.props.onCreate(submitData)
       this.props.handleCloseAccountUpadate()
@@ -81,7 +81,7 @@ class UpdateAccount extends PureComponent {
       name: '',
       middleName: '',
       place: '',
-      roleId: 1,
+      role: 1,
     })
   }
 
@@ -112,13 +112,13 @@ class UpdateAccount extends PureComponent {
                   placeholder="Введите логин"
                 />
               </Form.Group>
-              <Form.Group controlId="RoleId">
+              <Form.Group controlId="role">
                 <Form.Label>Роль</Form.Label>
                 <Form.Control
                   as="select"
                   onChange={this.onChange}
-                  name="roleId"
-                  defaultValue={this.state.roleId}
+                  name="role"
+                  defaultValue={this.state.role}
                 >
                   <option value={1}>Пользователь</option>
                   {role === 'admin' ? (

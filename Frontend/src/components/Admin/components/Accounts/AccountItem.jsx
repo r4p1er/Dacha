@@ -23,7 +23,12 @@ const AccountItem = ({
   const handleClose = () => setShowDeleteModal(false)
   const handleShow = () => setShowDeleteModal(true)
 
-  const roleInRus = role.name === 'admin' ? 'Админ' : role.name === 'moder' ? 'Модератор' : 'Пользователь'
+  const roleInRus =
+    role.name === 'admin'
+      ? 'Админ'
+      : role.name === 'moder'
+      ? 'Модератор'
+      : 'Пользователь'
 
   return (
     <>
@@ -80,7 +85,7 @@ const AccountItem = ({
             name={name}
             middleName={middleName}
             place={place}
-            role={roleInRus}
+            role={role}
             handleCloseAccountUpadate={handleCloseAccountUpadate}
           />
         </Modal.Body>
