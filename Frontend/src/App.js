@@ -3,7 +3,6 @@ import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Col, Container, Row } from 'react-bootstrap'
 import background from './additions/background.png'
-import './app.scss'
 import {
   Adverts,
   NewsContainer,

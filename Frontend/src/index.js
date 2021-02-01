@@ -7,6 +7,7 @@ import store from './redux/store'
 import App from './App'
 import { setAuthorizationToken } from './utils'
 import { setUser } from './redux/auth'
+import './app.scss'
 
 const cookie = new Cookies()
 
