@@ -31,14 +31,16 @@ export function login(data) {
         const token = response.data.token
         const tokenExpDate = new Date(response.data.expires)
         cookie.set('token', token, { expires: tokenExpDate })
+
         const userData = response.data.account
-        cookie.set('id', userData.id)
-        cookie.set('login', userData.login)
-        cookie.set('name', userData.name)
-        cookie.set('lastName', userData.lastName)
-        cookie.set('middleName', userData.middleName)
-        cookie.set('placeNum', userData.place)
-        cookie.set('role', userData.role.name)
+        cookie.set('id', userData.id, { expires: tokenExpDate })
+        cookie.set('login', userData.login, { expires: tokenExpDate })
+        cookie.set('name', userData.name, { expires: tokenExpDate })
+        cookie.set('lastName', userData.lastName, { expires: tokenExpDate })
+        cookie.set('middleName', userData.middleName, { expires: tokenExpDate })
+        cookie.set('placeNum', userData.place, { expires: tokenExpDate })
+        cookie.set('role', userData.role.name, { expires: tokenExpDate })
+
         setAuthorizationToken(token)
         dispatch(setUser(userData))
         dispatch(hideAlert())
