@@ -1,11 +1,11 @@
-import React from "react";
-import LoaderGif from "../../additions/LoaderGif.gif";
-import { Image } from "react-bootstrap";
+import React from 'react'
 
-const FullPageLoader = React.memo(() => {
+const Loader = () => {
   return (
-      <Image alt="ЗАГРУЗКА..." width="400px" src={LoaderGif} />
-  );
-});
+    <div className="loader-container">
+      <div className="loader"></div>
+    </div>
+  )
+}
 
-export default FullPageLoader;
+export default Loader
