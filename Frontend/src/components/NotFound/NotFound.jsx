@@ -14,7 +14,7 @@ const NotFound = () => {
           />
           <Link
             className="btn_go_home"
-            to="/"
+            to="/home"
             href="http://salehriaz.com/404Page/404.html"
           >
             Домой

@@ -60,71 +60,67 @@ const App = () => {
             </Col>
           ) : null}
 
-          <Routes>
-            <Col
-              className="center-container order-xl-2"
-              col="true"
-              xl={8}
-              lg={12}
-              md={12}
-              sm={12}
-              xs={12}
-            >
-              <Route exact path="/">
-                <Route exact path="/home" element={<HomeContainer />} />
+          <Col
+            className="center-container order-xl-2"
+            col="true"
+            xl={8}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
+          >
+            <Routes>
+              <Route exact path="/" element={<HomeContainer />} />
+              <Route path="/home" element={<HomeContainer />} />
 
-                <Route
-                  path="/signin"
-                  element={<Login isAuth={isAuthenticated} />}
-                />
-                <Route
-                  path="/news"
-                  element={<NewsContainer isAuth={isAuthenticated} />}
-                />
+              <Route
+                path="/signin"
+                element={<Login isAuth={isAuthenticated} />}
+              />
+              <Route
+                path="/news"
+                element={<NewsContainer isAuth={isAuthenticated} />}
+              />
 
-                <Route
-                  path="/adverts"
-                  element={<AdvertsContainer isAuth={isAuthenticated} />}
-                >
-                  <Route path="/" element={<Adverts />} />
-                  <Route path="/current_adverts" element={<CurrentAdverts />} />
-                </Route>
-
-                <Route
-                  path="/documents"
-                  element={<DocumentsContainer isAuth={isAuthenticated} />}
-                />
-
-                <Route
-                  path="/vote"
-                  element={<Vote isAuth={isAuthenticated} />}
-                />
-
-                <Route
-                  path="/chat"
-                  element={<ChatContainer isAuth={isAuthenticated} />}
-                />
-
-                <Route
-                  path="/messages"
-                  element={<MessagesContainer isAuth={isAuthenticated} />}
-                />
-
-                <Route
-                  path="/admin"
-                  element={isAdmin ? <AdminContainer /> : null}
-                >
-                  <Route path="/news" element={<AdminNews />} />
-                  <Route path="/adverts" element={<AdminAds />} />
-                  <Route path="/documents" element={<AdminDocs />} />
-                  <Route path="/vote" element={<AdminVote />} />
-                  <Route path="/accounts" element={<AdminAccounts />} />
-                </Route>
+              <Route
+                path="/adverts"
+                element={<AdvertsContainer isAuth={isAuthenticated} />}
+              >
+                <Route path="/" element={<Adverts />} />
+                <Route path="/current_adverts" element={<CurrentAdverts />} />
               </Route>
-            </Col>
-            <Route path="/not-found" element={<NotFound />} />
-            <Route path="/*" element={<Navigate to="/not-found" />} />
-          </Routes>
+
+              <Route
+                path="/documents"
+                element={<DocumentsContainer isAuth={isAuthenticated} />}
+              />
+
+              <Route path="/vote" element={<Vote isAuth={isAuthenticated} />} />
+
+              <Route
+                path="/chat"
+                element={<ChatContainer isAuth={isAuthenticated} />}
+              />
+
+              <Route
+                path="/messages"
+                element={<MessagesContainer isAuth={isAuthenticated} />}
+              />
+
+              <Route
+                path="/admin"
+                element={isAdmin ? <AdminContainer /> : null}
+              >
+                <Route path="/news" element={<AdminNews />} />
+                <Route path="/adverts" element={<AdminAds />} />
+                <Route path="/documents" element={<AdminDocs />} />
+                <Route path="/vote" element={<AdminVote />} />
+                <Route path="/accounts" element={<AdminAccounts />} />
+              </Route>
+              <Route path="/not-found" element={<NotFound />} />
+              <Route path="/*" element={<Navigate to="/not-found" />} />
+            </Routes>
+          </Col>
           {showOnNotFound(useLocation().pathname) ? (
             <Col
               className="user-menu-container d-none d-xl-flex order-xl-3"
