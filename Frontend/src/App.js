@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Col, Container, Row } from 'react-bootstrap'
 import background from './additions/background.png'
@@ -26,13 +26,18 @@ import {
   MessagesContainer,
 } from './components/index'
 
-const App = () => {
-  const { isAuthenticated, user } = useSelector((state) => state.auth)
-  const role = user.role
-  const isAdmin = role === 'admin' || role === 'moder' ? true : false
+function App() {
+  const authState = useSelector((state) => state.auth)
+  const role = authState.user.role
+  const isAuthenticated = authState.isAuthenticated
+
+  const NotFoundRedirect = () => <Navigate to="/not-found" />
 
   const showOnNotFound = (location) => {
     return !(location === '/not-found')
+  }
+  const PrivateRoute = () => {
+    return <Outlet />
   }
   return (
     <div
@@ -42,7 +47,7 @@ const App = () => {
       }}
     >
       {showOnNotFound(useLocation().pathname) ? (
-        <Header isAuthenticated={isAuthenticated} user={user} />
+        <Header authInfo={authState} />
       ) : null}
       <Container fluid className="main-container">
         <Row>
@@ -70,7 +75,7 @@ const App = () => {
               sm={12}
               xs={12}
             >
-              <Route>
+              <Route path="/" element={<PrivateRoute />}>
                 <Route exact path="/" element={<HomeContainer />} />
 
                 <Route
@@ -112,7 +117,11 @@ const App = () => {
 
                 <Route
                   path="/admin"
-                  element={isAdmin ? <AdminContainer /> : null}
+                  element={
+                    role === 'admin' || role === 'moder' ? (
+                      <AdminContainer />
+                    ) : null
+                  }
                 >
                   <Route path="/news" element={<AdminNews />} />
                   <Route path="/adverts" element={<AdminAds />} />
@@ -123,7 +132,7 @@ const App = () => {
               </Route>
             </Col>
             <Route path="/not-found" element={<NotFound />} />
-            <Route path="/*" element={<Navigate to="/not-found" />} />
+            <Route path="/*" element={<NotFoundRedirect />} />
           </Routes>
           {showOnNotFound(useLocation().pathname) ? (
             <Col
@@ -135,7 +144,9 @@ const App = () => {
               sm={12}
               xs={12}
             >
-              {isAuthenticated ? <UserMenuContainer isAdmin={isAdmin} /> : null}
+              {isAuthenticated ? (
+                <UserMenuContainer authInfo={authState} />
+              ) : null}
             </Col>
           ) : null}
         </Row>
