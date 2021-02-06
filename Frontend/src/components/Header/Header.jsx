@@ -52,7 +52,7 @@ const Header = React.memo(({ user, isAuthenticated }) => {
         <Link
           onClick={() => setExpanded(false)}
           className="navbar-brand d-none d-xl-block"
-          to="/"
+          to="/home"
         >
           <Image
             src={logo}
@@ -69,7 +69,7 @@ const Header = React.memo(({ user, isAuthenticated }) => {
           <div className="collapsed-navbar">
             <Nav className="text-center">
               <NavItem onClick={() => setExpanded(false)}>
-                <Link to="/">Главная</Link>
+                <NavLink to="/home">Главная</NavLink>
               </NavItem>
               <NavItem onClick={() => setExpanded(false)}>
                 <NavLink to="/news">Новости</NavLink>

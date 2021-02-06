@@ -75,8 +75,8 @@ function App() {
               sm={12}
               xs={12}
             >
-              <Route path="/" element={<PrivateRoute />}>
-                <Route exact path="/" element={<HomeContainer />} />
+              <Route exact path="/">
+                <Route path="/home" element={<HomeContainer />} />
 
                 <Route
                   path="/signin"
