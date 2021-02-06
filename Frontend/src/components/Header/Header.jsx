@@ -15,15 +15,14 @@ import defaultPhoto from '../../additions/default_avatar.png'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../redux/apiCalls/auth'
 
-const Header = (props) => {
+const Header = React.memo(({ user, isAuthenticated }) => {
   const dispatch = useDispatch()
-  const user = props.authInfo.user
   const role = user.role
   const placeNum = user.placeNum
   const name = user.name
   const lastName = user.lastName
 
-  const isAuthenticated = props.authInfo.isAuthenticated
+  const isAuth = isAuthenticated
   const isAdmin = role === 'admin' || role === 'moder' ? true : false
 
   const [expanded, setExpanded] = useState(false)
@@ -110,7 +109,7 @@ const Header = (props) => {
             </Nav>
           </div>
         </Navbar.Collapse>
-        {isAuthenticated ? (
+        {isAuth ? (
           <div className="user-info-block">
             <div className="user-photo">
               {user.photo ? (
@@ -164,6 +163,6 @@ const Header = (props) => {
       </Modal>
     </>
   )
-}
+})
 
 export default Header

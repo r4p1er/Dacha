@@ -3,7 +3,7 @@ import { Button, Col, Image, Modal } from 'react-bootstrap'
 import { fileExtentionRead } from '../../../../utils'
 import deleteDocIcon from '../../../../additions/deleteDocument.png'
 
-const DocumentItem = ({ id, onDelete, name, onDownload }) => {
+const DocumentItem = React.memo(({ id, onDelete, name, onDownload }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const handleClose = () => setShowDeleteModal(false)
   const handleShow = () => setShowDeleteModal(true)
@@ -63,6 +63,6 @@ const DocumentItem = ({ id, onDelete, name, onDownload }) => {
       </Modal>
     </>
   )
-}
+})
 
 export default DocumentItem

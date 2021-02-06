@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllAdverts, deleteAd } from '../../../../redux/apiCalls/adverts'
 import AdvertItem from './AdvertItem'
 
-const News = () => {
+const Adverts = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllAdverts())
@@ -49,6 +49,6 @@ const News = () => {
       )}
     </>
   )
-}
+})
 
-export default News
+export default Adverts

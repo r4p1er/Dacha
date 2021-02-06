@@ -6,7 +6,7 @@ import deleteIcon from '../../../../additions/deleteIcon.png'
 import editIcon from '../../../../additions/editIcon.png'
 import { urlify } from '../../../../utils'
 
-const NewsItem = ({ id, index, title, body, date, onDelete }) => {
+const NewsItem = React.memo(({ id, index, title, body, date, onDelete }) => {
   const [showFullNews, setshowFullNews] = useState(false)
   const handleCloseFullNews = () => setshowFullNews(false)
   const handleShowFullNews = () => setshowFullNews(true)
@@ -101,6 +101,6 @@ const NewsItem = ({ id, index, title, body, date, onDelete }) => {
       </Modal>
     </>
   )
-}
+})
 
 export default NewsItem

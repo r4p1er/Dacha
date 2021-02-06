@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllNews } from '../../redux/apiCalls/news'
 import { dateFormater } from '../../utils'
 
-const NewsHeadlines = () => {
+const NewsHeadlines = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllNews())
@@ -40,6 +40,6 @@ const NewsHeadlines = () => {
       </div>
     </div>
   )
-}
+})
 
 export default NewsHeadlines

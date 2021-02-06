@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import AdCard from './AdCard'
-import FullPageLoader from '../Loader/Loader'
+import Loader from '../Loader/Loader'
 import { fetchAllAdverts } from '../../redux/apiCalls/adverts'
 import { Row } from 'react-bootstrap'
 
-const Adverts = () => {
+const Adverts = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllAdverts())
@@ -17,7 +17,7 @@ const Adverts = () => {
       {!advertState.adverts.length ? (
         <h3>Объявления отсутствуют</h3>
       ) : loading ? (
-        <FullPageLoader />
+        <Loader />
       ) : (
         <Row>
           {[...advertState.adverts].reverse().map((ad) => (
@@ -27,6 +27,6 @@ const Adverts = () => {
       )}
     </>
   )
-}
+})
 
 export default Adverts

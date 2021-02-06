@@ -2,7 +2,7 @@ import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Outlet, NavLink } from 'react-router-dom'
 
-const AdminContainer = () => {
+const AdminContainer = React.memo(() => {
   return (
     <Container fluid>
       <Row className="text-center">
@@ -35,6 +35,6 @@ const AdminContainer = () => {
       </Row>
     </Container>
   )
-}
+})
 
 export default AdminContainer

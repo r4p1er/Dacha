@@ -6,7 +6,7 @@ import { deleteAd, fetchCurrentAdverts } from '../../redux/apiCalls/adverts'
 import FullPageLoader from '../Loader/Loader'
 import AdCard from './AdCard'
 
-const CurrentAdverts = () => {
+const CurrentAdverts = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchCurrentAdverts())
@@ -17,7 +17,6 @@ const CurrentAdverts = () => {
   const onDelete = (id) => {
     dispatch(deleteAd(id))
   }
-    
 
   return (
     <>
@@ -34,6 +33,6 @@ const CurrentAdverts = () => {
       )}
     </>
   )
-}
+})
 
 export default CurrentAdverts

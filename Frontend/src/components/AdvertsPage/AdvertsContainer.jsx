@@ -10,7 +10,7 @@ import {
 import { Link, Outlet } from 'react-router-dom'
 import CreateAdvert from './CreateAdvert'
 
-const AdvertsContainer = (props) => {
+const AdvertsContainer = React.memo((props) => {
   const [showAdsCreate, setshowAdsCreate] = useState(false)
 
   const handleCloseAdsCreate = () => setshowAdsCreate(false)
@@ -48,6 +48,6 @@ const AdvertsContainer = (props) => {
       </Col>
     </Row>
   )
-}
+})
 
 export default AdvertsContainer

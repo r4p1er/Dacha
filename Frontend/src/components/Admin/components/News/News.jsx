@@ -5,7 +5,7 @@ import { delNews, fetchAllNews } from '../../../../redux/apiCalls/news'
 import CreateNews from './CreateNews'
 import NewsItem from './NewsItem'
 
-const News = () => {
+const News = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllNews())
@@ -66,6 +66,6 @@ const News = () => {
       </Modal>
     </>
   )
-}
+})
 
 export default News

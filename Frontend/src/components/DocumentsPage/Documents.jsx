@@ -6,7 +6,7 @@ import FullPageLoader from '../Loader/Loader'
 import { Row } from 'react-bootstrap'
 import DocumentCard from './DocumentCard'
 
-const Documents = () => {
+const Documents = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllDocuments())
@@ -35,6 +35,6 @@ const Documents = () => {
       )}
     </Row>
   )
-}
+})
 
 export default Documents

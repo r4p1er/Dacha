@@ -3,11 +3,7 @@ import { Button, ButtonGroup, Modal } from 'react-bootstrap'
 import CreateAdvert from '../AdvertsPage/CreateAdvert'
 import { Link } from 'react-router-dom'
 
-const UserMenuContainer = (props) => {
-
-  const role = props.authInfo.user.role
-  const isAdmin = role === 'admin' || role === 'moder' ? true : false
-
+const UserMenuContainer = React.memo(({ isAdmin }) => {
   const [showAdsCreate, setshowAdsCreate] = useState(false)
 
   const handleCloseAdsCreate = () => setshowAdsCreate(false)
@@ -27,13 +23,11 @@ const UserMenuContainer = (props) => {
             Мои объявления
           </Button>
           <Button onClick={handleShowAdsCreate}>Создать объявление</Button>
-          {isAdmin 
-            ? (
-              <Button as={Link} to="/admin/news">
-                Комната админа
-              </Button>
-            ) 
-            : null}
+          {isAdmin ? (
+            <Button as={Link} to="/admin/news">
+              Комната админа
+            </Button>
+          ) : null}
         </ButtonGroup>
       </div>
       <Modal size="xl" show={showAdsCreate} onHide={handleCloseAdsCreate}>
@@ -46,12 +40,6 @@ const UserMenuContainer = (props) => {
       </Modal>
     </>
   )
-}
-
-// function mapStateToProps(state) {
-//   return {
-//     auth: state.auth,
-//   }
-// }
+})
 
 export default UserMenuContainer

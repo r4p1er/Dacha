@@ -11,7 +11,7 @@ import { hideAlert, showAlert } from '../../../../redux/alertMessages'
 import { Button, Container, Form, Row } from 'react-bootstrap'
 import { AlertMessage } from '../../../Alerts/Alert'
 
-const Documents = () => {
+const Documents = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllDocuments())
@@ -96,6 +96,6 @@ const Documents = () => {
       </Container>
     </>
   )
-}
+})
 
 export default Documents

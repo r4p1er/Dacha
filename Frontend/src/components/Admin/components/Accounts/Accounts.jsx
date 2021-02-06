@@ -8,7 +8,7 @@ import {
 import AccountItem from './AccountItem'
 import CreateAccount from './CreateAccounts'
 
-const Accounts = () => {
+const Accounts = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllAccounts())
@@ -59,6 +59,6 @@ const Accounts = () => {
       </Table>
     </>
   )
-}
+})
 
 export default Accounts
