@@ -16,7 +16,7 @@ class UpdateAccount extends PureComponent {
       name: this.props.name,
       middleName: this.props.middleName,
       place: this.props.place,
-      role: this.props.role.id,
+      roleId: this.props.role.id,
     }
   }
 
@@ -34,7 +34,7 @@ class UpdateAccount extends PureComponent {
     const name = this.state.name
     const middleName = this.state.middleName
     const place = this.state.place
-    const role = this.state.role
+    const roleId = this.state.roleId
 
     if (
       login === '' ||
@@ -48,26 +48,26 @@ class UpdateAccount extends PureComponent {
 
     if (password) {
       const submitData = {
-        id: id,
-        login: login,
-        password: password,
-        lastName: lastName,
-        name: name,
-        middleName: middleName,
+        id,
+        login,
+        password,
+        lastName,
+        name,
+        middleName,
         place: +place,
-        role: +role,
+        roleId: +roleId,
       }
       this.props.onCreate(submitData)
       this.props.handleCloseAccountUpadate()
     } else {
       const submitData = {
-        id: id,
-        login: login,
-        lastName: lastName,
-        name: name,
-        middleName: middleName,
+        id,
+        login,
+        lastName,
+        name,
+        middleName,
         place: +place,
-        role: +role,
+        roleId: +roleId,
       }
       this.props.onCreate(submitData)
       this.props.handleCloseAccountUpadate()
@@ -81,7 +81,7 @@ class UpdateAccount extends PureComponent {
       name: '',
       middleName: '',
       place: '',
-      role: 1,
+      roleId: 1,
     })
   }
 
@@ -117,8 +117,8 @@ class UpdateAccount extends PureComponent {
                 <Form.Control
                   as="select"
                   onChange={this.onChange}
-                  name="role"
-                  defaultValue={this.state.role}
+                  name="roleId"
+                  defaultValue={this.state.roleId}
                 >
                   <option value={1}>Пользователь</option>
                   {role === 'admin' ? (

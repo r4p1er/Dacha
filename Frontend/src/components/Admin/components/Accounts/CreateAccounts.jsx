@@ -174,13 +174,11 @@ class CreateAccount extends PureComponent {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     onAlertHide: () => dispatch(hideAlert()),
     isValid: (message) => dispatch(showAlert(message)),
     onCreate: (account) => dispatch(createAccount(account)),
-  }
-}
+})
 
 const mapStateToProps = (state) => ({
   alert: state.alerts.alert,
