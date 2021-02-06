@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { downloadDoc, fetchAllDocuments } from '../../redux/apiCalls/documents'
 import { fileExtentionRead } from '../../utils'
-import FullPageLoader from '../Loader/Loader'
+import Loader from '../Loader/Loader'
 import { Row } from 'react-bootstrap'
 import DocumentCard from './DocumentCard'
 
@@ -20,9 +20,9 @@ const Documents = React.memo(() => {
   return (
     <Row>
       {!documentsState.documents.length ? (
-        <h3 className="text-center">Документы отсутствуют</h3>
+        <h3 className="w-100 text-center">Документы отсутствуют</h3>
       ) : loading ? (
-        <FullPageLoader />
+        <Loader />
       ) : (
         documentsState.documents.map((doc) => (
           <DocumentCard

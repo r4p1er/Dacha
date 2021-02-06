@@ -7,13 +7,7 @@ const DocumentsContainer = React.memo((props) => {
     <Row>
       <Col>
         <h3 className="heading">Документы</h3>
-        {!props.isAuth ? (
-          <h3 className="text-center">
-            Выполните вход для просмотра документов
-          </h3>
-        ) : (
-          <Documents />
-        )}
+        {props.isAuth ? <Documents /> : <h3 className="text-center">Выполните вход для просмотра документов</h3>}
       </Col>
     </Row>
   )
