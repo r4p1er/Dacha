@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { apiUrl } from '../../utils'
-import { addNews, deleteNews, editNews, fetchNews, loadingNews } from '../news'
+import { addNews, deleteNews, editNews, fetchNews } from '../reducers/news'
 
 const baseUrl = `${apiUrl}/news`
 
@@ -19,16 +19,11 @@ export const createNews = (news) => {
       title: news.title,
       body: news.body,
     }
-    let isLoading = true
+
     return async (dispatch) => {
-      if (isLoading) {
-        dispatch(loadingNews(isLoading))
-      }
       return await axios.post(baseUrl, data).then((response) => {
         const id = response.data.id
         return axios.get(`${baseUrl}/${id}`).then((response) => {
-          isLoading = false
-          dispatch(loadingNews(isLoading))
           dispatch(addNews(response.data))
         })
       })
@@ -59,14 +54,8 @@ export const delNews = (id) => {
 }
 
 export const fetchAllNews = () => {
-  let isLoading = true
   return async (dispatch) => {
-    if (isLoading) {
-      dispatch(loadingNews(isLoading))
-    }
     return await axios.get(baseUrl).then((response) => {
-      isLoading = false
-      dispatch(loadingNews(isLoading))
       const data = response.data
       dispatch(fetchNews(data))
     })

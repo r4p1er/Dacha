@@ -2,6 +2,7 @@ import { Button } from 'react-bootstrap'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllNews } from '../../redux/apiCalls/news'
+import { getNews } from '../../redux/selectors/newsSelectors'
 import { dateFormater } from '../../utils'
 
 const NewsHeadlines = React.memo(() => {
@@ -9,15 +10,15 @@ const NewsHeadlines = React.memo(() => {
   useEffect(() => {
     dispatch(fetchAllNews())
   }, [dispatch])
-  const newsState = useSelector((state) => state.news)
+  const news = useSelector((state) => getNews(state))
   return (
     <div className="news-headlines-container">
       <h5>Заголовки новостей</h5>
       <div className="news-headlines-block">
-        {!newsState.news.length ? (
+        {!news.length ? (
           <h5>Новости отсутствуют</h5>
         ) : (
-          [...newsState.news]
+          [...news]
             .slice(-5)
             .reverse()
             .map((someNews) => (
@@ -32,7 +33,7 @@ const NewsHeadlines = React.memo(() => {
               </div>
             ))
         )}
-        {newsState.news.length > 5 ? (
+        {news.length > 5 ? (
           <Button variant="info" className="ml-auto">
             Открыть новости
           </Button>

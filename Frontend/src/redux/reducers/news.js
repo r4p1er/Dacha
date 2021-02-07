@@ -4,7 +4,6 @@ const newsReducer = createSlice({
   name: 'news',
   initialState: {
     news: [],
-    isLoading: true,
   },
   reducers: {
     addNews(state, action) {
@@ -25,17 +24,8 @@ const newsReducer = createSlice({
     fetchNews(state, action) {
       state.news = action.payload
     },
-    loadingNews(state, action) {
-      state.isLoading = action.payload
-    },
   },
 })
 
-export const {
-  addNews,
-  editNews,
-  deleteNews,
-  fetchNews,
-  loadingNews,
-} = newsReducer.actions
+export const { addNews, editNews, deleteNews, fetchNews } = newsReducer.actions
 export default newsReducer.reducer

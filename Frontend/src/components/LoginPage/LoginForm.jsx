@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../redux/apiCalls/auth'
 import { Form, Button } from 'react-bootstrap'
 import { AlertMessage } from '../Alerts/Alert'
-import { hideAlert } from '../../redux/alertMessages'
+import { hideAlert } from '../../redux/reducers/alertMessages'
 
 const LoginForm = (props) => {
   const alert = useSelector((state) => state.alerts.alert)
@@ -11,7 +11,7 @@ const LoginForm = (props) => {
 
   useEffect(() => {
     dispatch(hideAlert())
-  },[dispatch])
+  }, [dispatch])
 
   const [state, setState] = useState({
     login: '',
@@ -21,7 +21,7 @@ const LoginForm = (props) => {
     e.preventDefault()
     setState({
       login: '',
-      password: ''
+      password: '',
     })
     dispatch(login(state))
   }

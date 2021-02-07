@@ -2,17 +2,16 @@ import React from 'react'
 import { useEffect } from 'react'
 import { Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteAd, fetchCurrentAdverts } from '../../redux/apiCalls/adverts'
-import FullPageLoader from '../Loader/Loader'
+import { deleteAd, fetchAllAdverts } from '../../redux/apiCalls/adverts'
+import { getUserAdverts } from '../../redux/selectors/advertsSelectors'
 import AdCard from './AdCard'
 
 const CurrentAdverts = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchCurrentAdverts())
+    dispatch(fetchAllAdverts())
   }, [dispatch])
-  const advertsState = useSelector((state) => state.adverts)
-  const loading = advertsState.isLoading
+  const userAdverts = useSelector((state) => getUserAdverts(state))
 
   const onDelete = (id) => {
     dispatch(deleteAd(id))
@@ -20,13 +19,11 @@ const CurrentAdverts = React.memo(() => {
 
   return (
     <>
-      {!advertsState.adverts.length ? (
+      {!userAdverts.length ? (
         <h3>У вас нет объявлений</h3>
-      ) : loading ? (
-        <FullPageLoader />
       ) : (
         <Row className="text-center">
-          {[...advertsState.adverts].reverse().map((ad) => (
+          {[...userAdverts].reverse().map((ad) => (
             <AdCard key={ad.id} onDelete={onDelete} {...ad} />
           ))}
         </Row>

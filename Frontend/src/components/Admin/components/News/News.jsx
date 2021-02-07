@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { Button, Modal, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { delNews, fetchAllNews } from '../../../../redux/apiCalls/news'
+import { getNews } from '../../../../redux//selectors/newsSelectors'
 import CreateNews from './CreateNews'
 import NewsItem from './NewsItem'
+import Loader from '../../../Loader/Loader'
 
 const News = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllNews())
   }, [dispatch])
-  const news = useSelector((state) => state.news.news)
+  const news = useSelector((state) => getNews(state))
 
   const onDelete = (id) => dispatch(delNews(id))
 
@@ -24,6 +26,8 @@ const News = React.memo(() => {
         Добавить новость
       </Button>
       {!news.length ? (
+        <Loader />
+      ) : !news.length ? (
         <h3>Новости отсутствуют</h3>
       ) : (
         <Table

@@ -5,8 +5,7 @@ import {
   editAccount,
   deleteAccount,
   fetchAccounts,
-  loadingAccounts,
-} from '../accounts'
+} from '../reducers/accounts'
 
 const baseUrl = `${apiUrl}/accounts`
 
@@ -22,10 +21,7 @@ export const createAccount = (account) => {
       place: account.place,
       roleId: account.roleId,
     }
-
-    return (dispatch) => {
-      updateAccount(dispatch, data)
-    }
+    return (dispatch) => updateAccount(dispatch, data)
   } else {
     const data = {
       login: account.login,
@@ -37,19 +33,10 @@ export const createAccount = (account) => {
       roleId: account.roleId,
     }
 
-    let isLoading
-
     return async (dispatch) => {
-      if (isLoading) {
-        dispatch(loadingAccounts(isLoading))
-      }
-
       return await axios.post(baseUrl, data).then((response) => {
         const id = response.data.id
-
         return axios.get(`${baseUrl}/${id}`).then((response) => {
-          isLoading = false
-          dispatch(loadingAccounts(isLoading))
           dispatch(addAccount(response.data))
         })
       })
@@ -85,24 +72,14 @@ export const deleteAcc = (id) => {
 }
 
 export const fetchAllAccounts = (id) => {
-  let isLoading
-
   return async (dispatch) => {
-    if (isLoading) {
-      dispatch(loadingAccounts(isLoading))
-    }
-
     if (id) {
       return await axios.get(`${baseUrl}/${id}`).then((response) => {
-        isLoading = false
-        dispatch(loadingAccounts(isLoading))
         const data = response.data
         dispatch(fetchAccounts(data))
       })
     } else {
       return await axios.get(baseUrl).then((response) => {
-        isLoading = false
-        dispatch(loadingAccounts(isLoading))
         const data = response.data
         dispatch(fetchAccounts(data))
       })

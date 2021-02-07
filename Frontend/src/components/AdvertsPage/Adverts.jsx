@@ -4,23 +4,23 @@ import AdCard from './AdCard'
 import Loader from '../Loader/Loader'
 import { fetchAllAdverts } from '../../redux/apiCalls/adverts'
 import { Row } from 'react-bootstrap'
+import { getAdverts } from '../../redux/selectors/advertsSelectors'
 
 const Adverts = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllAdverts())
   }, [dispatch])
-  const advertState = useSelector((state) => state.adverts)
-  const loading = advertState.isLoading
+  const adverts = useSelector((state) => getAdverts(state))
   return (
     <>
-      {!advertState.adverts.length ? (
-        <h3>Объявления отсутствуют</h3>
-      ) : loading ? (
+      {!adverts.length ? (
         <Loader />
+      ) : !adverts.length ? (
+        <h3>Объявления отсутствуют</h3>
       ) : (
         <Row>
-          {[...advertState.adverts].reverse().map((ad) => (
+          {[...adverts].reverse().map((ad) => (
             <AdCard key={ad.id} {...ad} />
           ))}
         </Row>

@@ -7,8 +7,10 @@ import {
   addDocument,
   deleteDoc,
 } from '../../../../redux/apiCalls/documents'
-import { hideAlert, showAlert } from '../../../../redux/alertMessages'
+import { hideAlert, showAlert } from '../../../../redux/reducers/alertMessages'
+import { getDocuments } from '../../../../redux/selectors/documentsSelectors'
 import { Button, Container, Form, Row } from 'react-bootstrap'
+import Loader from '../../../Loader/Loader'
 import { AlertMessage } from '../../../Alerts/Alert'
 
 const Documents = React.memo(() => {
@@ -17,7 +19,7 @@ const Documents = React.memo(() => {
     dispatch(fetchAllDocuments())
     dispatch(hideAlert())
   }, [dispatch])
-  const documents = useSelector((state) => state.documents.documents)
+  const documents = useSelector((state) => getDocuments(state))
   const alert = useSelector((state) => state.alerts.alert)
 
   const [file, setFile] = useState()
@@ -80,6 +82,8 @@ const Documents = React.memo(() => {
         {alert && <AlertMessage text={alert} />}
         <h2>Документы</h2>
         {!documents.length ? (
+          <Loader />
+        ) : !documents.length ? (
           <h3>Документы отсутствуют</h3>
         ) : (
           <Row>

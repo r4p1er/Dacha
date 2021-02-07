@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Form, Button } from 'react-bootstrap'
-import { showAlert, hideAlert } from '../../redux/alertMessages'
+import { showAlert, hideAlert } from '../../redux/reducers/alertMessages'
 import { createAdvert } from '../../redux/apiCalls/adverts'
 import { AlertMessage } from '../Alerts/Alert'
 

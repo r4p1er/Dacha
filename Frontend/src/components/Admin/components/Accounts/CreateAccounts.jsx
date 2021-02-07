@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Form, Button, Col } from 'react-bootstrap'
-import { hideAlert, showAlert } from '../../../../redux/alertMessages'
+import { hideAlert, showAlert } from '../../../../redux/reducers/alertMessages'
 import { createAccount } from '../../../../redux/apiCalls/accounts'
 import { AlertMessage } from '../../../Alerts/Alert'
 
@@ -175,9 +175,9 @@ class CreateAccount extends PureComponent {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    onAlertHide: () => dispatch(hideAlert()),
-    isValid: (message) => dispatch(showAlert(message)),
-    onCreate: (account) => dispatch(createAccount(account)),
+  onAlertHide: () => dispatch(hideAlert()),
+  isValid: (message) => dispatch(showAlert(message)),
+  onCreate: (account) => dispatch(createAccount(account)),
 })
 
 const mapStateToProps = (state) => ({

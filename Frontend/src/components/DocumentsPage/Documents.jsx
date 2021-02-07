@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { downloadDoc, fetchAllDocuments } from '../../redux/apiCalls/documents'
+import { getDocuments } from '../../redux/selectors/documentsSelectors'
 import { fileExtentionRead } from '../../utils'
 import Loader from '../Loader/Loader'
 import { Row } from 'react-bootstrap'
@@ -11,20 +12,19 @@ const Documents = React.memo(() => {
   useEffect(() => {
     dispatch(fetchAllDocuments())
   }, [dispatch])
-  const documentsState = useSelector((state) => state.documents)
-  const loading = documentsState.isLoading
+  const documents = useSelector((state) => getDocuments(state))
 
   const onDownload = (id, name) => {
     return dispatch(downloadDoc(id, name))
   }
   return (
     <Row>
-      {!documentsState.documents.length ? (
-        <h3 className="w-100 text-center">Документы отсутствуют</h3>
-      ) : loading ? (
+      {!documents.length ? (
         <Loader />
+      ) : !documents.length ? (
+        <h3 className="w-100 text-center">Документы отсутствуют</h3>
       ) : (
-        documentsState.documents.map((doc) => (
+        documents.map((doc) => (
           <DocumentCard
             key={doc.id}
             fileExtentionRead={fileExtentionRead}

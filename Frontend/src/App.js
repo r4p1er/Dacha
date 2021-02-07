@@ -1,6 +1,7 @@
 import React from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { getAuth, getUser } from './redux/selectors/userSelectors'
 import { Col, Container, Row } from 'react-bootstrap'
 import background from './additions/background.png'
 import {
@@ -27,7 +28,8 @@ import {
 } from './components/index'
 
 const App = () => {
-  const { isAuthenticated, user } = useSelector((state) => state.auth)
+  const user = useSelector((state) => getUser(state))
+  const isAuthenticated = useSelector((state) => getAuth(state))
   const role = user.role
   const isAdmin = role === 'admin' || role === 'moder' ? true : false
 
@@ -42,7 +44,11 @@ const App = () => {
       }}
     >
       {showOnNotFound(useLocation().pathname) ? (
-        <Header isAuthenticated={isAuthenticated} user={user} />
+        <Header
+          isAuthenticated={isAuthenticated}
+          user={user}
+          isAdmin={isAdmin}
+        />
       ) : null}
       <Container fluid className="main-container">
         <Row>

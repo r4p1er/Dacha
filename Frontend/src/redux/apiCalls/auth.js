@@ -1,11 +1,11 @@
 import { Cookies } from 'react-cookie'
 import { setAuthorizationToken } from '../../utils'
-import { showAlert, hideAlert } from '../alertMessages'
+import { showAlert, hideAlert } from '../reducers/alertMessages'
 import axios from 'axios'
 import { apiUrl } from '../../utils'
-import { setUser } from '../auth'
+import { setUser } from '../reducers/auth'
 
-const cookie = new Cookies()
+export const cookie = new Cookies()
 
 export function logout() {
   return (dispatch) => {

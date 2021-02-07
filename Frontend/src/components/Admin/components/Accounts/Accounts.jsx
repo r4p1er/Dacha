@@ -5,6 +5,8 @@ import {
   deleteAcc,
   fetchAllAccounts,
 } from '../../../../redux/apiCalls/accounts'
+import { getAccounts } from '../../../../redux/selectors/accountsSelectors'
+import Loader from '../../../Loader/Loader'
 import AccountItem from './AccountItem'
 import CreateAccount from './CreateAccounts'
 
@@ -13,7 +15,7 @@ const Accounts = React.memo(() => {
   useEffect(() => {
     dispatch(fetchAllAccounts())
   }, [dispatch])
-  const accounts = useSelector((state) => state.accounts.accounts)
+  const accounts = useSelector((state) => getAccounts(state))
   const onDelete = (id) => dispatch(deleteAcc(id))
   return (
     <>
@@ -40,6 +42,8 @@ const Accounts = React.memo(() => {
         </thead>
         <tbody>
           {!accounts.length ? (
+            <Loader />
+          ) : !accounts.length ? (
             <tr>
               <td>Аккаунты отсутствуют</td>
             </tr>

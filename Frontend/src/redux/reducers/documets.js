@@ -4,7 +4,6 @@ const documentsReducer = createSlice({
   name: 'documents',
   initialState: {
     documents: [],
-    isLoading: true,
   },
   reducers: {
     fetchDocuments(state, action) {
@@ -19,9 +18,6 @@ const documentsReducer = createSlice({
       )
       state.documents = filteredDocuments
     },
-    loadingDocuments(state, action) {
-      state.isLoading = action.payload
-    },
   },
 })
 
@@ -29,6 +25,5 @@ export const {
   fetchDocuments,
   deleteDocument,
   downloadDocument,
-  loadingDocuments,
 } = documentsReducer.actions
 export default documentsReducer.reducer

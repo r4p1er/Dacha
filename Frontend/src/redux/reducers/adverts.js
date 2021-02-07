@@ -4,7 +4,6 @@ const advertsReducer = createSlice({
   name: 'adverts',
   initialState: {
     adverts: [],
-    isLoading: true,
   },
   reducers: {
     addAdvert(state, action) {
@@ -25,9 +24,6 @@ const advertsReducer = createSlice({
     fetchAdverts(state, action) {
       state.adverts = action.payload
     },
-    loadingAdverts(state, action) {
-      state.isLoading = action.payload
-    },
   },
 })
 
@@ -36,6 +32,5 @@ export const {
   editAdvert,
   deleteAdvert,
   fetchAdverts,
-  loadingAdverts,
 } = advertsReducer.actions
 export default advertsReducer.reducer

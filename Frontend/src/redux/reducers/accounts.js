@@ -4,7 +4,6 @@ const accountsReducer = createSlice({
   name: 'accounts',
   initialState: {
     accounts: [],
-    isLoading: true,
   },
   reducers: {
     addAccount(state, action) {
@@ -25,9 +24,6 @@ const accountsReducer = createSlice({
     fetchAccounts(state, action) {
       state.accounts = action.payload
     },
-    loadingAccounts(state, action) {
-      state.isLoading = action.payload
-    },
   },
 })
 
@@ -36,6 +32,5 @@ export const {
   editAccount,
   deleteAccount,
   fetchAccounts,
-  loadingAccounts,
 } = accountsReducer.actions
 export default accountsReducer.reducer
