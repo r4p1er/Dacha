@@ -20,47 +20,45 @@ const Accounts = React.memo(() => {
   return (
     <>
       <CreateAccount />
-      <Table
-        className="admin-table"
-        size="sm"
-        bordered
-        responsive
-        striped
-        hover
-      >
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Участок</th>
-            <th>Роль</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {!accounts.length ? (
-            <Loader />
-          ) : !accounts.length ? (
+      {!accounts.length ? (
+        <Loader />
+      ) : !accounts.length ? (
+        <tr>
+          <td>Аккаунты отсутствуют</td>
+        </tr>
+      ) : (
+        <Table
+          className="admin-table"
+          size="sm"
+          bordered
+          responsive
+          striped
+          hover
+        >
+          <thead>
             <tr>
-              <td>Аккаунты отсутствуют</td>
+              <th>#</th>
+              <th>Фамилия</th>
+              <th>Имя</th>
+              <th>Отчество</th>
+              <th>Участок</th>
+              <th>Роль</th>
+              <th></th>
+              <th></th>
             </tr>
-          ) : (
-            [...accounts]
-              .reverse()
-              .map((account, index) => (
-                <AccountItem
-                  key={account.id}
-                  onDelete={onDelete}
-                  index={index}
-                  {...account}
-                />
-              ))
-          )}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {[...accounts].reverse().map((account, index) => (
+              <AccountItem
+                key={account.id}
+                onDelete={onDelete}
+                index={index}
+                {...account}
+              />
+            ))}
+          </tbody>
+        </Table>
+      )}
     </>
   )
 })
