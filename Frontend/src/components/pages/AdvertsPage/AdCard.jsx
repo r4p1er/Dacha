@@ -40,7 +40,7 @@ const AdCard = React.memo(
             {!onDelete ? null : (
               <>
                 <Image
-                  className="mx-2"
+                  className="mx-2 cursor-pointer"
                   height="24"
                   src={editIcon}
                   onClick={() => {
@@ -49,6 +49,7 @@ const AdCard = React.memo(
                   alt="Редактировать"
                 />
                 <Image
+                  className="cursor-pointer"
                   height="24"
                   src={deleteIcon}
                   onClick={handleShow}
