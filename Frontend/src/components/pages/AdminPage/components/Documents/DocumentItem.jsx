@@ -25,6 +25,7 @@ const DocumentItem = React.memo(({ id, onDelete, name, onDownload }) => {
               className="mr-1 cursor-pointer"
               width="32"
               src={fileExtentionRead(name)}
+              alt={name}
               onClick={() => {
                 onDownload(id, name)
               }}
@@ -34,6 +35,7 @@ const DocumentItem = React.memo(({ id, onDelete, name, onDownload }) => {
               height="16"
               src={deleteDocIcon}
               onClick={handleShow}
+              alt="Удалить"
             />
           </div>
           <span

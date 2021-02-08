@@ -46,8 +46,14 @@ const AdCard = React.memo(
                   onClick={() => {
                     handleShowAdvertUpadate()
                   }}
+                  alt="Редактировать"
                 />
-                <Image height="24" src={deleteIcon} onClick={handleShow} />
+                <Image
+                  height="24"
+                  src={deleteIcon}
+                  onClick={handleShow}
+                  alt="Удалить"
+                />
               </>
             )}
           </div>

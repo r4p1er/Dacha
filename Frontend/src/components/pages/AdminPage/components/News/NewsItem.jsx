@@ -47,6 +47,7 @@ const NewsItem = React.memo(({ id, index, title, body, date, onDelete }) => {
             }}
             src={editIcon}
             className="cursor-pointer"
+            alt="Редактировать"
           />
         </td>
         <td>
@@ -54,6 +55,7 @@ const NewsItem = React.memo(({ id, index, title, body, date, onDelete }) => {
             onClick={handleShow}
             src={deleteIcon}
             className="cursor-pointer"
+            alt="Удалить"
           />
         </td>
       </tr>

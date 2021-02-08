@@ -53,6 +53,7 @@ export const Header = React.memo(({ user, isAuthenticated, isAdmin }) => {
         >
           <Image
             src={logo}
+            alt="Покровские дачи"
             width="180"
             height="60"
             className="d-inline-block align-top"
@@ -110,9 +111,9 @@ export const Header = React.memo(({ user, isAuthenticated, isAdmin }) => {
           <div className="user-info-block">
             <div className="user-photo">
               {user.photo ? (
-                <Image className="ava" width="60px" />
+                <Image className="ava" width="60px" height="60px" alt="avatar"/>
               ) : (
-                <Image width="60px" src={defaultPhoto} />
+                <Image width="60px" height="60px" src={defaultPhoto} alt="avatar"/>
               )}
             </div>
             <div className="user-info">
@@ -120,7 +121,7 @@ export const Header = React.memo(({ user, isAuthenticated, isAdmin }) => {
               <span className="user-place">{`Участок № ${placeNum}`}</span>
             </div>
             <Form className="text-right">
-              <Button variant="warning" onClick={handleShowExit}>
+              <Button className="logout-btn" onClick={handleShowExit}>
                 Выход
               </Button>
             </Form>

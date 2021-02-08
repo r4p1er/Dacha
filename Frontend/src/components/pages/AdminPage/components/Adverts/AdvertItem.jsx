@@ -51,6 +51,7 @@ const AdvertItem = React.memo(
               onClick={handleShow}
               src={deleteIcon}
               className="cursor-pointer"
+              alt="Удалить"
             />
           </td>
         </tr>

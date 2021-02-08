@@ -35,6 +35,7 @@ const AccountItem = React.memo(
               onClick={handleShowAccountUpadate}
               src={editIcon}
               className="cursor-pointer"
+              alt="Редактировать"
             />
           </td>
           <td>
@@ -42,6 +43,7 @@ const AccountItem = React.memo(
               onClick={handleShow}
               src={deleteIcon}
               className="cursor-pointer"
+              alt="Удалить"
             />
           </td>
         </tr>

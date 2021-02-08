@@ -21,6 +21,7 @@ const DocumentCard = React.memo(
             onClick={() => {
               onDownload(id, name)
             }}
+            alt={name}
           />
           <span
             className="cursor-pointer text-center"

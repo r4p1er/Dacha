@@ -4,11 +4,10 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { CookiesProvider } from 'react-cookie'
 import store from './redux/store'
-import App from './App'
+import { cookie, setUser } from './redux/index'
 import { setAuthorizationToken } from './utils'
-import { cookie } from './redux/apiCalls/auth'
-import { setUser } from './redux/reducers/auth'
-import './app.scss'
+import App from './App'
+import './styles/style.scss'
 
 const userData = {
   id: cookie.get('id'),
