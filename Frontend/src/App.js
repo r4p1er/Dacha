@@ -1,7 +1,7 @@
 import React from 'react'
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { getAuth, getUser } from './redux/selectors/userSelectors'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { getAuth, getUser } from './redux/index'
 import { Col, Container, Row } from 'react-bootstrap'
 import background from './additions/background.png'
 import {
