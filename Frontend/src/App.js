@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { getAuth, getUser } from './redux/index'
@@ -17,15 +17,27 @@ import {
   SideBar,
   Vote,
   UserMenuContainer,
-  AdminContainer,
-  AdminNews,
-  AdminAds,
-  AdminDocs,
-  AdminVote,
-  AdminAccounts,
   ChatContainer,
   MessagesContainer,
+  Loader,
 } from './components/index'
+
+const Admin = lazy(() => import('./components/pages/AdminPage/AdminContainer'))
+const AdminAds = lazy(() =>
+  import('./components/pages/AdminPage/components/Adverts/Adverts')
+)
+const AdminDocs = lazy(() =>
+  import('./components/pages/AdminPage/components/Documents/Documents')
+)
+const AdminNews = lazy(() =>
+  import('./components/pages/AdminPage/components/News/News')
+)
+const AdminAccounts = lazy(() =>
+  import('./components/pages/AdminPage/components/Accounts/Accounts')
+)
+const AdminVote = lazy(() =>
+  import('./components/pages/AdminPage/components/Vote/Vote')
+)
 
 const App = () => {
   const user = useSelector((state) => getUser(state))
@@ -75,57 +87,58 @@ const App = () => {
             sm={12}
             xs={12}
           >
-            <Routes>
-              <Route exact path="/" element={<HomeContainer />} />
-              <Route path="/home" element={<HomeContainer />} />
+            <Suspense fallback={<Loader />}>
+              <Routes>
+                <Route exact path="/" element={<HomeContainer />} />
+                <Route path="/home" element={<HomeContainer />} />
 
-              <Route
-                path="/signin"
-                element={<Login isAuth={isAuthenticated} />}
-              />
-              <Route
-                path="/news"
-                element={<NewsContainer isAuth={isAuthenticated} />}
-              />
+                <Route
+                  path="/signin"
+                  element={<Login isAuth={isAuthenticated} />}
+                />
+                <Route
+                  path="/news"
+                  element={<NewsContainer isAuth={isAuthenticated} />}
+                />
 
-              <Route
-                path="/adverts"
-                element={<AdvertsContainer isAuth={isAuthenticated} />}
-              >
-                <Route path="/" element={<Adverts />} />
-                <Route path="/current_adverts" element={<CurrentAdverts />} />
-              </Route>
+                <Route
+                  path="/adverts"
+                  element={<AdvertsContainer isAuth={isAuthenticated} />}
+                >
+                  <Route path="/" element={<Adverts />} />
+                  <Route path="/current_adverts" element={<CurrentAdverts />} />
+                </Route>
 
-              <Route
-                path="/documents"
-                element={<DocumentsContainer isAuth={isAuthenticated} />}
-              />
+                <Route
+                  path="/documents"
+                  element={<DocumentsContainer isAuth={isAuthenticated} />}
+                />
 
-              <Route path="/vote" element={<Vote isAuth={isAuthenticated} />} />
+                <Route
+                  path="/vote"
+                  element={<Vote isAuth={isAuthenticated} />}
+                />
 
-              <Route
-                path="/chat"
-                element={<ChatContainer isAuth={isAuthenticated} />}
-              />
+                <Route
+                  path="/chat"
+                  element={<ChatContainer isAuth={isAuthenticated} />}
+                />
 
-              <Route
-                path="/messages"
-                element={<MessagesContainer isAuth={isAuthenticated} />}
-              />
-
-              <Route
-                path="/admin"
-                element={isAdmin ? <AdminContainer /> : null}
-              >
-                <Route path="/news" element={<AdminNews />} />
-                <Route path="/adverts" element={<AdminAds />} />
-                <Route path="/documents" element={<AdminDocs />} />
-                <Route path="/vote" element={<AdminVote />} />
-                <Route path="/accounts" element={<AdminAccounts />} />
-              </Route>
-              <Route path="/not-found" element={<NotFound />} />
-              <Route path="/*" element={<Navigate to="/not-found" />} />
-            </Routes>
+                <Route
+                  path="/messages"
+                  element={<MessagesContainer isAuth={isAuthenticated} />}
+                />
+                <Route path="/admin" element={isAdmin ? <Admin /> : null}>
+                  <Route path="/news" element={<AdminNews />} />
+                  <Route path="/adverts" element={<AdminAds />} />
+                  <Route path="/documents" element={<AdminDocs />} />
+                  <Route path="/vote" element={<AdminVote />} />
+                  <Route path="/accounts" element={<AdminAccounts />} />
+                </Route>
+                <Route path="/not-found" element={<NotFound />} />
+                <Route path="/*" element={<Navigate to="/not-found" />} />
+              </Routes>
+            </Suspense>
           </Col>
           {showOnNotFound(useLocation().pathname) ? (
             <Col
