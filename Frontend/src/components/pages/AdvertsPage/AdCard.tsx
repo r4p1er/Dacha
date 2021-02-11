@@ -3,6 +3,7 @@ import { Button, Card, Col, Image, Modal, Row } from 'react-bootstrap'
 import deleteIcon from '../../../additions/deleteIcon.png'
 import editIcon from '../../../additions/editIcon.png'
 import { dateFormater } from '../../../utils'
+import { ConfirmModal } from '../../common/index'
 import CreateAdvert from './CreateAdvert'
 
 type AdCardPropType = {
@@ -116,22 +117,13 @@ const AdCard: React.FC<AdCardPropType> = React.memo(
           </Modal.Body>
         </Modal>
         {!onDelete ? null : (
-          <Modal show={showDeleteModal} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Вы действительно хотите удалить</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Button
-                onClick={() => {
-                  onDelete(id)
-                  handleClose()
-                }}
-                variant="outline-danger"
-              >
-                Удалить
-              </Button>
-            </Modal.Body>
-          </Modal>
+          <ConfirmModal
+            title="Удалить объявление"
+            show={showDeleteModal}
+            onHide={handleClose}
+            onDelete={onDelete}
+            id={id}
+          />
         )}
       </Col>
     )

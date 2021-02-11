@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Button, Image, Modal } from 'react-bootstrap'
+import { Image, Modal } from 'react-bootstrap'
 import deleteIcon from '../../../../../additions/deleteIcon.png'
 import editIcon from '../../../../../additions/editIcon.png'
 import { dateFormater, urlify } from '../../../../../utils'
+import { ConfirmModal } from '../../../../common'
 import CreateNews from './CreateNews'
 
 type NewsPropTypes = {
@@ -69,22 +70,13 @@ const NewsItem: React.FC<NewsPropTypes> = React.memo(
             />
           </td>
         </tr>
-        <Modal show={showDeleteModal} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Вы действительно хотите удалить</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Button
-              onClick={() => {
-                onDelete(id)
-                handleClose()
-              }}
-              variant="outline-danger"
-            >
-              Удалить
-            </Button>
-          </Modal.Body>
-        </Modal>
+        <ConfirmModal
+          show={showDeleteModal}
+          onHide={handleClose}
+          title="Удалить новость"
+          onDelete={onDelete}
+          id={id}
+        />
         <Modal size="xl" show={showNewsCreate} onHide={handleCloseNewsCreate}>
           <Modal.Header closeButton>
             <Modal.Title>Редактирование новости</Modal.Title>

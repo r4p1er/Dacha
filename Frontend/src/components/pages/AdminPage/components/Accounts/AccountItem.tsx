@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Button, Image, Modal } from 'react-bootstrap'
+import { Image, Modal } from 'react-bootstrap'
 import deleteIcon from '../../../../../additions/deleteIcon.png'
 import editIcon from '../../../../../additions/editIcon.png'
+import { ConfirmModal } from '../../../../common'
 import CreateAccount from './CreateAccounts'
 
 type AccountItemPropType = {
@@ -62,21 +63,13 @@ const AccountItem: React.FC<AccountItemPropType> = React.memo(
             />
           </td>
         </tr>
-        <Modal show={showDeleteModal} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Вы действительно хотите удалить</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Button
-              onClick={() => {
-                onDelete(id)
-              }}
-              variant="outline-danger"
-            >
-              Удалить
-            </Button>
-          </Modal.Body>
-        </Modal>
+        <ConfirmModal
+          show={showDeleteModal}
+          onHide={handleClose}
+          title="Удалить аккаунт"
+          onDelete={onDelete}
+          id={id}
+        />
         <Modal
           size="xl"
           show={showAccountUpdate}

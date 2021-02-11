@@ -1,7 +1,8 @@
-import { AlertMessage } from './Alerts/Alert'
-import { Header } from './Header/Header'
-import { Loader } from './Loader/Loader'
+import { AlertMessage } from './Alert'
+import { Header } from './Header'
+import { Loader } from './Loader'
 import { SideBar } from './SideBar/SideBar'
-import { UserMenuContainer } from './UserMenu/UserMenuContainer'
+import { UserMenuContainer } from './UserMenuContainer'
+import { ConfirmModal } from "./ModalWindows/ConfirmDelete";
 
-export { AlertMessage, Header, Loader, SideBar, UserMenuContainer }
+export { AlertMessage, Header, Loader, SideBar, UserMenuContainer, ConfirmModal }

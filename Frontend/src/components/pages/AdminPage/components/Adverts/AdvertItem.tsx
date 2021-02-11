@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Button, Col, Image, Modal, Row } from 'react-bootstrap'
+import { Col, Image, Modal, Row } from 'react-bootstrap'
 import deleteIcon from '../../../../../additions/deleteIcon.png'
 import { dateFormater } from '../../../../../utils'
+import { ConfirmModal } from '../../../../common'
 
 type AdvertItemPropType = {
   onDelete: (id: number) => void
@@ -66,21 +67,13 @@ const AdvertItem: React.FC<AdvertItemPropType> = React.memo(
             />
           </td>
         </tr>
-        <Modal show={showDeleteModal} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Вы действительно хотите удалить</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Button
-              onClick={() => {
-                onDelete(id)
-              }}
-              variant="outline-danger"
-            >
-              Удалить
-            </Button>
-          </Modal.Body>
-        </Modal>
+        <ConfirmModal
+          show={showDeleteModal}
+          onHide={handleClose}
+          title="Удалить объявление"
+          onDelete={onDelete}
+          id={id}
+        />
         <Modal size="xl" show={showFullAd} onHide={handleCloseFullAd}>
           <Modal.Header closeButton>
             <Modal.Title>{title}</Modal.Title>

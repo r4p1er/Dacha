@@ -10,11 +10,11 @@ import {
   NavItem,
   Image,
 } from 'react-bootstrap'
-import logo from '../../../additions/logo_dark.png'
-import defaultPhoto from '../../../additions/default_avatar.png'
-import { logout } from '../../../redux/index'
-import { CreateAdvert } from '../../index'
-import { UserType } from '../../../types/types'
+import logo from '../../additions/logo_dark.png'
+import defaultPhoto from '../../additions/default_avatar.png'
+import { logout } from '../../redux/index'
+import { CreateAdvert } from '../index'
+import { UserType } from '../../types/types'
 
 interface IHeaderPropsType {
   user: UserType

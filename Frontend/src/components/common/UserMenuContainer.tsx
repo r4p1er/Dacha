@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, ButtonGroup, Modal } from 'react-bootstrap'
-import { CreateAdvert } from '../../index'
-import { IsAdminPropType } from '../../../App'
+import { CreateAdvert } from '../index'
+import { IsAdminPropType } from '../../App'
 
 export const UserMenuContainer: React.FC<IsAdminPropType> = React.memo(({ isAdmin }) => {
   const [showAdsCreate, setshowAdsCreate] = useState(false)
