@@ -1,4 +1,4 @@
-import { DocumentType } from './../../types/types';
+import { DocumentType } from '../../common/types/types';
 import { createSlice } from '@reduxjs/toolkit'
 
 const documentsReducer = createSlice({

@@ -1,4 +1,4 @@
-import { AdvertType } from './../../types/types'
+import { AdvertType } from '../../common/types/types'
 import { AppStateType } from './../store'
 import { createSelector } from 'reselect'
 import createDeepEqualSelector from './deepEqualSelector'

@@ -1,4 +1,4 @@
-import { AdvertType } from './../../types/types';
+import { AdvertType } from '../../common/types/types';
 import { createSlice } from '@reduxjs/toolkit'
 
 const advertsReducer = createSlice({

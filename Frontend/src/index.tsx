@@ -5,9 +5,9 @@ import { Provider } from 'react-redux'
 import { CookiesProvider } from 'react-cookie'
 import store from './redux/store'
 import { cookie, logout, setUser } from './redux/index'
-import { setAuthorizationToken } from './utils'
-import App from './App'
-import './styles/style.scss'
+import { setAuthorizationToken } from './common/utils/utils'
+import App from './components/App/App.component'
+import './common/styles/style.scss'
 
 if (cookie.get('token')) {
   const userData = {

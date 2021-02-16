@@ -1,7 +1,7 @@
 import { AppStateType } from './../store'
 import { createSelector } from 'reselect'
 import createDeepEqualSelector from './deepEqualSelector'
-import { UserType } from '../../types/types'
+import { UserType } from '../../common/types/types'
 
 const selectUser = (state: AppStateType) => state.auth
 

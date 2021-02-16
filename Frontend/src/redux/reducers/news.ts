@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { NewsType } from '../../types/types'
+import { NewsType } from '../../common/types/types'
 
 const newsReducer = createSlice({
   name: 'news',

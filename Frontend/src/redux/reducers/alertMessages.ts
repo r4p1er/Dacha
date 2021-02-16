@@ -1,4 +1,4 @@
-import { AlertType } from './../../types/types';
+import { AlertType } from '../../common/types/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const appReducer = createSlice({

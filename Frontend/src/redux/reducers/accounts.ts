@@ -1,4 +1,4 @@
-import { AccountType } from './../../types/types';
+import { AccountType } from '../../common/types/types';
 import { createSlice } from '@reduxjs/toolkit'
 
 const accountsReducer = createSlice({

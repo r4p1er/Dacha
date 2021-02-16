@@ -1,4 +1,4 @@
-import { UserType } from './../../types/types'
+import { UserType } from '../../common/types/types'
 import isEmpty from 'lodash/isEmpty'
 import { createSlice } from '@reduxjs/toolkit'
 
