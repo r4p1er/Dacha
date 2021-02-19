@@ -4,14 +4,13 @@ import { Col } from 'react-bootstrap'
 const About: React.FC = () => {
   return (
     <Col className="about-block" xl={6} lg={6} md={12} sm={12} xs={12}>
-      <div className="component-wrapper">
-        <h3 className="heading">О нашем СНТ</h3>
+        <h3 className="heading mb-2">О нашем СНТ</h3>
         <div className="about py-3">
-          <h5 className="pl-2">
+          <h5 className="mb-2">
             Добро пожаловать на сайт СНТ «ПОКРОВСКИЕ ДАЧИ»
           </h5>
           <p>
-            Здесь Вы сможете найти информацию о жизни и деятельности
+            Здесь вы сможете найти информацию о жизни и деятельности
             Товарищества: новости, объявления, документы садоводства и другое.
           </p>
           <p>
@@ -48,7 +47,6 @@ const About: React.FC = () => {
             </li>
           </ul>
         </div>
-      </div>
     </Col>
   )
 }

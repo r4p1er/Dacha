@@ -5,7 +5,7 @@ import Messages from '../../components/Messages/Messages.component'
 
 const MessagesContainer: React.FC<AuthPropType> = ({ isAuth }) => {
   return (
-    <Row>
+    <Row className="page-wrapper">
       <Col className="messages-page-container">
         <h3 className="heading">Личные сообщения</h3>
         <div className="messages-container">

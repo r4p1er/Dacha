@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
-import { Button, Card, Col, Modal, Row } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 import sprite from '../../../common/images/sprite.svg'
 import { dateFormater } from '../../../common/utils/utils'
 import { ConfirmDeleteModal } from '../../index'
+import { getAccounts } from '../../../redux/selectors/accountsSelectors'
 import CreateAdvert from '../Adverts-form/CreateAdvert-form.component'
+import { AccountType } from '../../../common/types/types'
+import { AppStateType } from '../../../redux/store'
 
 type AdCardPropType = {
   onDelete?: (id: number) => void
@@ -22,38 +26,35 @@ const AdCard: React.FC<AdCardPropType> = React.memo(
     const handleCloseAdsCreate = () => setShowAdsCreate(false)
     const handleShowAdsCreate = () => setShowAdsCreate(true)
 
-    const [showFullAd, setshowFullAd] = useState(false)
-    const handleCloseFullAd = () => setshowFullAd(false)
-    const handleShowFullAd = () => setshowFullAd(true)
-
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const handleClose = () => setShowDeleteModal(false)
     const handleShow = () => setShowDeleteModal(true)
-    return (
-      <Col xl={4} lg={6} md={6} sm={12} xs={12}>
-        <Card>
-          <Card.Header>
-            <Card.Title>{title}</Card.Title>
-          </Card.Header>
-          <Card.Body>
-            <Card.Text>{body}</Card.Text>
-          </Card.Body>
+    const acc: AccountType[] = useSelector((state: AppStateType) =>
+      getAccounts(state)
+    )
 
-          <div className="d-flex align-items-center p-2">
-            <Button
-              onClick={handleShowFullAd}
-              className="mr-auto"
-              block
-              variant="outline-primary"
-            >
-              Смотреть объявление
-            </Button>
+    const advertAcc = acc.filter((account: AccountType) => {
+      return account.id === accountId
+    })
+
+    return (
+      <>
+        <div className="post-card">
+          <div className="post-card-head">
+            <div className="post-card-info">
+              <span className="post-title">{title}</span>
+              <div className="post-user">
+                <span className="post-user-lastName">/ {advertAcc[0]?.lastName}</span>
+                <span className="post-user-name">{advertAcc[0]?.name}</span>
+                <span className="post-user-place ml-2">участок №{place}</span>
+              </div>
+            </div>
             {!onDelete ? null : (
-              <>
+              <div className="post-controls">
                 <svg
                   className="mx-2 cursor-pointer"
-                  width="35px"
-                  height="35px"
+                  width="25px"
+                  height="25px"
                   onClick={() => {
                     handleShowAdsCreate()
                   }}
@@ -63,48 +64,25 @@ const AdCard: React.FC<AdCardPropType> = React.memo(
                 </svg>
                 <svg
                   className="mx-2 cursor-pointer"
-                  width="35px"
-                  height="35px"
+                  width="25px"
+                  height="25px"
                   onClick={() => {
                     handleShow()
                   }}
                 >
                   <use href={sprite + '#delete'} />
                 </svg>
-              </>
+              </div>
             )}
           </div>
-          <Card.Footer>
-            <div>
-              <span className="text-muted mr-4">Участок №{place}</span>
-              <span>{dateFormater(date)}</span>
-            </div>
-          </Card.Footer>
-        </Card>
-        <Modal size="xl" show={showFullAd} onHide={handleCloseFullAd}>
-          <Modal.Header closeButton>
-            <Modal.Title>{title}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>{body}</p>
-          </Modal.Body>
-          <Modal.Footer className="justify-content-start">
-            <Row className="w-100">
-              <Col>
-                <span className="mr-2">Контакты:</span>
-                <span>{contact}</span>
-              </Col>
-              <Col className="advert-date">
-                <span>Участок №</span>
-                <span>{place}</span>
-              </Col>
-              <Col>
-                <span>Дата: </span>
-                <span>{dateFormater(date)}</span>
-              </Col>
-            </Row>
-          </Modal.Footer>
-        </Modal>
+          <div className="post-card-body">
+            <p className="post-body">{body}</p>
+          </div>
+          <div className="post-contact-info">
+            <span className="post-contact">Контакты: {contact}</span>
+            <span className="post-date">{dateFormater(date)}</span>
+          </div>
+        </div>
         <Modal size="xl" show={showAdsCreate} onHide={handleCloseAdsCreate}>
           <Modal.Header closeButton>
             <Modal.Title>Редактирование объявления</Modal.Title>
@@ -129,7 +107,7 @@ const AdCard: React.FC<AdCardPropType> = React.memo(
             id={id}
           />
         )}
-      </Col>
+      </>
     )
   }
 )

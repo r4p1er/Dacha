@@ -1,22 +1,20 @@
 import React from 'react'
-import { Col, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import { AuthPropType } from '../../components/App/App.component'
 import NewsContainer from '../../components/News/News.component'
 
 const NewsPage: React.FC<AuthPropType> = React.memo(({ isAuth }) => {
   return (
-    <Row>
+    <Row className="page-wrapper">
       <Col className="news-container">
-        <div className="component-wrapper">
-          <h3 className="heading">Новости</h3>
-          {isAuth ? (
+        <h3 className="heading">Новости</h3>
+        {isAuth ? (
+          <Container>
             <NewsContainer />
-          ) : (
-            <h3 className="text-center">
-              Выполните вход для просмотра новостей
-            </h3>
-          )}
-        </div>
+          </Container>
+        ) : (
+          <h3 className="text-center">Выполните вход для просмотра новостей</h3>
+        )}
       </Col>
     </Row>
   )

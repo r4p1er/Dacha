@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row } from 'react-bootstrap'
-import { fetchAllAdverts, getAdverts } from '../../redux/index'
+import {
+  fetchAllAccounts,
+  fetchAllAdverts,
+  getAdverts,
+} from '../../redux/index'
 import { Loader } from '../index'
 import AdCard from './Advert-card/Advert-card.component'
 import { AppStateType } from '../../redux/store'
@@ -11,6 +14,9 @@ const Adverts: React.FC = React.memo(() => {
   useEffect(() => {
     dispatch(fetchAllAdverts())
   }, [dispatch])
+  useEffect(() => {
+    dispatch(fetchAllAccounts())
+  }, [dispatch])
   const adverts = useSelector((state: AppStateType) => getAdverts(state))
   return (
     <>
@@ -19,11 +25,11 @@ const Adverts: React.FC = React.memo(() => {
       ) : !adverts.length ? (
         <h3>Объявления отсутствуют</h3>
       ) : (
-        <Row>
+        <div className="adverts-container">
           {[...adverts].reverse().map((ad) => (
             <AdCard key={ad.id} {...ad} />
           ))}
-        </Row>
+        </div>
       )}
     </>
   )

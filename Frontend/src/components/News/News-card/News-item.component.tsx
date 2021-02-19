@@ -10,14 +10,11 @@ type NewsCardPropType = {
 const NewsCard: React.FC<NewsCardPropType> = React.memo(
   ({ title, body, date }) => {
     return (
-      <>
-        <div className="news-card d-flex flex-column">
-          <h5>{title}</h5>
-          <p className="news-body">{urlify(body)}</p>
-          <span className="news-date align-self-end">{dateFormater(date)}</span>
-        </div>
-        <hr color="#666666" />
-      </>
+      <div className="news-card">
+        <span className="news-card-title">{title}</span>
+        <p className="news-card-body">{urlify(body)}</p>
+        <span className="news-card-date">{dateFormater(date)}</span>
+      </div>
     )
   }
 )

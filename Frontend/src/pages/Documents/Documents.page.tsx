@@ -5,7 +5,7 @@ import Documents from '../../components/Documents/Documents.component'
 
 const DocumentsContainer: React.FC<AuthPropType> = React.memo((props) => {
   return (
-    <Row>
+    <Row className="page-wrapper">
       <Col>
         <div className="component-wrapper">
           <h3 className="heading">Документы</h3>

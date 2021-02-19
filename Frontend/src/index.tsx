@@ -7,6 +7,7 @@ import store from './redux/store'
 import { cookie, logout, setUser } from './redux/index'
 import { setAuthorizationToken } from './common/utils/utils'
 import App from './components/App/App.component'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './common/styles/style.scss'
 
 if (cookie.get('token')) {

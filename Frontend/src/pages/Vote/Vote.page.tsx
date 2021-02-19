@@ -4,7 +4,7 @@ import { AuthPropType } from '../../components/App/App.component'
 
 const Vote: React.FC<AuthPropType> = (props) => {
   return (
-    <Row>
+    <Row className="page-wrapper">
       <Col>
         <h3 className="heading">Голосование</h3>
         {!props.isAuth ? (

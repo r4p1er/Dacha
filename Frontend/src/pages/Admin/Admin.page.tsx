@@ -1,16 +1,15 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
 import { Col, Container, Row } from 'react-bootstrap'
 import AdminNav from '../../components/Admin/Navigation/Navigation.component'
 
-const AdminContainer: React.FC = React.memo(() => {
+const AdminContainer: React.FC = React.memo(({children}) => {
   return (
-    <Container fluid>
+    <Container fluid className="page-wrapper">
       <Row className="text-center">
         <Col className="text-center">
           <AdminNav />
           <Container fluid className="text-center">
-            <Outlet />
+            {children}
           </Container>
         </Col>
       </Row>

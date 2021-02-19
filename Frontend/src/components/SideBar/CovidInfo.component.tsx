@@ -19,24 +19,24 @@ const CovidInfo: React.FC = React.memo(() => {
       .then((res) => setStat(res))
   }, [])
   return (
-    <div className="covid-stat-block">
-      <h5>Коронавирус: статистика</h5>
-      <div className="p-2">
+    <div className="covid-stat-container">
+      <h5 className="section-title">Коронавирус: статистика</h5>
+      <div className="covid-stat-block">
         <h6>Информация на {dateFormater(lastUpdateTime)}, Россия</h6>
         <div className="mt-1 info-window">
           <Row>
             <Col>
-              <h6>Заражения</h6>
+              <h6>Заражения:</h6>
               <span>{numFormater(stat.infected)}</span>
             </Col>
             <Col>
-              <h6>Смерти</h6>
+              <h6>Смерти:</h6>
               <span>{numFormater(stat.deceased)}</span>
             </Col>
           </Row>
           <Row>
             <Col>
-              <h6>Выздоровления</h6>
+              <h6>Выздоровления:</h6>
               <span>{numFormater(stat.recovered)}</span>
             </Col>
           </Row>

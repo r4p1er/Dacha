@@ -1,0 +1,75 @@
+.side-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  margin-top: $base * 4;
+  .side-bar {
+    .news-headlines-container {
+      .news-headlines-block {
+        display: flex;
+        flex-direction: column;
+        .all-news-btn {
+          margin-right: $base * 3;
+          align-self: flex-end;
+          text-decoration: underline;
+          border: none;
+          color: #2755ee;
+        }
+      }
+    }
+    .section-title {
+      width: 100%;
+      margin-bottom: $base * 2;
+      padding: $base;
+      text-align: center;
+      color: #fff;
+      background-color: $secondary-color;
+    }
+    .covid-stat-container {
+      margin-top: $base * 3;
+      .covid-stat-block {
+        display: flex;
+        flex-direction: column;
+        padding: $base * 2;
+        margin-bottom: $base * 2;
+        transition: $transition;
+        border-radius: $base;
+        background-color: #fcfcfccb;
+        -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+        -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+        box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+        &:hover,
+        &:active,
+        &:focus {
+          border-radius: $base;
+          -webkit-box-shadow: 2px 5px 20px 2px rgba(34, 60, 80, 0.3);
+          -moz-box-shadow: 2px 5px 20px 2px rgba(34, 60, 80, 0.3);
+          box-shadow: 2px 5px 20px 2px rgba(34, 60, 80, 0.3);
+        }
+      }
+
+      // span {
+      //   font-size: $fs-md;
+      // }
+
+      // h6 {
+      //   font-size: $fs-sm;
+      //   font-weight: $fw-regular;
+      //   margin-bottom: 0px;
+      //   color: #636363;
+      // }
+      // .info-window {
+      //   padding: $base;
+      //   border: 1px solid #163c5c;
+      //   border-radius: $base * 2;
+      // }
+    }
+  }
+}
+
+@media (max-width: $base*300) {
+  .side-bar-container {
+    height: 100%;
+  }
+}

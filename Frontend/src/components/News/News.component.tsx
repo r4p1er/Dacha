@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getNews, fetchAllNews } from '../../redux/index'
 import { Loader } from '../index'
-import NewsCard from './News-item/News-item.component'
+import NewsCard from './News-card/News-item.component'
 import { AppStateType } from '../../redux/store'
 import { NewsType } from '../../common/types/types'
 

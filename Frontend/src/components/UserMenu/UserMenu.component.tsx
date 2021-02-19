@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Button, ButtonGroup, Modal } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
+import { Modal } from 'react-bootstrap'
 import CreateAdvert from '../Adverts/Adverts-form/CreateAdvert-form.component'
 import { IsAdminPropType } from '../App/App.component'
 
@@ -13,23 +13,23 @@ const UserMenu: React.FC<IsAdminPropType> = React.memo(({ isAdmin }) => {
   return (
     <>
       <div className="user-menu">
-        <ButtonGroup vertical size="lg">
-          <Button as={Link} to="/chat">
-            Общий чат
-          </Button>
-          <Button as={Link} to="/messages">
-            Личные сообщения
-          </Button>
-          <Button as={Link} to="/adverts/current_adverts">
-            Мои объявления
-          </Button>
-          <Button onClick={handleShowAdsCreate}>Создать объявление</Button>
-          {isAdmin ? (
-            <Button as={Link} to="/admin/news">
-              Комната админа
-            </Button>
-          ) : null}
-        </ButtonGroup>
+        <NavLink className="user-menu-control" to="/chat">
+          Общий чат
+        </NavLink>
+        <NavLink className="user-menu-control" to="/messages">
+          Личные сообщения
+        </NavLink>
+        <NavLink className="user-menu-control" to="/adverts/current_adverts">
+          Мои объявления
+        </NavLink>
+        <button className="user-menu-control" onClick={handleShowAdsCreate}>
+          Создать объявление
+        </button>
+        {isAdmin ? (
+          <NavLink className="user-menu-control" to="/admin/news">
+            Комната админа
+          </NavLink>
+        ) : null}
       </div>
       <Modal size="xl" show={showAdsCreate} onHide={handleCloseAdsCreate}>
         <Modal.Header closeButton>

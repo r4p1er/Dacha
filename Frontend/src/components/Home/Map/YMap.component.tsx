@@ -5,7 +5,6 @@ import { Col } from 'react-bootstrap'
 const YMap: React.FC = () => {
   return (
     <Col className="map-block" xl={12} lg={12} md={12} sm={12} xs={12}>
-      <div className="component-wrapper">
         <h3 className="heading">Карта СНТ«Покровские дачи»</h3>
         <div className="yandex-map">
           <YMaps>
@@ -27,7 +26,6 @@ const YMap: React.FC = () => {
             </Map>
           </YMaps>
         </div>
-      </div>
     </Col>
   )
 }

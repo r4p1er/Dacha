@@ -1,11 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Table } from 'react-bootstrap'
-import {
-  deleteAcc,
-  fetchAllAccounts,
-  getAccounts,
-} from '../../../redux/index'
+import { deleteAcc, fetchAllAccounts, getAccounts } from '../../../redux/index'
 import { Loader } from '../../index'
 import AccountItem from './account-item/Account-item.component'
 import CreateAccount from './account-form/CreateAccount-form.component'

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Form, Button } from 'react-bootstrap'
-import { login, hideAlert } from '../../redux/index'
+import { login, hideAlert, cookie } from '../../redux/index'
 import { Alert } from '../../components/index'
 import { AuthPropType } from '../../components/App/App.component'
 import { AppStateType } from '../../redux/store'
@@ -12,6 +12,9 @@ const LoginForm: React.FC<AuthPropType> = ({ isAuth }) => {
 
   useEffect(() => {
     dispatch(hideAlert())
+  }, [dispatch])
+  useEffect(() => {
+    cookie.remove('token')
   }, [dispatch])
 
   const [state, setState] = useState({
@@ -35,7 +38,7 @@ const LoginForm: React.FC<AuthPropType> = ({ isAuth }) => {
     }))
   }
   return (
-    <>
+    <div className="page-wrapper">
       <h3 className="heading">Вход на сайт СНТ «Покровские дачи»</h3>
       {isAuth ? (
         <h3 className="text-center">Вы успешно авторизованы</h3>
@@ -65,7 +68,7 @@ const LoginForm: React.FC<AuthPropType> = ({ isAuth }) => {
           </Form>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
