@@ -36,14 +36,20 @@ h4,
 h5,
 h6 {
   margin: 0;
+  user-select: none;
+}
+a {
+  user-select: none;
 }
 .btn,
 .btn:focus,
 .btn:target {
+  user-select: none;
   box-shadow: none;
   transition: $transition;
 }
 button {
+  user-select: none;
   border: none;
   background: none;
 }
@@ -96,6 +102,7 @@ body,
 }
 
 .heading {
+  user-select: none;
   @include roboto();
   font-size: $fs-xl;
   font-weight: $fw-medium;
