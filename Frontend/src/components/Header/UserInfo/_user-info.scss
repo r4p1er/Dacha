@@ -1,0 +1,35 @@
+.user-info-block {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  transition: $transition;
+  .user-photo {
+    .ava {
+      border-radius: 50%;
+    }
+  }
+  .user-info {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin: 0 $base;
+    .user-fullname {
+      font-weight: $fw-medium;
+      line-height: 90%;
+    }
+    .user-place {
+      vertical-align: text-top;
+      font-weight: $fw-regular;
+      line-height: 80%;
+    }
+  }
+  .logout-btn {
+    fill: #ff423c;
+    transition: $transition;
+    &:hover {
+      transform: scale(1.1);
+      fill: darken(#ff423c, 20%);
+    }
+  }
+}

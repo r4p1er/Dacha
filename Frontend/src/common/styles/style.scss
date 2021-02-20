@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap');
 @import './variables';
+@import '../../components/Header/header';
 @import '../../components/Home/About/about';
 @import '../../components/Home/Contacts/contact';
 @import '../../components/Home/Map/ymap';
@@ -73,7 +74,7 @@ body,
 
 .page-wrapper {
   position: absolute;
-  top: 0;
+  top: 80px;
   left: 0;
   right: 0;
 }
@@ -201,108 +202,6 @@ body,
   }
 }
 // === / ADMINPAGE ===
-
-// === HEADER ===
-.navbar {
-  background-color: $theme-color;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  justify-content: space-between;
-  align-content: center;
-  height: 80px;
-
-  .user-info-block {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    align-items: center;
-    width: calc(100% - 60px);
-    justify-content: flex-end;
-
-    .user-photo {
-      .ava {
-        border-radius: 50%;
-      }
-    }
-
-    .user-info {
-      display: flex;
-      flex-wrap: nowrap;
-      flex-direction: column;
-      margin: 0 $base;
-      .user-fullname {
-        font-weight: $fw-medium;
-        line-height: 90%;
-      }
-
-      .user-place {
-        vertical-align: text-top;
-        font-weight: $fw-regular;
-        line-height: 80%;
-      }
-    }
-  }
-
-  .collapsed-navbar {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-  }
-
-  .navbar-brand {
-    margin-left: calc(100vw - 98vw);
-    margin-right: 3vw;
-  }
-
-  .navbar-nav {
-    display: flex;
-    width: 100%;
-    a {
-      margin-left: calc(100vw - 97vw);
-    }
-  }
-  .navbar-toggler {
-    &:active {
-      outline: 0;
-      background-color: darken($theme-color, 5%);
-    }
-    &:focus {
-      outline: 0;
-    }
-  }
-
-  a,
-  .navbar-link,
-  .nav-link {
-    font-size: $fs-md;
-    color: #fff;
-    text-decoration: none;
-    transition: $transition;
-
-    &:hover {
-      color: lighten($secondary-color, 10%);
-      text-decoration: none;
-    }
-  }
-
-  .active {
-    font-size: $fs-lg;
-    font-weight: $fw-medium;
-    color: lighten($secondary-color, 20%);
-  }
-
-  .logout-btn {
-    fill: #ff423c;
-    transition: $transition;
-    &:hover {
-      transform: scale(1.1);
-      fill: darken(#ff423c, 20%);
-    }
-  }
-}
-// === / HEADER ===
 
 // === LOGINPAGE ===
 .form {

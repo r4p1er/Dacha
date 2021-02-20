@@ -1,0 +1,59 @@
+@import './UserInfo/user-info';
+.navbar {
+  background-color: $theme-color;
+  position: fixed;
+  transition: $transition;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  justify-content: space-between;
+  align-content: center;
+  min-height: 80px;
+  .navbar-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  @supports (justify-content: space-evenly) {
+    .navbar-nav {
+      justify-content: space-evenly;
+    }
+  }
+  .navbar-brand {
+    margin-left: calc(100vw - 98vw);
+    margin-right: 3vw;
+  }
+  .navbar-toggler {
+    &:active {
+      outline: 0;
+      background-color: darken($theme-color, 5%);
+    }
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  a,
+  .navbar-link,
+  .nav-link {
+    font-size: $fs-md;
+    color: #fff;
+    text-decoration: none;
+    transition: $transition;
+
+    &:hover {
+      color: lighten($secondary-color, 10%);
+      text-decoration: none;
+    }
+  }
+
+  .active {
+    font-size: $fs-lg;
+    font-weight: $fw-medium;
+    color: lighten($secondary-color, 20%);
+  }
+
+  .show {
+  }
+}

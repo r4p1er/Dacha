@@ -22,6 +22,7 @@
     margin-bottom: $base;
     .post-card-info {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       font-size: $fs-lg;
       .post-title {
