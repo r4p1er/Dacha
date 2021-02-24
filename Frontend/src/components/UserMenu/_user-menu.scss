@@ -1,0 +1,38 @@
+.user-menu-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  .user-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    background-color: $secondary-color;
+    border-radius: $base * 2;
+    .user-menu-control {
+      font-size: $fs-md;
+      border-radius: $base * 2;
+      transition: $transition;
+      text-decoration: none;
+      padding: $base * 2 0;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      &:hover {
+        background-color: darken($secondary-color, 5%);
+        border-radius: $base * 2;
+      }
+      &:focus {
+        outline: none;
+      }
+      &:active {
+        outline: none;
+      }
+    }
+    .active {
+      font-weight: $fw-medium;
+      font-size: $fs-lg;
+    }
+  }
+}
