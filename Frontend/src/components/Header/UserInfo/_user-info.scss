@@ -10,6 +10,7 @@
     }
   }
   .user-info {
+    color: #fff;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
@@ -21,7 +22,7 @@
     .user-place {
       vertical-align: text-top;
       font-weight: $fw-regular;
-      line-height: 80%;
+      // line-height: 80%;
     }
   }
   .logout-btn {

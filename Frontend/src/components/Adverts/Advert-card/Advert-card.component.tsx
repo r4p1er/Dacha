@@ -44,7 +44,9 @@ const AdCard: React.FC<AdCardPropType> = React.memo(
             <div className="post-card-info">
               <span className="post-title">{title}</span>
               <div className="post-user">
-                <span className="post-user-lastName">{advertAcc[0]?.lastName}</span>
+                <span className="post-user-lastName">
+                  {advertAcc[0]?.lastName}
+                </span>
                 <span className="post-user-name">{advertAcc[0]?.name}</span>
                 <span className="post-user-place ml-2">участок №{place}</span>
               </div>
