@@ -1,0 +1,14 @@
+.adverts-menu {
+  display: flex;
+  max-width: $base*100;
+  text-align: center;
+  .btn {
+    color: #fff;
+    outline: 0;
+    border: 0;
+    background-color: $secondary-color;
+    &:hover {
+      background-color: darken($secondary-color, 5%);
+    }
+  }
+}

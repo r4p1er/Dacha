@@ -34,23 +34,24 @@ namespace Dacha.Controllers
             {
                 return BadRequest(new { errorText = "Неправильные логин или пароль" });
             }
-
-            var now = DateTime.Now;
+            
             var jwt = new JwtSecurityToken(
                 issuer: Configuration["AuthOptions:ISSUER"],
                 audience: Configuration["AuthOptions:AUDIENCE"],
-                notBefore: now,
+                notBefore: DateTime.Now,
                 claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromMinutes(double.Parse(Configuration["AuthOptions:LIFETIME"]))),
+                expires: DateTime.Now.Add(TimeSpan.FromMinutes(double.Parse(Configuration["AuthOptions:LIFETIME"]))),
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["AuthOptions:KEY"])), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
+            var account = await db.Accounts.Include(x => x.Role)
+                                           .FirstOrDefaultAsync(x => x.Id == int.Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value));
+
             var response = new
             {
-                access_token = encodedJwt,
-                username = identity.Name,
-                account_id = identity.FindFirst(ClaimTypes.NameIdentifier).Value,
-                expires = now.AddDays(30).ToString("G")
+                token = encodedJwt,
+                expires = DateTime.Now.Add(TimeSpan.FromMinutes(double.Parse(Configuration["AuthOptions:LIFETIME"]))),
+                account = account
             };
             return new JsonResult(response);
         }
