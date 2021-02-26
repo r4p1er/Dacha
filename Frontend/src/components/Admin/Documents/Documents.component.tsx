@@ -86,22 +86,24 @@ const Documents: React.FC = React.memo(() => {
           </Button>
         </Form>
         {alert && <Alert text={alert} />}
-        <h2>Документы</h2>
         {!documents.length ? (
-          <Loader />
-        ) : !documents.length ? (
           <h3>Документы отсутствуют</h3>
+        ) : !documents.length ? (
+          <Loader />
         ) : (
-          <Row>
-            {documents.map((doc: DocumentType) => (
-              <DocumentItem
-                key={doc.id}
-                onDelete={onDelete}
-                onDownload={onDownload}
-                {...doc}
-              />
-            ))}
-          </Row>
+          <>
+            <h2>Документы</h2>
+            <Row>
+              {documents.map((doc: DocumentType) => (
+                <DocumentItem
+                  key={doc.id}
+                  onDelete={onDelete}
+                  onDownload={onDownload}
+                  {...doc}
+                />
+              ))}
+            </Row>
+          </>
         )}
       </Container>
     </>

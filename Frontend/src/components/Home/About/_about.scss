@@ -24,3 +24,9 @@
     }
   }
 }
+
+@media (max-width: 992px) {
+  .about-block {
+    margin-bottom: $base*3;
+  }
+}

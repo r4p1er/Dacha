@@ -21,9 +21,9 @@ const Adverts: React.FC = React.memo(() => {
   return (
     <>
       {!adverts.length ? (
-        <Loader />
+        <h3 className="text-center">Объявления отсутствуют</h3>
       ) : !adverts.length ? (
-        <h3>Объявления отсутствуют</h3>
+        <Loader />
       ) : (
         <div className="adverts-container">
           {[...adverts].reverse().map((ad) => (
