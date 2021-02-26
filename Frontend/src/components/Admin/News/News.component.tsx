@@ -19,16 +19,16 @@ const News: React.FC = React.memo(() => {
   const [showNewsCreate, setShowNewsCreate] = useState(false)
   const handleCloseNewsCreate = () => setShowNewsCreate(false)
   const handleShowNewsCreate = () => setShowNewsCreate(true)
-  
+
   return (
     <>
       <Button className="mb-4" onClick={handleShowNewsCreate}>
         Добавить новость
       </Button>
       {!news.length ? (
-        <Loader />
-      ) : !news.length ? (
         <h3>Новости отсутствуют</h3>
+      ) : !news.length ? (
+        <Loader />
       ) : (
         <Table
           className="admin-table"

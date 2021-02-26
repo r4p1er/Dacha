@@ -1,11 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row } from 'react-bootstrap'
-import {
-  downloadDoc,
-  fetchAllDocuments,
-  getDocuments,
-} from '../../redux/index'
+import { downloadDoc, fetchAllDocuments, getDocuments } from '../../redux/index'
 import { fileExtentionRead } from '../../common/utils/utils'
 import { Loader } from '../index'
 import DocumentCard from './Document-item/Document-item.component'
@@ -25,9 +21,9 @@ const Documents: React.FC = React.memo(() => {
   return (
     <Row>
       {!documents.length ? (
-        <Loader />
-      ) : !documents.length ? (
         <h3 className="w-100 text-center">Документы отсутствуют</h3>
+      ) : !documents.length ? (
+        <Loader />
       ) : (
         documents.map((doc: DocumentType) => (
           <DocumentCard

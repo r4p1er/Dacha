@@ -1,11 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Table } from 'react-bootstrap'
-import {
-  fetchAllAdverts,
-  deleteAd,
-  getAdverts,
-} from '../../../redux/index'
+import { fetchAllAdverts, deleteAd, getAdverts } from '../../../redux/index'
 import { Loader } from '../../index'
 import AdvertItem from './advert-item/Advert-item.component'
 import { AppStateType } from '../../../redux/store'
@@ -21,9 +17,9 @@ const Adverts: React.FC = React.memo(() => {
   return (
     <>
       {!adverts.length ? (
-        <Loader />
-      ) : !adverts.length ? (
         <h3 className="text-center">Объявления отсутствуют</h3>
+      ) : !adverts.length ? (
+        <Loader />
       ) : (
         <Table
           className="admin-table"
