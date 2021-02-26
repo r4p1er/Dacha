@@ -22,10 +22,10 @@ const NewsContainer: React.FC = React.memo(() => {
               <NewsCard key={someNews.id} {...someNews} />
             ))
         ) : (
-          <h3 className="text-center">Новости отсутствуют</h3>
+          <Loader />
         )
       ) : (
-        <Loader />
+        <h3 className="text-center">Новости отсутствуют</h3>
       )}
     </>
   )
