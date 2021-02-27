@@ -37,15 +37,15 @@ const UserInfo: React.FC<UserInfoPropType> = ({ user, isAuthenticated }) => {
             {user ? (
               <Image
                 className="ava"
-                width="60px"
-                height="60px"
+                width="56px"
+                height="56px"
                 src={defaultPhoto}
                 alt="avatar"
               />
             ) : (
               <Image
-                width="60px"
-                height="60px"
+                width="56px"
+                height="56px"
                 src={defaultPhoto}
                 alt="avatar"
               />
@@ -58,8 +58,8 @@ const UserInfo: React.FC<UserInfoPropType> = ({ user, isAuthenticated }) => {
           <Form className="text-right">
             <svg
               className="ml-1 logout-btn"
-              width="35px"
-              height="35px"
+              width="32px"
+              height="32px"
               onClick={handleShowExit}
             >
               <title>Выйти</title>

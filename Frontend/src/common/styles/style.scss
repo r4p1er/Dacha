@@ -99,7 +99,13 @@ body,
   .main-container {
     padding: $base * 4 0;
   }
+  .container,
+  .container-fluid {
+    padding: $base 0;
+  }
 }
+
+
 
 .heading {
   user-select: none;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Navbar, Nav, Modal, NavItem, Image } from 'react-bootstrap'
+import { Modal, NavItem, Image } from 'react-bootstrap'
 import logo from '../../common/images/logo_dark.svg'
 import CreateAdvert from '../Adverts/Adverts-form/CreateAdvert-form.component'
 import UserInfo from './UserInfo/UserInfo.component'
@@ -40,19 +40,33 @@ const Header: React.FC<IHeaderPropsType> = React.memo(
       return () => window.removeEventListener('scroll', handleScroll)
     }, [prevScrollPos, visible])
 
+    const toggleNav = () => {
+      document.querySelector('.navbar')?.classList.toggle('navbar-active')
+    }
+
+    const closeNav = () => {
+      toggleNav()
+      setExpanded(false)
+    }
+
     return (
       <>
-        <Navbar
-          collapseOnSelect={true}
-          expanded={expanded}
-          expand="xl"
+        <nav
+          className="navbar"
           style={{ top: visible || expanded ? '0' : '-88px' }}
         >
-          <Link
-            onClick={() => setExpanded(false)}
-            className="navbar-brand d-none d-xl-block"
-            to="/home"
+          <div
+            className="toggler"
+            onClick={() => {
+              setExpanded(expanded ? false : true)
+              toggleNav()
+            }}
           >
+            <div className="line1"></div>
+            <div className="line2"></div>
+            <div className="line3"></div>
+          </div>
+          <Link className="navbar-brand d-none d-xl-block" to="/home">
             <Image
               src={logo}
               alt="Покровские дачи"
@@ -61,66 +75,48 @@ const Header: React.FC<IHeaderPropsType> = React.memo(
               className="d-inline-block align-top"
             />
           </Link>
-          <Navbar.Toggle
-            onClick={() => setExpanded(expanded ? false : true)}
-            aria-controls="responsive-navbar-nav"
-          />
-          <div className="user-info-block" style={{ order: expanded ? 0 : 1 }}>
+          <div className="navbar-nav">
+            <NavItem onClick={() => closeNav()}>
+              <NavLink to="/home">Главная</NavLink>
+            </NavItem>
+            <NavItem onClick={() => closeNav()}>
+              <NavLink to="/news">Новости</NavLink>
+            </NavItem>
+            <NavItem onClick={() => closeNav()}>
+              <NavLink to="/adverts">Объявления</NavLink>
+            </NavItem>
+            <NavItem onClick={() => closeNav()}>
+              <NavLink to="/documents">Документы</NavLink>
+            </NavItem>
+            <NavItem onClick={() => closeNav()}>
+              <NavLink to="/vote">Голосование</NavLink>
+            </NavItem>
+            <NavItem className="d-block d-xl-none" onClick={() => closeNav()}>
+              <NavLink to="/chat">Общий чат</NavLink>
+            </NavItem>
+            <NavItem className="d-block d-xl-none" onClick={() => closeNav()}>
+              <NavLink to="/messages">Личные сообщения</NavLink>
+            </NavItem>
+            <NavItem className="d-block d-xl-none" onClick={() => closeNav()}>
+              <NavLink to="/adverts/current_adverts">Мои объявления</NavLink>
+            </NavItem>
+            <NavItem
+              as="a"
+              className="d-block d-xl-none cursor-pointer"
+              onClick={handleShowAdsCreate}
+            >
+              Создать объявление
+            </NavItem>
+            {isAdmin ? (
+              <NavItem className="d-block d-xl-none" onClick={() => closeNav()}>
+                <NavLink to="/admin/news">Комната админа</NavLink>
+              </NavItem>
+            ) : null}
+          </div>
+          <div className="user-info-block">
             <UserInfo user={user} isAuthenticated={isAuthenticated} />
           </div>
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="navigation">
-              <NavItem onClick={() => setExpanded(false)}>
-                <NavLink to="/home">Главная</NavLink>
-              </NavItem>
-              <NavItem onClick={() => setExpanded(false)}>
-                <NavLink to="/news">Новости</NavLink>
-              </NavItem>
-              <NavItem onClick={() => setExpanded(false)}>
-                <NavLink to="/adverts">Объявления</NavLink>
-              </NavItem>
-              <NavItem onClick={() => setExpanded(false)}>
-                <NavLink to="/documents">Документы</NavLink>
-              </NavItem>
-              <NavItem onClick={() => setExpanded(false)}>
-                <NavLink to="/vote">Голосование</NavLink>
-              </NavItem>
-              <NavItem
-                className="d-block d-xl-none"
-                onClick={() => setExpanded(false)}
-              >
-                <NavLink to="/chat">Общий чат</NavLink>
-              </NavItem>
-              <NavItem
-                className="d-block d-xl-none"
-                onClick={() => setExpanded(false)}
-              >
-                <NavLink to="/messages">Личные сообщения</NavLink>
-              </NavItem>
-              <NavItem
-                className="d-block d-xl-none"
-                onClick={() => setExpanded(false)}
-              >
-                <NavLink to="/adverts/current_adverts">Мои объявления</NavLink>
-              </NavItem>
-              <NavItem
-                as="a"
-                className="d-block d-xl-none cursor-pointer"
-                onClick={handleShowAdsCreate}
-              >
-                Создать объявление
-              </NavItem>
-              {isAdmin ? (
-                <NavItem
-                  className="d-block d-xl-none"
-                  onClick={() => setExpanded(false)}
-                >
-                  <NavLink to="/admin/news">Комната админа</NavLink>
-                </NavItem>
-              ) : null}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+        </nav>
 
         <Modal show={showAdsCreate} onHide={handleCloseAdsCreate}>
           <Modal.Header closeButton>

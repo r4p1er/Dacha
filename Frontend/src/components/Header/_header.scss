@@ -2,19 +2,40 @@
 .navbar {
   background-color: $theme-color;
   position: fixed;
+  display: flex;
+  flex-direction: row;
   transition: $transition;
   left: 0;
   right: 0;
   z-index: 10;
   justify-content: space-between;
   align-content: center;
-  min-height: 80px;
-  user-select:none;
+  height: 80px;
+  user-select: none;
   .navbar-nav {
-    width: 100%;
+    transition: $transition;
     display: flex;
+    flex-grow: 1;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    a,
+    .navbar-link,
+    .nav-link {
+      font-size: $fs-md;
+      color: #fff;
+      text-decoration: none;
+      transition: $transition;
+      &:hover {
+        color: lighten($secondary-color, 10%);
+        text-decoration: none;
+      }
+    }
+    .active {
+      font-size: $fs-lg;
+      font-weight: $fw-medium;
+      color: lighten($secondary-color, 20%);
+    }
   }
   @supports (justify-content: space-evenly) {
     .navbar-nav {
@@ -22,39 +43,69 @@
     }
   }
   .navbar-brand {
-    margin-left: calc(100vw - 98vw);
-    margin-right: 3vw;
+    margin: 0 $base * 6;
   }
-  .navbar-toggler {
-    &:active {
-      outline: 0;
-      background-color: darken($theme-color, 5%);
-    }
-    &:focus {
-      outline: 0;
-    }
-  }
-
-  a,
-  .navbar-link,
-  .nav-link {
-    font-size: $fs-md;
-    color: #fff;
-    text-decoration: none;
+  .toggler {
+    display: none;
     transition: $transition;
+  }
+  .toggler div {
+    margin: $base;
+    height: $base;
+    width: $base * 7;
+    background-color: #4d4d4d;
+  }
+}
 
-    &:hover {
-      color: lighten($secondary-color, 10%);
-      text-decoration: none;
+@media (max-width: 1200px) {
+  .navbar {
+    z-index: 10;
+    padding: $base*2;
+    .toggler {
+      display: block;
+      z-index: 2;
+      cursor: pointer;
+      div {
+        transition: $transition;
+      }
+    }
+    .navbar-nav {
+      position: absolute;
+      top: 80px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      height: calc(100vh - 80px);
+      width: 50%;
+      transform: translateX(-100%);
+      background-color: $theme-color;
     }
   }
-
-  .active {
-    font-size: $fs-lg;
-    font-weight: $fw-medium;
-    color: lighten($secondary-color, 20%);
+  .navbar-active {
+    .toggler {
+      .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+      .line2 {
+        opacity: 0;
+      }
+      .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+    }
+    .navbar-nav {
+      transform: translateX(0%);
+    }
   }
+}
 
-  .show {
+@media (max-width: 440px) {
+  .navbar {
+    .navbar-nav {
+      width: 100%;
+    }
   }
 }
